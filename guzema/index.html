@@ -1,4 +1,783 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><title>Guzema SEO Dashboard</title></head>
-<body><h1>Guzema SEO Dashboard</h1><p>Will be updated by scheduled task.</p></body>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO Дашборд — Guzema Fine Jewelry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff;--bg2:#eef2f7;--panel:#ffffff;--panel2:#ffffff;
+  --line:#e3e8f0;--line2:#d2d9e6;
+  --tx:#0e1c34;--mut:#5b6c88;--mut2:#90a0ba;
+  --acc:#1c7ed6;--acc-dim:#5aa0e8;
+  --pos:#15a04a;--pos-d:#b7e6c8;
+  --neg:#e23b48;--neg-d:#f4c4ca;
+  --blue:#5b9bd5;
+  --own:#e9f6ef;--own-line:#15a04a;
+  --gold:#a87c1a;--gold-dim:#fff8e8;--gold-line:#f0d080;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:
+    radial-gradient(1100px 560px at 88% -8%,rgba(168,124,26,.07),transparent 60%),
+    radial-gradient(820px 460px at -5% 108%,rgba(21,160,74,.05),transparent 55%),
+    #ffffff;
+  color:var(--tx);
+  font-family:"Roboto",system-ui,sans-serif;
+  font-size:14px;line-height:1.5;letter-spacing:.1px;
+  padding:28px 22px 60px;
+}
+.wrap{max-width:1180px;margin:0 auto}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+
+/* HEADER */
+header{margin-bottom:24px;animation:fade .6s ease both}
+.kicker{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+h1{font-weight:900;font-size:clamp(26px,4.5vw,42px);line-height:1.02;letter-spacing:-.5px}
+h1 .x{color:var(--gold)}
+.sub{color:var(--mut);margin-top:8px;max-width:64ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font-size:12px;color:var(--mut);border:1px solid var(--line);background:var(--panel);padding:5px 11px;border-radius:999px;white-space:nowrap;box-shadow:0 1px 2px rgba(13,27,51,.04)}
+.chip b{color:var(--tx);font-weight:600}
+.chip .dot{color:var(--gold)}
+
+/* SECTIONS */
+section{margin-top:32px;animation:fade .6s ease both}
+.s-head{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.s-head h2{font-size:15px;font-weight:700;letter-spacing:.2px}
+.s-head h2 .em{color:var(--gold)}
+.s-head .n{font-size:11px;color:var(--mut2)}
+.s-head .note{margin-left:auto;font-size:12px;color:var(--mut2)}
+
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.kpi{
+  background:#fff;border:1px solid var(--line);border-radius:13px;
+  padding:14px 15px;position:relative;overflow:hidden;
+  box-shadow:0 1px 2px rgba(13,27,51,.06),0 8px 20px rgba(13,27,51,.05);
+}
+.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold);opacity:.7}
+.kpi.blue::before{background:var(--acc)}
+.kpi .l{font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.6px}
+.kpi .v{font-size:25px;font-weight:700;margin-top:7px;letter-spacing:-.5px}
+.kpi .x{font-size:12px;color:var(--mut2);margin-top:3px}
+
+/* INSIGHTS */
+.insight{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.ins{flex:1;min-width:240px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--panel);display:flex;gap:11px;align-items:flex-start}
+.ins .ic{font-size:18px;line-height:1}
+.ins.warn{border-left:2px solid var(--neg)}
+.ins.good{border-left:2px solid var(--pos)}
+.ins.info{border-left:2px solid var(--gold)}
+.ins .t{font-size:13px;color:var(--mut)}
+.ins .t b{color:var(--tx);font-weight:600}
+.ins.warn .t b{color:var(--neg)}
+.ins.good .t b{color:var(--pos)}
+.ins.info .t b{color:var(--gold)}
+
+/* MOVEMENT CARDS */
+.mvgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:11px}
+.mvc{
+  background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 16px;
+  box-shadow:0 1px 2px rgba(13,27,51,.06),0 8px 20px rgba(13,27,51,.05);
+}
+.mvc .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.mvc .dom-label{font-weight:700;font-size:13px;color:var(--tx)}
+.mvc .dr-badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--bg2);color:var(--mut);border:1px solid var(--line)}
+.mvc .net{font-size:12px;font-weight:700;padding:3px 9px;border-radius:7px;white-space:nowrap}
+.net.up{color:var(--pos);background:rgba(21,160,74,.12);border:1px solid var(--pos-d)}
+.net.dn{color:var(--neg);background:rgba(226,59,72,.10);border:1px solid var(--neg-d)}
+.net.fl{color:var(--mut);background:var(--bg2);border:1px solid var(--line)}
+.mvc .all{font-size:28px;font-weight:700;letter-spacing:-1px;line-height:1}
+.mvc .all small{font-size:11px;color:var(--mut);font-weight:500;letter-spacing:.4px;display:block;margin-bottom:3px}
+.mvc .split{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:14px}
+.mvb{display:flex;flex-direction:column;gap:3px;padding:8px 9px;border-radius:9px;background:var(--bg2)}
+.mvb .lab{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--mut)}
+.mvb .v{font-size:17px;font-weight:700}
+.mvb.g .v{color:var(--pos)}
+.mvb.r .v{color:var(--neg)}
+.mini{display:flex;height:5px;border-radius:3px;overflow:hidden;margin-top:12px;background:var(--bg2)}
+.mini i{height:100%}
+
+/* MAIN TABLE */
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:6px 8px;box-shadow:0 1px 2px rgba(13,27,51,.05),0 8px 20px rgba(13,27,51,.04)}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th,.tbl td{padding:11px 12px;text-align:right;border-bottom:1px solid var(--line)}
+.tbl th{font-size:11px;font-weight:600;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--line2);white-space:nowrap}
+.tbl td:first-child,.tbl th:first-child{text-align:left}
+.tbl tbody tr{transition:background .15s}
+.tbl tbody tr:hover{background:var(--bg2)}
+.tbl tr.own td{background:var(--own)}
+.tbl tr.own td:first-child{box-shadow:inset 2px 0 0 var(--gold)}
+.dom{display:flex;align-items:center;gap:9px}
+.dom .b{font-weight:600}
+.dom .u{font-size:11px;color:var(--mut2)}
+.tag{font-size:10px;color:var(--gold);border:1px solid var(--gold-line);border-radius:5px;padding:1px 6px;letter-spacing:.5px;background:var(--gold-dim)}
+.bar-inline{display:inline-block;height:7px;border-radius:4px;background:var(--gold);opacity:.6;vertical-align:middle;margin-left:9px}
+
+/* DR pill */
+.dr{display:inline-flex;align-items:center;justify-content:center;width:32px;height:22px;border-radius:6px;font-size:11px;font-weight:700;border:1px solid var(--line);color:var(--mut);background:var(--bg2)}
+.dr.hi{background:rgba(28,126,214,.1);color:var(--acc);border-color:rgba(28,126,214,.25)}
+.dr.mid{background:rgba(21,160,74,.1);color:var(--pos);border-color:rgba(21,160,74,.25)}
+.dr.lo{background:var(--bg2);color:var(--mut);border-color:var(--line)}
+.dr.own{background:var(--gold-dim);color:var(--gold);border-color:var(--gold-line)}
+
+/* POSITION BARS */
+.pos-bars{display:flex;height:7px;border-radius:4px;overflow:hidden;gap:1px;min-width:90px}
+.p1{background:var(--gold)}.p2{background:#c9a84c}.p3{background:#e0cfa0}.p4{background:var(--bg2)}
+
+/* TOGGLE */
+.toggle{display:inline-flex;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:3px;gap:2px}
+.toggle button{font-family:inherit;font-size:12px;color:var(--mut);background:none;border:0;padding:5px 12px;border-radius:6px;cursor:pointer;transition:.15s}
+.toggle button.on{background:var(--gold);color:#ffffff;font-weight:600}
+
+/* HEATMAP */
+.hm{width:100%;border-collapse:separate;border-spacing:4px;font-size:12px}
+.hm th{font-size:11px;color:var(--mut);font-weight:600;padding:4px 6px;text-align:center;white-space:nowrap}
+.hm th.geo{text-align:left}
+.hm .geo{text-align:left;color:var(--tx);font-weight:500;white-space:nowrap;padding-right:8px}
+.hm td{text-align:center;padding:0}
+.cell{border-radius:8px;padding:10px 6px;font-weight:500;border:1px solid #eef1f6;position:relative}
+.cell.lead{box-shadow:0 0 0 1px var(--gold) inset}
+.cell.lead::after{content:"★";position:absolute;top:2px;right:4px;font-size:8px;color:var(--gold)}
+.leg{display:flex;gap:14px;align-items:center;margin-top:10px;font-size:11px;color:var(--mut2);flex-wrap:wrap}
+.leg .sw{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:middle;margin-right:5px}
+
+/* CHARTS */
+.grid2{display:grid;grid-template-columns:1.6fr 1fr;gap:14px}
+@media(max-width:820px){.grid2{grid-template-columns:1fr}}
+.chart{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 1px 2px rgba(13,27,51,.06),0 8px 20px rgba(13,27,51,.05)}
+.chart h3{font-size:12px;font-weight:700;color:var(--mut);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.chart .cap{font-size:11px;color:var(--mut2);margin-bottom:12px}
+.bars{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+.brow{display:grid;grid-template-columns:72px 1fr 52px;align-items:center;gap:9px;font-size:12px}
+.brow .lab{color:var(--mut)}
+.brow .track{height:18px;background:var(--bg2);border-radius:5px;overflow:hidden}
+.brow .fill{height:100%;border-radius:5px;background:linear-gradient(90deg,#c9a84c,var(--gold))}
+.brow .val{text-align:right;color:var(--tx);font-weight:600}
+
+/* FOOTER */
+footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--mut2)}
+footer b{color:var(--mut)}
+.fnote{margin-top:6px}
+
+/* TOOLTIPS */
+.th-tip{position:relative;cursor:help;border-bottom:1px dashed var(--mut2);padding-bottom:1px}
+.th-tip::after{
+  content:attr(data-tip);
+  position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:#1a2540;color:#e8edf5;
+  font-size:11px;font-weight:400;line-height:1.5;letter-spacing:.1px;
+  padding:7px 11px;border-radius:7px;
+  white-space:nowrap;max-width:240px;white-space:normal;width:max-content;max-width:220px;
+  box-shadow:0 4px 16px rgba(0,0,0,.18);
+  opacity:0;pointer-events:none;
+  transition:opacity .15s ease,transform .15s ease;
+  transform:translateX(-50%) translateY(4px);
+  z-index:999;
+}
+.th-tip:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
+/* arrow */
+.th-tip::before{
+  content:'';position:absolute;bottom:calc(100% + 3px);left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-top-color:#1a2540;
+  opacity:0;pointer-events:none;transition:opacity .15s ease;z-index:999;
+}
+.th-tip:hover::before{opacity:1}
+
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">Competitor Intelligence · Ювелірний ринок · Україна</div>
+  <h1>SEO Дашборд — <span class="x">Guzema</span></h1>
+  <p class="sub">Трафік, ключові слова, рух семантики та авторитет. Ринок UA. Дані: SE Ranking + Ahrefs DR.</p>
+  <div class="chips">
+    <div class="chip">📅 <b>02.06.2026</b></div>
+    <div class="chip">🌍 <b>Google Ukraine (UA)</b></div>
+    <div class="chip">🏪 <b>11 доменів</b></div>
+    <div class="chip"><span class="dot">●</span> SE Ranking Data API</div>
+    <div class="chip"><span class="dot">●</span> Ahrefs DR</div>
+  </div>
+</header>
+
+<!-- KPIs -->
+<section>
+  <div class="s-head">
+    <h2>Guzema.ua — ключові показники</h2>
+    <span class="n">// UA · травень 2026</span>
+  </div>
+  <div class="kpis">
+    <div class="kpi blue">
+      <div class="l">DR · Ahrefs</div>
+      <div class="v num">30</div>
+      <div class="x">Rank #3 954 360</div>
+    </div>
+    <div class="kpi">
+      <div class="l">Трафік / міс</div>
+      <div class="v num">8 158</div>
+      <div class="x">Органіка · UA</div>
+    </div>
+    <div class="kpi">
+      <div class="l">Ключі (UA)</div>
+      <div class="v num">3 275</div>
+      <div class="x">В індексі Google</div>
+    </div>
+    <div class="kpi">
+      <div class="l">Топ 1–5</div>
+      <div class="v num">374</div>
+      <div class="x">11.4% від KW</div>
+    </div>
+    <div class="kpi">
+      <div class="l">Вартість трафіку</div>
+      <div class="v num">$495</div>
+      <div class="x">/ місяць · UA</div>
+    </div>
+    <div class="kpi">
+      <div class="l">Ref. Domains</div>
+      <div class="v num">277</div>
+      <div class="x">Dofollow 89%</div>
+    </div>
+  </div>
+</section>
+
+<!-- MOVEMENT CARDS -->
+<section>
+  <div class="s-head">
+    <h2><span class="em">Рух ключів</span> — по конкурентах</h2>
+    <span class="n">// Нові / Рост / Падіння / Випали · SE Ranking UA</span>
+    <span class="note">поточний місяць vs попередній</span>
+  </div>
+
+  <div class="insight">
+    <div class="ins good">
+      <span class="ic">▲</span>
+      <div class="t"><b>Guzema: нетто +1 396 (+42.6%)</b> — найкращий відносний приріст серед усіх 11 доменів. +1 703 нових ключів при втраті лише 235.</div>
+    </div>
+    <div class="ins warn">
+      <span class="ic">⚠</span>
+      <div class="t"><b>ukrzoloto: втрачено 8 093 ключів</b> — найбільший абсолютний відтік. Але нетто +4 489 через масштаб: 14K нових компенсують втрати.</div>
+    </div>
+    <div class="ins info">
+      <span class="ic">💡</span>
+      <div class="t"><b>Traff/KW 2.49 — найвища ефективність</b> — Guzema вичавлює більше трафіку з кожного ключа ніж ukrzoloto (2.36). Проблема — кількість, не якість.</div>
+    </div>
+  </div>
+
+  <div class="mvgrid" id="mvgrid"></div>
+</section>
+
+<!-- HEATMAP -->
+<section>
+  <div class="s-head">
+    <h2>Порівняння конкурентів</h2>
+    <span class="n">// 11 доменів × метрика</span>
+    <span class="note" style="display:flex;gap:10px;align-items:center">
+      <span class="toggle">
+        <button id="mT" class="on">Трафік</button>
+        <button id="mK">Ключі</button>
+        <button id="mN">Net %</button>
+      </span>
+    </span>
+  </div>
+  <div style="overflow-x:auto">
+    <table class="hm" id="hm"></table>
+  </div>
+  <div class="leg" id="leg"></div>
+</section>
+
+<!-- MAIN TABLE -->
+<section>
+  <div class="s-head">
+    <h2>Повна таблиця</h2>
+    <span class="n">// сорт. за трафіком · рядок Guzema підсвічено</span>
+  </div>
+  <div class="panel">
+    <table class="tbl" id="cmp"></table>
+  </div>
+</section>
+
+<!-- POSITION BUCKETS + BACKLINKS -->
+<section>
+  <div class="s-head"><h2>Розподіл позицій та <span class="em">беклінки</span></h2></div>
+  <div class="grid2">
+    <div class="chart">
+      <h3>Розподіл топів — Guzema.ua</h3>
+      <div class="cap">SE Ranking · UA · травень 2026</div>
+      <div class="bars" id="posbars"></div>
+    </div>
+    <div class="chart">
+      <h3><span class="th-tip" data-tip="Порівняння кількості ref. domains (SE Ranking) і Domain Rating (Ahrefs). Ref.D = кількість унікальних доменів що посилаються. DR = авторитет на основі якості цих посилань. Guzema — менше ref.D але DR вищий ніж у loveyou при схожій кількості.">Ref. Domains vs DR</span></h3>
+      <div class="cap">SE Ranking (Ref.D) + Ahrefs (DR)</div>
+      <div class="bars" id="blbars"></div>
+    </div>
+  </div>
+</section>
+
+<!-- AI OVERVIEW -->
+<section>
+  <div class="s-head">
+    <h2>AI Overview — <span class="em">видимість у Google AIO</span></h2>
+    <span class="n">// Serpstat · g_ua</span>
+    <span class="note">AI-трафік · AIO-ключів · Цитат в AIO</span>
+  </div>
+
+  <div class="insight" id="ai-insight"></div>
+
+  <div class="panel" style="margin-bottom:14px">
+    <table class="tbl" id="ai-table"></table>
+  </div>
+
+  <div class="mvgrid" id="ai-cards"></div>
+</section>
+
+<!-- TOP PAGES -->
+<section>
+  <div class="s-head">
+    <h2>Топ сторінки за <span class="em">трафіком</span></h2>
+    <span class="n">// топ 5 · SE Ranking · UA</span>
+    <span class="note">
+      <span class="toggle">
+        <button id="pgAll" class="on">Всі домени</button>
+        <button id="pgOwn">Тільки Guzema</button>
+      </span>
+    </span>
+  </div>
+  <div id="toppages"></div>
+</section>
+
+<footer>
+  <div><b>Джерела:</b> SE Ranking Data API (трафік, ключі, рух семантики, ref. domains, backlinks · UA) · Ahrefs API v3 (DR). <b>Знімок:</b> 02.06.2026.</div>
+  <div class="fnote"><b>Net</b> = (Нові + Рост) − (Падіння + Випали). <b>Traff/KW</b> = трафік ÷ кількість ключів у топ-100.</div>
+</footer>
+</div>
+
+<script>
+const F=n=>n==null?'—':n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?Math.round(n/100)/10+'K':String(n);
+const sF=n=>n>0?'+'+F(n):F(n);
+const pct=n=>n==null?'—':n.toFixed(1)+'%';
+
+const domains=[
+  {d:'guzema.ua',     label:'Guzema',         own:true,  dr:30,  kw:3275,  traffic:8158,  value:495,   refdomains:277,   backlinks:2270,   df:89, top5:374,  top10:339, top20:447, top50:1839, pages:100,
+   new_kw:1703, up:91,   down:163, lost:235,  ai_traffic:21594,  aio_kw:376,   aio_cit:61},
+  {d:'ukrzoloto.ua',  label:'Ukrzoloto',       own:false, dr:51,  kw:109942,traffic:259802,value:20472, refdomains:2440,  backlinks:406957, df:99, top5:42060,top10:16387,top20:23218,top50:54385, pages:511,
+   new_kw:14001,up:2608,down:4027,lost:8093,  ai_traffic:1581517,aio_kw:57643, aio_cit:21526},
+  {d:'stolychnashop.com.ua',label:'Stolychna', own:false, dr:46,  kw:86613, traffic:69906, value:6210,  refdomains:1815,  backlinks:61959,  df:92, top5:20787,top10:18216,top20:18727,top50:36069, pages:1000,
+   new_kw:10321,up:1210,down:2431,lost:3452,  ai_traffic:401080, aio_kw:40143, aio_cit:12380},
+  {d:'aurum.in.ua',   label:'Aurum',           own:false, dr:38,  kw:68863, traffic:49480, value:3864,  refdomains:1500,  backlinks:8101,   df:80, top5:18844,top10:15393,top20:19474,top50:29147, pages:820,
+   new_kw:6638, up:1192,down:2067,lost:4709,  ai_traffic:495874, aio_kw:35288, aio_cit:12489},
+  {d:'zolotakraina.ua',label:'Zolota Kraina',  own:false, dr:40,  kw:63426, traffic:38013, value:3270,  refdomains:920,   backlinks:19328,  df:73, top5:14091,top10:16285,top20:16694,top50:25638, pages:950,
+   new_kw:5737, up:929, down:1827,lost:3172,  ai_traffic:419989, aio_kw:29638, aio_cit:8740},
+  {d:'kuz.ua',        label:'Kuz',             own:false, dr:50,  kw:47231, traffic:62226, value:4556,  refdomains:1329,  backlinks:5244,   df:67, top5:14241,top10:8150, top20:10140,top50:21598, pages:730,
+   new_kw:2948, up:642, down:1153,lost:1519,  ai_traffic:253519, aio_kw:13451, aio_cit:4595},
+  {d:'sovajewels.com',label:'Sova Jewels',     own:false, dr:48,  kw:37411, traffic:45624, value:3684,  refdomains:1506,  backlinks:6199,   df:60, top5:8278, top10:5424, top20:6846, top50:14940, pages:680,
+   new_kw:3148, up:337, down:704, lost:1698,  ai_traffic:148986, aio_kw:4673,  aio_cit:1132},
+  {d:'loveyou-jewels.com',label:'Love You',    own:false, dr:33,  kw:13469, traffic:13823, value:1631,  refdomains:236,   backlinks:1043,   df:55, top5:1637, top10:1888, top20:2930, top50:5714,  pages:290,
+   new_kw:847,  up:120, down:186, lost:289,   ai_traffic:80863,  aio_kw:2059,  aio_cit:522},
+  {d:'zolotiyvik.ua', label:'Zolotiy Vik',     own:false, dr:52,  kw:119215,traffic:187712,value:13683, refdomains:1613,  backlinks:180781, df:99, top5:39524,top10:21046,top20:21546,top50:51431, pages:1000,
+   new_kw:10045,up:6055,down:7132,lost:8611,  ai_traffic:0, aio_kw:0, aio_cit:0},
+  {d:'zlato.ua',      label:'Zlato',           own:false, dr:45,  kw:95011, traffic:29493, value:1771,  refdomains:2999,  backlinks:335261, df:94, top5:21110,top10:21422,top20:32202,top50:53393, pages:1000,
+   new_kw:8109, up:2467,down:2890,lost:6196,  ai_traffic:0, aio_kw:0, aio_cit:0},
+  {d:'dukachi.ua',    label:'Dukachi',         own:false, dr:24,  kw:791,   traffic:681,   value:228,   refdomains:17,    backlinks:192,    df:81, top5:56,   top10:52,  top20:144, top50:428,   pages:123,
+   new_kw:79,   up:42,  down:67,  lost:72,    ai_traffic:0, aio_kw:0, aio_cit:0},
+];
+
+/* ── TOP PAGES DATA ── */
+const topPages=[
+  {d:'guzema.ua', own:true, label:'Guzema', pages_total:100, pages:[
+    {url:'https://guzema.ua/', title:'Головна — Guzema', traffic:2822, pct:34.59, kw:449},
+    {url:'https://guzema.ua/yuvelirni-prykrasy/', title:'Ювелірні прикраси', traffic:1592, pct:19.51, kw:1769},
+    {url:'https://guzema.ua/yuvelirni-prykrasy/kabluchky/', title:'Каблучки', traffic:539, pct:6.61, kw:63},
+    {url:'https://guzema.ua/yuvelirni-prykrasy/braslety/', title:'Браслети', traffic:539, pct:6.61, kw:54},
+    {url:'https://guzema.ua/yuvelirni-prykrasy/serezhky/', title:'Сережки', traffic:537, pct:6.58, kw:110},
+  ]},
+  {d:'ukrzoloto.ua', own:false, label:'Ukrzoloto', pages_total:511, pages:[
+    {url:'https://ukrzoloto.ua/uk/', title:'Головна (UA)', traffic:27574, pct:10.61, kw:11541},
+    {url:'https://ukrzoloto.ua/uk/catalog/serezhky/f/vyd_metalu-zoloto/', title:'Золоті сережки', traffic:7646, pct:2.94, kw:2112},
+    {url:'https://ukrzoloto.ua/catalog/koltsa/f/tip-obruchalnye/', title:'Обручальні кільця', traffic:5421, pct:2.09, kw:1334},
+    {url:'https://ukrzoloto.ua/uk/catalog/kabluchky/f/typ-vesilni/', title:'Обручки', traffic:5142, pct:1.98, kw:1559},
+    {url:'https://ukrzoloto.ua/uk/catalog/brasletu/', title:'Браслети', traffic:4187, pct:1.61, kw:312},
+  ]},
+  {d:'stolychnashop.com.ua', own:false, label:'Stolychna', pages_total:1000, pages:[
+    {url:'https://stolychnashop.com.ua/ua/', title:'Головна (UA)', traffic:23718, pct:33.93, kw:8095},
+    {url:'https://stolychnashop.com.ua/', title:'Головна (RU)', traffic:4901, pct:7.01, kw:5256},
+    {url:'https://stolychnashop.com.ua/ua/sergi/', title:'Сережки', traffic:1826, pct:2.61, kw:273},
+    {url:'https://stolychnashop.com.ua/koltsa/vstavka_brilliant/', title:'Кільця з брілліантом', traffic:1561, pct:2.23, kw:78},
+    {url:'https://stolychnashop.com.ua/ua/koltsa/', title:'Каблучки', traffic:1380, pct:1.97, kw:765},
+  ]},
+  {d:'kuz.ua', own:false, label:'Kuz', pages_total:730, pages:[
+    {url:'https://kuz.ua/', title:'Головна', traffic:15001, pct:24.11, kw:15441},
+    {url:'https://kuz.ua/ua/catalog/kabluchki', title:'Каблучки', traffic:4213, pct:6.77, kw:1029},
+    {url:'https://kuz.ua/ua/catalog/brasleti', title:'Браслети', traffic:3913, pct:6.29, kw:335},
+    {url:'https://kuz.ua/ua/catalog/serezhki', title:'Сережки', traffic:2703, pct:4.34, kw:2522},
+    {url:'https://kuz.ua/ua/catalog/bulavki', title:'Булавки/Шпильки', traffic:2036, pct:3.27, kw:68},
+  ]},
+  {d:'sovajewels.com', own:false, label:'Sova Jewels', pages_total:680, pages:[
+    {url:'https://sovajewels.com/ua/', title:'Головна (UA)', traffic:15557, pct:34.10, kw:13737},
+    {url:'https://sovajewels.com/', title:'Головна (RU)', traffic:5553, pct:12.17, kw:5489},
+    {url:'https://sovajewels.com/koltsa/f/vstavki-is-diamant/', title:'Кільця з діамантами', traffic:1224, pct:2.68, kw:579},
+    {url:'https://sovajewels.com/ua/koltsa/f/vstavki-is-diamant/', title:'Каблучки з діамантами', traffic:1218, pct:2.67, kw:101},
+    {url:'https://sovajewels.com/collections-sweet-memories/', title:'Колекція Sweet Memories', traffic:1163, pct:2.55, kw:1200},
+  ]},
+  {d:'zolotakraina.ua', own:false, label:'Zolota Kraina', pages_total:950, pages:[
+    {url:'https://zolotakraina.ua/', title:'Головна (RU)', traffic:8979, pct:23.62, kw:2387},
+    {url:'https://zolotakraina.ua/ua/', title:'Головна (UA)', traffic:1415, pct:3.72, kw:3567},
+    {url:'https://zolotakraina.ua/ua/sergi/', title:'Сережки', traffic:1188, pct:3.13, kw:294},
+    {url:'https://zolotakraina.ua/ru/kolca/zoloto--brillianty/', title:'Золоте кільце з брілліантом', traffic:644, pct:1.69, kw:37},
+    {url:'https://zolotakraina.ua/ua/kolca/', title:'Каблучки', traffic:557, pct:1.47, kw:230},
+  ]},
+  {d:'aurum.in.ua', own:false, label:'Aurum', pages_total:820, pages:[
+    {url:'https://aurum.in.ua/ua/', title:'Головна (UA)', traffic:4013, pct:8.11, kw:1023},
+    {url:'https://aurum.in.ua/', title:'Головна (RU)', traffic:3768, pct:7.62, kw:4893},
+    {url:'https://aurum.in.ua/ua/c/sergi/f/metall:zoloto/', title:'Золоті сережки', traffic:2282, pct:4.61, kw:611},
+    {url:'https://aurum.in.ua/c/koltsa/f/style:karte/', title:'Кільця в стилі Картьє', traffic:1277, pct:2.58, kw:253},
+    {url:'https://aurum.in.ua/ua/c/koltsa/', title:'Каблучки', traffic:865, pct:1.75, kw:751},
+  ]},
+  {d:'loveyou-jewels.com', own:false, label:'Love You', pages_total:290, pages:[
+    {url:'https://loveyou-jewels.com/', title:'Головна', traffic:5192, pct:37.56, kw:1260},
+    {url:'https://loveyou-jewels.com/ru/catalog/koltsa/', title:'Каблучки (RU)', traffic:955, pct:6.91, kw:900},
+    {url:'https://loveyou-jewels.com/catalog/braslety/', title:'Браслети', traffic:801, pct:5.79, kw:161},
+    {url:'https://loveyou-jewels.com/catalog/koltsa/', title:'Каблучки (UA)', traffic:779, pct:5.64, kw:192},
+    {url:'https://loveyou-jewels.com/catalog/kole/', title:'Кольє та намиста', traffic:482, pct:3.49, kw:37},
+  ]},
+  {d:'zolotiyvik.ua', own:false, label:'Zolotiy Vik', pages_total:1000, pages:[
+    {url:'https://zolotiyvik.ua/ua/', title:'Головна (UA)', traffic:30265, pct:16.12, kw:19424},
+    {url:'https://zolotiyvik.ua/ua/12-znakiv-zodiaku-dati-narodjennya-ta-ihne-znachennya/', title:'12 знаків зодіаку', traffic:13994, pct:7.46, kw:1992},
+    {url:'https://zolotiyvik.ua/ru/', title:'Головна (RU)', traffic:12955, pct:6.90, kw:13758},
+    {url:'https://zolotiyvik.ua/ru/12-znakiv-zodiaku-dati-narodjennya-ta-ihne-znachennya/', title:'12 знаков зодиака', traffic:9377, pct:5.00, kw:15993},
+    {url:'https://zolotiyvik.ua/ru/kolca/l/tip_izdeliya:obruchalnye/', title:'Обручальні кільця', traffic:6622, pct:3.53, kw:3074},
+  ]},
+  {d:'zlato.ua', own:false, label:'Zlato', pages_total:1000, pages:[
+    {url:'https://zlato.ua/uk-ua/news/juveirni_trendy/yuvelirnyy_goroskop_podarunky_dlya_ovniv/', title:'Гороскоп — прикраси для Овнів', traffic:563, pct:1.91, kw:122},
+    {url:'https://zlato.ua/uk/f-zolotiy_vik/', title:'Прикраси Золотий Вік', traffic:554, pct:1.88, kw:265},
+    {url:'https://zlato.ua/', title:'Головна', traffic:551, pct:1.87, kw:522},
+    {url:'https://zlato.ua/ru/f-zolotoy_vek/', title:'Ювелірні прикраси (RU)', traffic:462, pct:1.57, kw:513},
+    {url:'https://zlato.ua/uk-ua/news/juveirni_trendy/do_chogo_snitsya_zoloto/', title:'До чого сняться прикраси', traffic:423, pct:1.43, kw:81},
+  ]},
+  {d:'dukachi.ua', own:false, label:'Dukachi', pages_total:123, pages:[
+    {url:'https://dukachi.ua/collections/edelweiss', title:'Колекція Едельвейс', traffic:188, pct:27.61, kw:18},
+    {url:'https://dukachi.ua/collections/earrings', title:'Сережки та кафи', traffic:143, pct:21.00, kw:59},
+    {url:'https://dukachi.ua/collections/rings', title:'Каблучки', traffic:84, pct:12.33, kw:40},
+    {url:'https://dukachi.ua/collections/dolls-pendants', title:'Підвіски-ляльки мотанки', traffic:77, pct:11.31, kw:40},
+    {url:'https://dukachi.ua/', title:'Головна', traffic:51, pct:7.49, kw:101},
+  ]},
+];
+
+const net=d=>d.new_kw+d.up-d.down-d.lost;
+const netPct=d=>{const tot=d.kw||1;return((net(d)/tot)*100).toFixed(1);};
+
+// MOVEMENT CARDS
+document.getElementById('mvgrid').innerHTML=domains.map(d=>{
+  const nt=net(d); const np=netPct(d);
+  const cls=nt>0?'up':nt<0?'dn':'fl';
+  const gained=d.new_kw+d.up, lostc=d.lost+d.down, tot=gained+lostc||1;
+  const drCls=d.dr>=50?'hi':d.dr>=38?'mid':'lo';
+  return `<div class="mvc">
+    <div class="top">
+      <span class="dom-label">${d.label}</span>
+      <span class="dr ${d.own?'own':drCls}">DR ${d.dr}</span>
+    </div>
+    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px">
+      <div class="all num"><small title="Всього ключів у топ-100 Google UA">КЛЮЧІВ UA</small>${F(d.kw)}</div>
+      <span class="net ${cls}" title="Net = (Нові + Рост) − (Падіння + Випали)">${sF(nt)}</span>
+    </div>
+    <div class="split">
+      <div class="mvb g"><span class="lab" title="Ключі що вперше потрапили в топ-100 за цей місяць">Нові</span><span class="v num">+${F(d.new_kw)}</span></div>
+      <div class="mvb g"><span class="lab" title="Ключі що покращили позицію">Рост ▲</span><span class="v num">${F(d.up)}</span></div>
+      <div class="mvb r"><span class="lab" title="Ключі що погіршили позицію, але лишились у топ-100">Падіння ▼</span><span class="v num">${F(d.down)}</span></div>
+      <div class="mvb r"><span class="lab" title="Ключі що випали з топ-100 цього місяця">Випали ✕</span><span class="v num">${F(d.lost)}</span></div>
+    </div>
+    <div class="mini">
+      <i style="width:${(gained/tot*100).toFixed(0)}%;background:var(--pos)"></i>
+      <i style="width:${(lostc/tot*100).toFixed(0)}%;background:var(--neg)"></i>
+    </div>
+  </div>`;
+}).join('');
+
+// HEATMAP
+let MODE=0;
+function renderHM(){
+  const sorted=[...domains].sort((a,b)=>b.traffic-a.traffic);
+  const metrics=[
+    {key:'traffic', label:'Трафік UA'},
+    {key:'kw',      label:'Ключі UA'},
+    {key:'_net',    label:'Net %'},
+  ];
+  const ml=metrics[MODE].label;
+  const vals=sorted.map(d=>MODE===2?parseFloat(netPct(d)):d[metrics[MODE].key]);
+  const mx=Math.max(...vals.map(Math.abs))||1;
+
+  let html=`<thead><tr><th class="geo">Домен</th><th colspan="2" style="text-align:center;color:var(--gold)">${ml}</th></tr></thead><tbody>`;
+  sorted.forEach((d,i)=>{
+    const v=vals[i];
+    const r=Math.abs(v)/mx;
+    const isOwn=d.own;
+    let bg,fg;
+    if(MODE===2){
+      bg=v>0?`rgba(21,160,74,${(0.1+r*0.8).toFixed(2)})`:`rgba(226,59,72,${(0.1+r*0.8).toFixed(2)})`;
+      fg=r>0.55?'#fff':'var(--tx)';
+    } else {
+      const op=(0.08+r*0.78).toFixed(2);
+      bg=isOwn?`rgba(168,124,26,${op})`:`rgba(28,126,214,${op})`;
+      fg=r>0.55?'#fff':'var(--tx)';
+    }
+    const isLead=v===Math.max(...vals)&&v>0;
+    const bar=MODE<2?`<div style="height:6px;background:${isOwn?'var(--gold)':'var(--acc)'};opacity:.5;border-radius:3px;width:${(r*100).toFixed(0)}%;margin-top:4px"></div>`:'';
+    html+=`<tr>
+      <td class="geo" style="font-weight:${isOwn?700:400};color:${isOwn?'var(--gold)':'var(--tx)'};padding:6px 8px;white-space:nowrap;font-size:12px">
+        ${d.label}${isOwn?' ★':''}
+      </td>
+      <td style="padding:4px"><div class="cell ${isLead?'lead':''}" style="background:${bg};color:${fg};font-size:12px;font-weight:600">
+        ${MODE===2?sF(v)+'%':F(v)}${bar}
+      </div></td>
+      <td style="font-size:11px;color:var(--mut);padding:4px 6px;vertical-align:middle">${d.d}</td>
+    </tr>`;
+  });
+  document.getElementById('hm').innerHTML=html+`</tbody>`;
+  document.getElementById('leg').innerHTML=MODE<2
+    ?`<span><span class="sw" style="background:var(--gold)"></span>Guzema</span><span><span class="sw" style="background:var(--acc)"></span>конкуренти</span><span style="color:var(--mut2)">інтенсивність = частка від максимуму</span>`
+    :`<span><span class="sw" style="background:var(--pos)"></span>приріст (нетто+%)</span><span><span class="sw" style="background:var(--neg)"></span>відтік (нетто−%)</span>`;
+}
+renderHM();
+[['mT',0],['mK',1],['mN',2]].forEach(([id,mode])=>{
+  document.getElementById(id).onclick=()=>{
+    MODE=mode;
+    [['mT',0],['mK',1],['mN',2]].forEach(([i])=>document.getElementById(i).classList.toggle('on',i===['mT','mK','mN'][mode]));
+    renderHM();
+  };
+});
+
+// MAIN TABLE
+const sorted=[...domains].sort((a,b)=>b.traffic-a.traffic);
+const mxTr=Math.max(...domains.map(d=>d.traffic));
+let h=`<thead><tr>
+  <th><span class="th-tip" data-tip="Домен конкурента">Домен</span></th>
+  <th><span class="th-tip" data-tip="Domain Rating (Ahrefs) — авторитет домену за беклінками. Шкала 0–100, логарифмічна.">DR</span></th>
+  <th><span class="th-tip" data-tip="Кількість ключів у топ-100 Google Ukraine. Джерело: SE Ranking.">Ключі (UA)</span></th>
+  <th><span class="th-tip" data-tip="Прогноз органічного трафіку на місяць, Google Ukraine. Джерело: SE Ranking.">Трафік (UA)</span></th>
+  <th><span class="th-tip" data-tip="Трафік ÷ Ключі. Середній трафік на один ключ. Вищий = ефективніша семантика.">Traff/KW</span></th>
+  <th><span class="th-tip" data-tip="Кількість сторінок що ранжуються хоча б по 1 ключу в Google UA. Джерело: SE Ranking.">Сторінок</span></th>
+  <th><span class="th-tip" data-tip="Орієнтовна вартість трафіку в Google Ads (PPC-еквівалент). Джерело: SE Ranking.">Вартість</span></th>
+  <th><span class="th-tip" data-tip="Кількість ключів у позиціях 1–5. CTR цих позицій 20–40%.">Топ 1–5</span></th>
+  <th><span class="th-tip" data-tip="Кількість ключів у позиціях 6–10. CTR орієнтовно 3–10%.">Топ 6–10</span></th>
+  <th style="min-width:90px"><span class="th-tip" data-tip="Візуальний розподіл ключів по позиціях: золото=1–5, жовте=6–10, світле=11–20, сіре=21–50.">Позиції</span></th>
+  <th><span class="th-tip" data-tip="Referring Domains — унікальні домени що посилаються на сайт. Ключова метрика для лінкбілдингу. Джерело: SE Ranking.">Ref.D</span></th>
+  <th><span class="th-tip" data-tip="Загальна кількість беклінків. Один ref. domain може давати кілька посилань. Джерело: SE Ranking.">BL</span></th>
+  <th><span class="th-tip" data-tip="Dofollow % — частка посилань що передають ваговий сигнал (link juice). Вищий % = чистіший профіль.">DF%</span></th>
+</tr></thead><tbody>`;
+sorted.forEach(d=>{
+  const bw=Math.round(d.traffic/mxTr*50)+4;
+  const drCls=d.dr>=50?'hi':d.dr>=38?'mid':'lo';
+  const tkw=(d.traffic/d.kw).toFixed(2);
+  const t5pct=Math.round(d.top5/d.kw*100);
+  const t10pct=Math.round(d.top10/d.kw*100);
+  const t20pct=Math.round(d.top20/d.kw*100);
+  const t50pct=Math.min(100-t5pct-t10pct-t20pct,100);
+  h+=`<tr class="${d.own?'own':''}">
+    <td><div class="dom">
+      <span>
+        <span class="b" style="${d.own?'color:var(--gold)':''}">${d.label}</span><br>
+        <span class="u">${d.d}</span>
+      </span>
+      ${d.own?'<span class="tag">НАШ</span>':''}
+    </div></td>
+    <td class="num"><span class="dr ${d.own?'own':drCls}">${d.dr}</span></td>
+    <td class="num">${F(d.kw)}</td>
+    <td class="num">${F(d.traffic)}<span class="bar-inline" style="width:${bw}px"></span></td>
+    <td class="num" style="${d.own?'color:var(--pos);font-weight:700':''}">${tkw}${d.own?' ★':''}</td>
+    <td class="num" style="${d.own?'color:var(--gold)':''}">${d.pages>=1000?'1000+':F(d.pages)}</td>
+    <td class="num">$${F(d.value)}</td>
+    <td class="num">${F(d.top5)}</td>
+    <td class="num">${F(d.top10)}</td>
+    <td><div class="pos-bars">
+      <div class="p1" style="width:${t5pct}%"></div>
+      <div class="p2" style="width:${t10pct}%"></div>
+      <div class="p3" style="width:${t20pct}%"></div>
+      <div class="p4" style="width:${t50pct}%"></div>
+    </div></td>
+    <td class="num">${F(d.refdomains)}</td>
+    <td class="num">${F(d.backlinks)}</td>
+    <td class="num" style="${d.df>=85?'color:var(--pos);font-weight:600':''}">${d.df}%</td>
+  </tr>`;
+});
+document.getElementById('cmp').innerHTML=h+`</tbody>`;
+
+// POSITION BARS — Guzema
+(function(){
+  const g=domains.find(d=>d.own);
+  const rows=[['Топ 1–5',g.top5],['Топ 6–10',g.top10],['Топ 11–20',g.top20],['Топ 21–50',g.top50]];
+  const mx=Math.max(...rows.map(r=>r[1]));
+  document.getElementById('posbars').innerHTML=rows.map(r=>`
+    <div class="brow">
+      <span class="lab">${r[0]}</span>
+      <div class="track"><div class="fill" style="width:${(r[1]/mx*100).toFixed(0)}%"></div></div>
+      <span class="val num">${F(r[1])}</span>
+    </div>`).join('');
+})();
+
+// AI OVERVIEW
+(function(){
+  const sorted=[ ...domains].sort((a,b)=>b.ai_traffic-a.ai_traffic);
+  const mxAI=sorted[0].ai_traffic;
+  const own=domains.find(d=>d.own);
+
+  // insight
+  const leader=sorted[0];
+  const gap=((leader.ai_traffic-own.ai_traffic)/own.ai_traffic*100).toFixed(0);
+  const aiPct=d=>(d.ai_traffic/d.traffic*100).toFixed(1);
+  document.getElementById('ai-insight').innerHTML=`
+    <div class="ins warn">
+      <span class="ic">🤖</span>
+      <div class="t"><b>AI-трафік Guzema: ${F(own.ai_traffic)} — розрив з лідером ×${Math.round(leader.ai_traffic/own.ai_traffic)}</b>
+      ${leader.label} має ${F(leader.ai_traffic)} AI-трафіку і ${F(leader.aio_cit)} цитат в AIO. Guzema — ${F(own.aio_cit)} цитати.</div>
+    </div>
+    <div class="ins info">
+      <span class="ic">💡</span>
+      <div class="t"><b>AI-трафік = ${aiPct(own)}% від органіки Guzema</b>
+      У лідера (${leader.label}) AI-трафік вже ${aiPct(leader)}% від органіки. AIO — окремий канал що росте.</div>
+    </div>`;
+
+  // table
+  let h=`<thead><tr>
+    <th>Домен</th>
+    <th class="n"><span class="th-tip" data-tip="Прогноз трафіку з Google AI Overview (AIO) — блоків з AI-відповідями у пошуковій видачі. Джерело: Serpstat.">AI-трафік</span></th>
+    <th class="n"><span class="th-tip" data-tip="AI-трафік як % від органічного трафіку. Показує наскільки AIO вже впливає на органіку сайту.">AI / Орг. %</span></th>
+    <th class="n"><span class="th-tip" data-tip="Кількість ключів за якими сайт з'являється в блоках Google AI Overview. Джерело: Serpstat.">AIO Ключів</span></th>
+    <th class="n"><span class="th-tip" data-tip="Кількість разів коли сайт процитовано в AI-відповіді Google. Цитата = пряме посилання з AIO-блоку на сторінку.">AIO Цитат</span></th>
+    <th class="n"><span class="th-tip" data-tip="Цитат / AIO Ключів × 100%. Конверсія ключів у цитати: чим вище — тим частіше Google цитує сайт коли показує AIO.">Цитат / AIO KW</span></th>
+    <th style="min-width:120px"><span class="th-tip" data-tip="Візуальна шкала AI-трафіку відносно лідера групи.">AI-трафік (шкала)</span></th>
+  </tr></thead><tbody>`;
+  sorted.forEach(d=>{
+    const bw=Math.round(d.ai_traffic/mxAI*100);
+    const citRate=d.aio_kw>0?(d.aio_cit/d.aio_kw*100).toFixed(1)+'%':'—';
+    const aiShare=(d.ai_traffic/d.traffic*100).toFixed(1)+'%';
+    h+=`<tr class="${d.own?'own':''}">
+      <td><div class="dom">
+        <span><span class="b" style="${d.own?'color:var(--gold)':''}">${d.label}</span><br>
+        <span class="u">${d.d}</span></span>
+        ${d.own?'<span class="tag">НАШ</span>':''}
+      </div></td>
+      <td class="num" style="${d.own?'color:var(--gold);font-weight:700':''}">${F(d.ai_traffic)}</td>
+      <td class="num" style="color:var(--mut)">${aiShare}</td>
+      <td class="num">${F(d.aio_kw)}</td>
+      <td class="num">${F(d.aio_cit)}</td>
+      <td class="num" style="${d.aio_cit/d.aio_kw>0.3?'color:var(--pos);font-weight:600':''}">${citRate}</td>
+      <td>
+        <div style="height:8px;background:var(--bg2);border-radius:4px;overflow:hidden">
+          <div style="height:100%;width:${bw}%;background:${d.own?'var(--gold)':'linear-gradient(90deg,var(--acc-dim),var(--acc))'};border-radius:4px;opacity:.8"></div>
+        </div>
+      </td>
+    </tr>`;
+  });
+  document.getElementById('ai-table').innerHTML=h+`</tbody>`;
+
+  // mini cards — top 4
+  document.getElementById('ai-cards').innerHTML=sorted.slice(0,4).map(d=>{
+    const citRate=d.aio_kw>0?(d.aio_cit/d.aio_kw*100).toFixed(1):0;
+    return `<div class="mvc" style="${d.own?'border-color:var(--gold)':''}">
+      <div class="top">
+        <span class="dom-label" style="${d.own?'color:var(--gold)':''}">${d.label}</span>
+        <span class="th-tip" style="font-size:10px;color:var(--mut)" data-tip="AIO Rate = Цитат ÷ AIO Ключів × 100%. Наскільки часто Google цитує сайт у AI-відповіді коли вже показує AIO по цьому ключу. Вищий % = сильніша AI-присутність.">AIO rate ${citRate}%</span>
+      </div>
+      <div class="all num" style="${d.own?'color:var(--gold)':''}"><small>AI-ТРАФІК</small>${F(d.ai_traffic)}</div>
+      <div class="split">
+        <div class="mvb"><span class="lab">AIO Ключів</span><span class="v num">${F(d.aio_kw)}</span></div>
+        <div class="mvb"><span class="lab">Цитат</span><span class="v num">${F(d.aio_cit)}</span></div>
+      </div>
+      <div class="mini">
+        <div style="height:100%;width:${citRate}%;background:var(--pos)"></div>
+        <div style="height:100%;width:${100-citRate}%;background:var(--bg2)"></div>
+      </div>
+    </div>`;
+  }).join('');
+})();
+
+// TOP PAGES
+function renderTopPages(ownOnly){
+  const data=ownOnly?topPages.filter(d=>d.own):topPages;
+  // sort by top page traffic desc
+  const sorted2=[...data].sort((a,b)=>b.pages[0].traffic-a.pages[0].traffic);
+  const mxTr=Math.max(...data.flatMap(d=>d.pages.map(p=>p.traffic)));
+
+  let html='';
+  sorted2.forEach(dm=>{
+    const barColor=dm.own?'var(--gold)':'var(--acc)';
+    const labelColor=dm.own?'color:var(--gold);font-weight:700':'';
+    html+=`<div style="margin-bottom:14px">
+      <div style="font-size:12px;font-weight:700;${labelColor};padding:8px 14px;background:var(--bg2);border-radius:10px 10px 0 0;border:1px solid var(--line);border-bottom:none;display:flex;align-items:center;gap:8px">
+        <span>${dm.label}</span>
+        <span style="font-size:10px;font-weight:400;color:var(--mut)">${dm.d}</span>
+        ${dm.own?'<span class="tag">НАШ</span>':''}
+        <span style="margin-left:auto;font-size:11px;font-weight:400;color:var(--mut2)">
+        Сторінок в органіці: <b style="color:var(--tx)">${dm.pages_total>=1000?'1000+':dm.pages_total}</b>
+        &nbsp;·&nbsp; Топ: ${F(dm.pages[0].traffic)} відв/міс
+      </span>
+      </div>
+      <div class="panel" style="border-radius:0 0 10px 10px;padding:0">
+        <table class="tbl" style="font-size:12px">
+          <thead><tr>
+            <th style="text-align:left">URL / Заголовок</th>
+            <th style="width:60px">Доля</th>
+            <th style="width:80px">Трафік</th>
+            <th style="width:60px"><span class="th-tip" data-tip="Кількість ключових слів за якими ця сторінка ранжується в топ-100 Google UA. Джерело: SE Ranking.">KW</span></th>
+            <th style="min-width:120px">Розподіл</th>
+          </tr></thead>
+          <tbody>
+            ${dm.pages.map(p=>{
+              const barW=Math.round(p.traffic/mxTr*100);
+              const slug=p.url.replace(/^https?:\/\/[^/]+/,'').slice(0,45)+(p.url.replace(/^https?:\/\/[^/]+/,'').length>45?'…':'');
+              return `<tr>
+                <td style="text-align:left;max-width:320px">
+                  <a href="${p.url}" target="_blank" style="color:var(--acc);text-decoration:none;font-size:11px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:320px" title="${p.url}">${p.title}</a>
+                  <span style="font-size:10px;color:var(--mut2)">${slug}</span>
+                </td>
+                <td class="num" style="color:var(--mut)">${p.pct.toFixed(1)}%</td>
+                <td class="num" style="font-weight:600;${dm.own?'color:var(--gold)':''}">${F(p.traffic)}</td>
+                <td class="num">${F(p.kw)}</td>
+                <td>
+                  <div style="height:8px;background:var(--bg2);border-radius:4px;overflow:hidden">
+                    <div style="height:100%;width:${barW}%;background:${barColor};border-radius:4px;opacity:.75"></div>
+                  </div>
+                </td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>`;
+  });
+  document.getElementById('toppages').innerHTML=html;
+}
+renderTopPages(false);
+document.getElementById('pgAll').onclick=()=>{
+  renderTopPages(false);
+  document.getElementById('pgAll').classList.add('on');
+  document.getElementById('pgOwn').classList.remove('on');
+};
+document.getElementById('pgOwn').onclick=()=>{
+  renderTopPages(true);
+  document.getElementById('pgOwn').classList.add('on');
+  document.getElementById('pgAll').classList.remove('on');
+};
+
+// BL BARS
+(function(){
+  const sorted2=[...domains].sort((a,b)=>b.refdomains-a.refdomains);
+  const mx=sorted2[0].refdomains;
+  document.getElementById('blbars').innerHTML=sorted2.map(d=>`
+    <div class="brow">
+      <span class="lab" style="${d.own?'color:var(--gold);font-weight:700':''}">${d.label}</span>
+      <div class="track"><div class="fill" style="width:${(d.refdomains/mx*100).toFixed(0)}%;background:${d.own?'linear-gradient(90deg,#c9a84c,var(--gold))':'linear-gradient(90deg,var(--acc-dim),var(--acc))'}"></div></div>
+      <span class="val num" style="${d.own?'color:var(--gold)':''}">${F(d.refdomains)}</span>
+    </div>`).join('');
+})();
+</script>
+</body>
 </html>

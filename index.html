@@ -7,8 +7,9 @@
   body { font-family: -apple-system, sans-serif; max-width: 600px; margin: 60px auto; padding: 0 20px; background: #f5f5f5; }
   h1 { color: #1a1a1a; }
   .card { background: white; border-radius: 8px; padding: 20px; margin: 12px 0; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,.1); }
-  .card a { text-decoration: none; color: #0070f3; font-weight: 500; }
-  .card span { color: #666; font-size: 14px; }
+  .card a { text-decoration: none; color: #0070f3; font-weight: 500; font-size: 16px; }
+  .card span.meta { color: #666; font-size: 13px; display: block; margin-top: 4px; }
+  .arrow { color: #ccc; font-size: 20px; }
   .updated { font-size: 12px; color: #999; margin-top: 40px; }
 </style>
 </head>
@@ -16,17 +17,17 @@
 <h1>SEO Dashboards</h1>
 <div class="card">
   <div>
-    <a href="/guzema/">Guzema.ua</a><br>
-    <span>Jewelry · Ukraine market</span>
+    <a href="/guzema/">Guzema.ua</a>
+    <span class="meta">Jewelry · Ukraine market</span>
   </div>
-  <span>→</span>
+  <span class="arrow">→</span>
 </div>
 <div class="card">
   <div>
-    <a href="/1xbet/">1xBet</a><br>
-    <span>Coming soon</span>
+    <a href="/ploom/">Ploom.ua</a>
+    <span class="meta">Tobacco · Ukraine market</span>
   </div>
-  <span>→</span>
+  <span class="arrow">→</span>
 </div>
 <p class="updated">Auto-updated weekly via Claude</p>
 </body>

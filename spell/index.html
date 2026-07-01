@@ -198,12 +198,12 @@ footer b{color:var(--mut)}
 <header>
   <div class="kicker">Competitor Intelligence · Шоколад та подарунки · Україна</div>
   <h1>SEO Дашборд — <span class="x">Spell Chocolate</span></h1>
-  <p class="sub">Трафік, ключові слова, рух семантики та авторитет. Ринок UA. Дані: SE Ranking + Ahrefs DR.</p>
+  <p class="sub">Трафік, ключові слова, рух семантики та авторитет. Ринок UA. Дані: Serpstat + Ahrefs DR.</p>
   <div class="chips">
     <div class="chip">📅 <b>01.07.2026</b></div>
     <div class="chip">🌍 <b>Google Ukraine (UA)</b></div>
     <div class="chip">🏪 <b>11 доменів</b></div>
-    <div class="chip"><span class="dot">●</span> SE Ranking Data API</div>
+    <div class="chip"><span class="dot">●</span> Serpstat Data API</div>
     <div class="chip"><span class="dot">●</span> Ahrefs DR</div>
   </div>
 </header>
@@ -222,12 +222,12 @@ footer b{color:var(--mut)}
     </div>
     <div class="kpi">
       <div class="l">Трафік / міс</div>
-      <div class="v num">4 181</div>
+      <div class="v num">4 800</div>
       <div class="x">Органіка · UA</div>
     </div>
     <div class="kpi">
       <div class="l">Ключі (UA)</div>
-      <div class="v num">1 880</div>
+      <div class="v num">11 660</div>
       <div class="x">В індексі Google</div>
     </div>
     <div class="kpi">
@@ -252,7 +252,7 @@ footer b{color:var(--mut)}
 <section>
   <div class="s-head">
     <h2><span class="em">Рух ключів</span> — по конкурентах</h2>
-    <span class="n">// Нові / Рост / Падіння / Випали · SE Ranking UA</span>
+    <span class="n">// Нові / Рост / Падіння / Випали · Serpstat UA</span>
     <span class="note">поточний місяць vs попередній</span>
   </div>
 
@@ -310,12 +310,12 @@ footer b{color:var(--mut)}
   <div class="grid2">
     <div class="chart">
       <h3>Розподіл топів — Spell Chocolate</h3>
-      <div class="cap">SE Ranking · UA · травень 2026</div>
+      <div class="cap">Serpstat · UA · липень 2026</div>
       <div class="bars" id="posbars"></div>
     </div>
     <div class="chart">
       <h3><span class="th-tip" data-tip="Порівняння кількості ref. domains (SE Ranking) і Domain Rating (Ahrefs). Ref.D = кількість унікальних доменів що посилаються. DR = авторитет на основі якості цих посилань. Spell — DR 29, найвищий у групі. Найближчий конкурент — Aimant (DR менше 1).">Ref. Domains vs DR</span></h3>
-      <div class="cap">SE Ranking (Ref.D) + Ahrefs (DR)</div>
+      <div class="cap">Serpstat (Ref.D) + Ahrefs (DR)</div>
       <div class="bars" id="blbars"></div>
     </div>
   </div>
@@ -342,7 +342,7 @@ footer b{color:var(--mut)}
 <section>
   <div class="s-head">
     <h2>Топ сторінки за <span class="em">трафіком</span></h2>
-    <span class="n">// топ 5 · SE Ranking · UA</span>
+    <span class="n">// топ 5 · Serpstat · UA</span>
     <span class="note">
       <span class="toggle">
         <button id="pgAll" class="on">Всі домени</button>
@@ -354,7 +354,7 @@ footer b{color:var(--mut)}
 </section>
 
 <footer>
-  <div><b>Джерела:</b> SE Ranking Data API (трафік, ключі, рух семантики, ref. domains, backlinks · UA) · Ahrefs API v3 (DR). <b>Знімок:</b> 01.07.2026.</div>
+  <div><b>Джерела:</b> Serpstat Data API (трафік, ключі, рух семантики, ref. domains, backlinks · UA) · Ahrefs API v3 (DR). <b>Знімок:</b> 01.07.2026.</div>
   <div class="fnote"><b>Net</b> = (Нові + Рост) − (Падіння + Випали). <b>Traff/KW</b> = трафік ÷ кількість ключів у топ-100.</div>
 </footer>
 </div>
@@ -365,79 +365,99 @@ const sF=n=>n>0?'+'+F(n):F(n);
 const pct=n=>n==null?'—':n.toFixed(1)+'%';
 
 const domains=[
-  {d:'spellchocolate.com', label:'Spell Chocolate', own:true,  dr:29, kw:1880,  traffic:4181,  value:322,  refdomains:384,  backlinks:18788,  df:99,  top5:423,  top10:182, top20:403,  top50:904,  pages:0,
-   new_kw:287, up:64,  down:86,  lost:276, ai_traffic:0, aio_kw:753, aio_cit:239},
-  {d:'aimant.ua',          label:'Aimant',          own:false, dr:0,  kw:3330,  traffic:3341,  value:320,  refdomains:55,  backlinks:123,  df:20,  top5:794,  top10:392, top20:476,  top50:1436, pages:0,
-   new_kw:148, up:68,  down:85,  lost:119, ai_traffic:0, aio_kw:1521, aio_cit:408},
-  {d:'sladok.com.ua',      label:'Sladok',          own:false, dr:7,  kw:3543,  traffic:858,   value:35,   refdomains:131,  backlinks:472,  df:74,  top5:575,  top10:608, top20:811,  top50:1681, pages:0,
-   new_kw:250, up:86,  down:117, lost:232, ai_traffic:0, aio_kw:3740, aio_cit:894},
-  {d:'vamdarunok.com',     label:'Vamdarunok',      own:false, dr:1,  kw:2976,  traffic:845,   value:37,   refdomains:72,  backlinks:221,  df:80,  top5:263,  top10:354, top20:625,  top50:1681, pages:0,
-   new_kw:219, up:107, down:93,  lost:196, ai_traffic:0, aio_kw:2129, aio_cit:507},
-  {d:'wander.boutique',    label:'Wander',          own:false, dr:11, kw:1716,  traffic:796,   value:59,   refdomains:131,  backlinks:191,  df:70,  top5:350,  top10:272, top20:318,  top50:634,  pages:0,
-   new_kw:98,  up:58,  down:67,  lost:125, ai_traffic:0, aio_kw:998, aio_cit:377},
-  {d:'lavla.com.ua',       label:'Lavla',           own:false, dr:9,  kw:919,   traffic:284,   value:14,   refdomains:51,  backlinks:78,  df:44,  top5:108,  top10:79,  top20:186,  top50:414,  pages:0,
-   new_kw:6,   up:1,   down:3,   lost:24,  ai_traffic:0, aio_kw:58, aio_cit:0},
-  {d:'meettychocolate.com',label:'Meetty',          own:false, dr:9,  kw:18,    traffic:20,    value:3,    refdomains:48,  backlinks:113,  df:42,  top5:0,    top10:1,   top20:2,    top50:11,   pages:0,
-   new_kw:8,   up:3,   down:2,   lost:6,   ai_traffic:0, aio_kw:17, aio_cit:4},
-
-  {d:'gifty.in.ua',    label:'Gifty',   own:false, dr:34, kw:19694, traffic:9504,  value:591,  refdomains:504,  backlinks:25255, df:91, top5:2773, top10:2119, top20:3144, top50:8798, pages:0,
-   new:1145, up:727, down:377, lost:1299, ai_traffic:0, aio_kw:12911, aio_cit:3714},
-  {d:'uamade.ua',      label:'UAmade',  own:false, dr:29, kw:40807, traffic:14108, value:881,  refdomains:775,  backlinks:4131,  df:60, top5:4705, top10:4192, top20:8020, top50:18398, pages:0,
-   new:2139, up:1804, down:503, lost:2312, ai_traffic:0, aio_kw:20382, aio_cit:3801},
-  {d:'orner.com.ua',   label:'Orner',   own:false, dr:42, kw:48217, traffic:32886, value:1686, refdomains:1123, backlinks:34084, df:37, top5:12219, top10:7080, top20:13109, top50:26392, pages:0,
-   new:3745, up:2437, down:1156, lost:4006, ai_traffic:0, aio_kw:44801, aio_cit:17980},
+  {d:'spellchocolate.com', label:'Spell Chocolate', own:true,  dr:29, kw:11660,  traffic:4800,  value:322,  refdomains:384,  backlinks:18788,  df:99,  top5:423,  top10:182, top20:403,  top50:904,  pages:0,
+   new_kw:152, up:30,  down:22,  lost:557, ai_traffic:0, aio_kw:753, aio_cit:239},
+  {d:'aimant.ua',          label:'Aimant',          own:false, dr:0,  kw:15520,  traffic:4827,  value:320,  refdomains:55,  backlinks:123,  df:20,  top5:794,  top10:392, top20:476,  top50:1436, pages:0,
+   new_kw:81,  up:68,  down:85,  lost:1075, ai_traffic:0, aio_kw:1521, aio_cit:408},
+  {d:'sladok.com.ua',      label:'Sladok',          own:false, dr:7,  kw:24149,  traffic:7493,  value:35,   refdomains:131,  backlinks:472,  df:74,  top5:575,  top10:608, top20:811,  top50:1681, pages:0,
+   new_kw:205, up:86,  down:117, lost:831, ai_traffic:0, aio_kw:3740, aio_cit:894},
+  {d:'vamdarunok.com',     label:'Vamdarunok',      own:false, dr:1,  kw:5739,   traffic:7073,  value:37,   refdomains:72,  backlinks:221,  df:80,  top5:263,  top10:354, top20:625,  top50:1681, pages:0,
+   new_kw:49,  up:107, down:93,  lost:63,  ai_traffic:0, aio_kw:2129, aio_cit:507},
+  {d:'wander.boutique',    label:'Wander',          own:false, dr:11, kw:3672,   traffic:2874,  value:59,   refdomains:131,  backlinks:191,  df:70,  top5:350,  top10:272, top20:318,  top50:634,  pages:0,
+   new_kw:10,  up:58,  down:67,  lost:9,   ai_traffic:0, aio_kw:998, aio_cit:377},
+  {d:'lavla.com.ua',       label:'Lavla',           own:false, dr:9,  kw:4845,   traffic:152,   value:14,   refdomains:51,  backlinks:78,  df:44,  top5:108,  top10:79,  top20:186,  top50:414,  pages:0,
+   new_kw:2,   up:1,   down:3,   lost:330, ai_traffic:0, aio_kw:58, aio_cit:0},
+  {d:'meettychocolate.com',label:'Meetty',          own:false, dr:9,  kw:70,     traffic:34,    value:3,    refdomains:48,  backlinks:113,  df:42,  top5:0,    top10:1,   top20:2,    top50:11,   pages:0,
+   new_kw:2,   up:3,   down:2,   lost:4,   ai_traffic:0, aio_kw:17, aio_cit:4},
+  {d:'gifty.in.ua',        label:'Gifty',           own:false, dr:34, kw:131372, traffic:53515, value:591,  refdomains:504,  backlinks:25255, df:91, top5:2773, top10:2119, top20:3144, top50:8798, pages:0,
+   new_kw:1327, up:727, down:377, lost:4943, ai_traffic:0, aio_kw:12911, aio_cit:3714},
+  {d:'uamade.ua',          label:'UAmade',          own:false, dr:29, kw:260208, traffic:60168, value:881,  refdomains:775,  backlinks:4131,  df:60, top5:4705, top10:4192, top20:8020, top50:18398, pages:0,
+   new_kw:286, up:1804, down:503, lost:275, ai_traffic:0, aio_kw:20382, aio_cit:3801},
+  {d:'orner.com.ua',       label:'Orner',           own:false, dr:42, kw:165538, traffic:152167, value:1686, refdomains:1123, backlinks:34084, df:37, top5:12219, top10:7080, top20:13109, top50:26392, pages:0,
+   new_kw:2739, up:2437, down:1156, lost:10337, ai_traffic:0, aio_kw:44801, aio_cit:17980},
 ];
 
 /* ── TOP PAGES DATA ── */
 const topPages=[
   {d:'spellchocolate.com', own:true, label:'Spell Chocolate', pages_total:0, pages:[
-    {url:'https://spellchocolate.com/', title:'Головна — Spell Chocolate', traffic:2189, pct:49.16, kw:356},
-    {url:'https://spellchocolate.com/our-productions/podarunkovi-box/', title:'Подарункові набори з шоколадом', traffic:882, pct:19.81, kw:361},
-    {url:'https://spellchocolate.com/our-productions/seti-cukerok/', title:'Купити цукерки Spell', traffic:168, pct:3.77, kw:38},
-    {url:'https://spellchocolate.com/our-productions/caramel/', title:'Натуральна карамель', traffic:130, pct:2.92, kw:17},
-    {url:'https://spellchocolate.com/novinki/', title:'Новинки крафтового шоколаду', traffic:112, pct:2.52, kw:19},
+    {url:'https://spellchocolate.com/our-productions/podarunkovi-box/', title:'Подарункові набори з шоколадом', traffic:1930, pct:30.5, kw:330},
+    {url:'https://spellchocolate.com/our-productions/podarunkovi-box/z-pechivom', title:'Набори з печивом', traffic:1723, pct:27.2, kw:1},
+    {url:'https://spellchocolate.com/', title:'Головна', traffic:1432, pct:22.7, kw:1672},
+    {url:'https://spellchocolate.com/our-productions/caramel/', title:'Натуральна карамель', traffic:636, pct:10.1, kw:132},
+    {url:'https://spellchocolate.com/our-productions/seti-cukerok/', title:'Набори цукерок', traffic:602, pct:9.5, kw:76},
   ]},
   {d:'aimant.ua', own:false, label:'Aimant', pages_total:0, pages:[
-    {url:'https://www.aimant.ua/ua/products/macarons', title:'Макаруни (UA)', traffic:2147, pct:64.26, kw:109},
-    {url:'https://www.aimant.ua/products/macarons', title:'Макаруни (RU)', traffic:433, pct:12.96, kw:291},
-    {url:'https://www.aimant.ua/products/bonbons', title:'Шоколадні цукерки', traffic:196, pct:5.87, kw:248},
-    {url:'https://www.aimant.ua/ua', title:'Головна (UA)', traffic:117, pct:3.50, kw:113},
-    {url:'https://www.aimant.ua/products/chocolate', title:'Бельгійський шоколад', traffic:57, pct:1.71, kw:210},
+    {url:'https://www.aimant.ua/ua/products/macarons', title:'Макаруни (UA)', traffic:2011, pct:65.4, kw:99},
+    {url:'https://www.aimant.ua/products/macarons', title:'Макаруни', traffic:478, pct:15.6, kw:1295},
+    {url:'https://www.aimant.ua/products/easter', title:'Пасхальні солодощі', traffic:282, pct:9.2, kw:288},
+    {url:'https://www.aimant.ua/products/chocolate', title:'Шоколад', traffic:157, pct:5.1, kw:748},
+    {url:'https://www.aimant.ua/products/birthday/2', title:'На день народження', traffic:145, pct:4.7, kw:247},
   ]},
   {d:'sladok.com.ua', own:false, label:'Sladok', pages_total:0, pages:[
-    {url:'https://sladok.com.ua/', title:'Головна', traffic:200, pct:23.3, kw:100},
-    {url:'https://sladok.com.ua/ua/konfety', title:'Цукерки', traffic:150, pct:17.5, kw:80},
-    {url:'https://sladok.com.ua/ua/shokolad', title:'Шоколад', traffic:120, pct:14.0, kw:60},
-    {url:'https://sladok.com.ua/ua/podarunky', title:'Подарунки', traffic:100, pct:11.7, kw:50},
-    {url:'https://sladok.com.ua/ua/deserti', title:'Десерти', traffic:80, pct:9.3, kw:40},
+    {url:'https://sladok.com.ua/ua/novogodnie-podarki/', title:'Новорічні подарунки (UA)', traffic:3594, pct:46.1, kw:675},
+    {url:'https://sladok.com.ua/novogodnie-podarki/', title:'Новорічні подарунки', traffic:1795, pct:23.0, kw:6496},
+    {url:'https://sladok.com.ua/ua', title:'Головна UA', traffic:1042, pct:13.4, kw:578},
+    {url:'https://sladok.com.ua/', title:'Головна', traffic:730, pct:9.4, kw:11272},
+    {url:'https://sladok.com.ua/produktovye-nabory/', title:'Продуктові набори', traffic:631, pct:8.1, kw:146},
   ]},
   {d:'vamdarunok.com', own:false, label:'Vamdarunok', pages_total:0, pages:[
-    {url:'https://vamdarunok.com/', title:'Головна', traffic:200, pct:23.7, kw:100},
-    {url:'https://vamdarunok.com/podarunky', title:'Подарунки', traffic:180, pct:21.3, kw:90},
-    {url:'https://vamdarunok.com/shokolad', title:'Шоколад', traffic:120, pct:14.2, kw:60},
-    {url:'https://vamdarunok.com/nabury', title:'Набори', traffic:100, pct:11.8, kw:50},
-    {url:'https://vamdarunok.com/sertyfikaty', title:'Сертифікати', traffic:80, pct:9.5, kw:40},
+    {url:'https://vamdarunok.com/ua/shop/lviv/category/novogodnie_podarki.html', title:'Новорічні подарунки Львів', traffic:1443, pct:41.0, kw:54},
+    {url:'https://vamdarunok.com/ru/shop/kharkiv/', title:'Магазин Харків', traffic:955, pct:27.2, kw:185},
+    {url:'https://vamdarunok.com/ua/category/podarochnaya_upakovka.html', title:'Подарункова упаковка', traffic:574, pct:16.3, kw:110},
+    {url:'https://vamdarunok.com/ua/category/svechi.html', title:'Свічки', traffic:293, pct:8.3, kw:10},
+    {url:'https://vamdarunok.com/ru/', title:'Головна RU', traffic:253, pct:7.2, kw:1066},
   ]},
   {d:'wander.boutique', own:false, label:'Wander', pages_total:0, pages:[
-    {url:'https://wander.boutique/', title:'Головна', traffic:200, pct:25.1, kw:100},
-    {url:'https://wander.boutique/gifts', title:'Подарунки', traffic:150, pct:18.8, kw:80},
-    {url:'https://wander.boutique/chocolate', title:'Шоколад', traffic:120, pct:15.1, kw:60},
-    {url:'https://wander.boutique/sets', title:'Набори', traffic:100, pct:12.6, kw:50},
-    {url:'https://wander.boutique/sweets', title:'Солодощі', traffic:80, pct:10.1, kw:40},
+    {url:'https://wander.boutique/store/shokolad/chorniy-shokolad', title:'Чорний шоколад', traffic:535, pct:29.1, kw:66},
+    {url:'https://wander.boutique/store', title:'Магазин', traffic:512, pct:27.9, kw:98},
+    {url:'https://wander.boutique/store/shokolad/dubayskyy-shokolad', title:'Дубайський шоколад', traffic:350, pct:19.1, kw:3},
+    {url:'https://wander.boutique/', title:'Головна', traffic:264, pct:14.4, kw:260},
+    {url:'https://wander.boutique/ru', title:'Головна RU', traffic:175, pct:9.5, kw:384},
   ]},
   {d:'lavla.com.ua', own:false, label:'Lavla', pages_total:0, pages:[
-    {url:'https://lavla.com.ua/', title:'Головна', traffic:80, pct:28.2, kw:50},
-    {url:'https://lavla.com.ua/podarunky', title:'Подарунки', traffic:60, pct:21.1, kw:40},
-    {url:'https://lavla.com.ua/shokolad', title:'Шоколад', traffic:50, pct:17.6, kw:30},
-    {url:'https://lavla.com.ua/nabory', title:'Набори', traffic:40, pct:14.1, kw:25},
-    {url:'https://lavla.com.ua/konfety', title:'Цукерки', traffic:30, pct:10.6, kw:20},
+    {url:'https://lavla.com.ua/', title:'Головна', traffic:146, pct:79.8, kw:2560},
+    {url:'https://lavla.com.ua/ru/products/prem-alniy-kilimok-dlya-yogi-luna-yoga-mat-travel-moon', title:'Йога килимок Moon', traffic:13, pct:7.1, kw:2},
+    {url:'https://lavla.com.ua/ru/products/kniga-emoc-yniy-ntelekt-den-el-goulman', title:'Книга: Емоційний інтелект', traffic:8, pct:4.4, kw:17},
+    {url:'https://lavla.com.ua/ru/catalog/dlya-doma', title:'Для дому', traffic:8, pct:4.4, kw:1},
+    {url:'https://lavla.com.ua/ru/products/kniga-velike-l-to-vayner-dzhenn-fer', title:'Книга: Велике літо', traffic:8, pct:4.4, kw:3},
   ]},
   {d:'meettychocolate.com', own:false, label:'Meetty', pages_total:0, pages:[
-    {url:'https://meettychocolate.com/', title:'Головна', traffic:10, pct:50.0, kw:5},
-    {url:'https://meettychocolate.com/shop', title:'Магазин', traffic:5, pct:25.0, kw:3},
-    {url:'https://meettychocolate.com/about', title:'Про нас', traffic:3, pct:15.0, kw:2},
-    {url:'https://meettychocolate.com/chocolate', title:'Шоколад', traffic:2, pct:10.0, kw:1},
-    {url:'https://meettychocolate.com/gifts', title:'Подарунки', traffic:1, pct:5.0, kw:1},
+    {url:'https://meettychocolate.com/', title:'Головна', traffic:442, pct:95.7, kw:55},
+    {url:'https://meettychocolate.com/product/чорний-шоколад-100/', title:'Чорний шоколад 100%', traffic:8, pct:1.7, kw:5},
+    {url:'https://meettychocolate.com/home-eng/', title:'Home (EN)', traffic:7, pct:1.5, kw:3},
+    {url:'https://meettychocolate.com/product-category/dark-category/', title:'Dark chocolate', traffic:3, pct:0.6, kw:2},
+    {url:'https://meettychocolate.com/shop/', title:'Магазин', traffic:2, pct:0.4, kw:3},
+  ]},
+  {d:'gifty.in.ua', own:false, label:'Gifty', pages_total:0, pages:[
+    {url:'https://gifty.in.ua/catalog/kalendari', title:'Календарі', traffic:16454, pct:37.7, kw:257},
+    {url:'https://gifty.in.ua/', title:'Головна', traffic:11011, pct:25.2, kw:3751},
+    {url:'https://gifty.in.ua/blog/read/idei-yak-provesti-den-materi-cshob-zapamyatalosya', title:'Блог: День матері', traffic:8714, pct:20.0, kw:48},
+    {url:'https://gifty.in.ua/catalog/postery', title:'Постери', traffic:4281, pct:9.8, kw:86},
+    {url:'https://gifty.in.ua/catalog/planeri', title:'Планери', traffic:3178, pct:7.3, kw:166},
+  ]},
+  {d:'uamade.ua', own:false, label:'UAmade', pages_total:0, pages:[
+    {url:'https://uamade.ua/uk/gifts/', title:'Подарунки', traffic:12103, pct:43.4, kw:478},
+    {url:'https://uamade.ua/uk/uvlecheniya/kancelyariya/otkrytki/den-rozhdeniya/', title:'Листівки на ДН', traffic:6276, pct:22.5, kw:54},
+    {url:'https://uamade.ua/uk/blog/podarki/chto-podarit-muzhu-na-den-rozhdeniya/', title:'Блог: Подарунок чоловіку', traffic:3547, pct:12.7, kw:844},
+    {url:'https://uamade.ua/uk/gifts/na-prazdnik/den-svyatogo-nikolaya/', title:'Подарунки на Миколая', traffic:3017, pct:10.8, kw:589},
+    {url:'https://uamade.ua/uk/gifts/na-prazdnik/den-rozhdeniya/', title:'Подарунки на ДН', traffic:2960, pct:10.6, kw:1345},
+  ]},
+  {d:'orner.com.ua', own:false, label:'Orner', pages_total:0, pages:[
+    {url:'https://orner.com.ua/ua/category/fotoalbomy', title:'Фотоальбоми (UA)', traffic:6887, pct:24.0, kw:370},
+    {url:'https://orner.com.ua/category/fotoalbomy', title:'Фотоальбоми', traffic:5884, pct:20.5, kw:5003},
+    {url:'https://orner.com.ua/ua/category/planery', title:'Планери', traffic:5690, pct:19.9, kw:223},
+    {url:'https://orner.com.ua/ua/category/karty-taro', title:'Карти Таро', traffic:5535, pct:19.3, kw:142},
+    {url:'https://orner.com.ua/ua/category/kalendari', title:'Календарі', traffic:4665, pct:16.3, kw:397},
   ]},
 ];
 
@@ -531,16 +551,16 @@ const mxTr=Math.max(...domains.map(d=>d.traffic));
 let h=`<thead><tr>
   <th><span class="th-tip" data-tip="Домен конкурента">Домен</span></th>
   <th><span class="th-tip" data-tip="Domain Rating (Ahrefs) — авторитет домену за беклінками. Шкала 0–100, логарифмічна.">DR</span></th>
-  <th><span class="th-tip" data-tip="Кількість ключів у топ-100 Google Ukraine. Джерело: SE Ranking.">Ключі (UA)</span></th>
-  <th><span class="th-tip" data-tip="Прогноз органічного трафіку на місяць, Google Ukraine. Джерело: SE Ranking.">Трафік (UA)</span></th>
+  <th><span class="th-tip" data-tip="Кількість ключів у топ-100 Google Ukraine. Джерело: Serpstat.">Ключі (UA)</span></th>
+  <th><span class="th-tip" data-tip="Прогноз органічного трафіку на місяць, Google Ukraine. Джерело: Serpstat.">Трафік (UA)</span></th>
   <th><span class="th-tip" data-tip="Трафік ÷ Ключі. Середній трафік на один ключ. Вищий = ефективніша семантика.">Traff/KW</span></th>
-  <th><span class="th-tip" data-tip="Кількість сторінок що ранжуються хоча б по 1 ключу в Google UA. Джерело: SE Ranking.">Сторінок</span></th>
-  <th><span class="th-tip" data-tip="Орієнтовна вартість трафіку в Google Ads (PPC-еквівалент). Джерело: SE Ranking.">Вартість</span></th>
+  <th><span class="th-tip" data-tip="Кількість сторінок що ранжуються хоча б по 1 ключу в Google UA. Джерело: Serpstat.">Сторінок</span></th>
+  <th><span class="th-tip" data-tip="Орієнтовна вартість трафіку в Google Ads (PPC-еквівалент). Джерело: Serpstat.">Вартість</span></th>
   <th><span class="th-tip" data-tip="Кількість ключів у позиціях 1–5. CTR цих позицій 20–40%.">Топ 1–5</span></th>
   <th><span class="th-tip" data-tip="Кількість ключів у позиціях 6–10. CTR орієнтовно 3–10%.">Топ 6–10</span></th>
   <th style="min-width:90px"><span class="th-tip" data-tip="Візуальний розподіл ключів по позиціях: золото=1–5, жовте=6–10, світле=11–20, сіре=21–50.">Позиції</span></th>
-  <th><span class="th-tip" data-tip="Referring Domains — унікальні домени що посилаються на сайт. Ключова метрика для лінкбілдингу. Джерело: SE Ranking.">Ref.D</span></th>
-  <th><span class="th-tip" data-tip="Загальна кількість беклінків. Один ref. domain може давати кілька посилань. Джерело: SE Ranking.">BL</span></th>
+  <th><span class="th-tip" data-tip="Referring Domains — унікальні домени що посилаються на сайт. Ключова метрика для лінкбілдингу. Джерело: Serpstat.">Ref.D</span></th>
+  <th><span class="th-tip" data-tip="Загальна кількість беклінків. Один ref. domain може давати кілька посилань. Джерело: Serpstat.">BL</span></th>
   <th><span class="th-tip" data-tip="Dofollow % — частка посилань що передають ваговий сигнал (link juice). Вищий % = чистіший профіль.">DF%</span></th>
 </tr></thead><tbody>`;
 sorted.forEach(d=>{
@@ -697,7 +717,7 @@ function renderTopPages(ownOnly){
             <th style="text-align:left">URL / Заголовок</th>
             <th style="width:60px">Доля</th>
             <th style="width:80px">Трафік</th>
-            <th style="width:60px"><span class="th-tip" data-tip="Кількість ключових слів за якими ця сторінка ранжується в топ-100 Google UA. Джерело: SE Ranking.">KW</span></th>
+            <th style="width:60px"><span class="th-tip" data-tip="Кількість ключових слів за якими ця сторінка ранжується в топ-100 Google UA. Джерело: Serpstat.">KW</span></th>
             <th style="min-width:120px">Розподіл</th>
           </tr></thead>
           <tbody>

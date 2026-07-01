@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO Дашборд — Spell Chocolate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff;--bg2:#eef2f7;--panel:#ffffff;--panel2:#ffffff;
+  --line:#e3e8f0;--line2:#d2d9e6;
+  --tx:#0e1c34;--mut:#5b6c88;--mut2:#90a0ba;
+  --acc:#1c7ed6;--acc-dim:#5aa0e8;
+  --pos:#15a04a;--pos-d:#b7e6c8;
+  --neg:#e23b48;--neg-d:#f4c4ca;
+  --blue:#5b9bd5;
+  --own:#e9f6ef;--own-line:#15a04a;
+  --gold:#a87c1a;--gold-dim:#fff8e8;--gold-line:#f0d080;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:
+    radial-gradient(1100px 560px at 88% -8%,rgba(168,124,26,.07),transparent 60%),
+    radial-gradient(820px 460px at -5% 108%,rgba(21,160,74,.05),transparent 55%),
+    #ffffff;
+  color:var(--tx);
+  font-family:"Roboto",system-ui,sans-serif;
+  font-size:14px;line-height:1.5;letter-spacing:.1px;
+  padding:28px 22px 60px;
+}
+.wrap{max-width:1180px;margin:0 auto}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+
+/* HEADER */
+header{margin-bottom:24px;animation:fade .6s ease both}
+.kicker{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+h1{font-weight:900;font-size:clamp(26px,4.5vw,42px);line-height:1.02;letter-spacing:-.5px}
+h1 .x{color:var(--gold)}
+.sub{color:var(--mut);margin-top:8px;max-width:64ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font-size:12px;color:var(--mut);border:1px solid var(--line);background:var(--panel);padding:5px 11px;border-radius:999px;white-space:nowrap;box-shadow:0 1px 2px rgba(13,27,51,.04)}
+.chip b{color:var(--tx);font-weight:600}
+.chip .dot{color:var(--gold)}
+
+/* SECTIONS */
+section{margin-top:32px;animation:fade .6s ease both}
+.s-head{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.s-head h2{font-size:15px;font-weight:700;letter-spacing:.2px}
+.s-head h2 .em{color:var(--gold)}
+.s-head .n{font-size:11px;color:var(--mut2)}
+.s-head .note{margin-left:auto;font-size:12px;color:var(--mut2)}
+
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.kpi{
+  background:#fff;border:1px solid var(--line);border-radius:13px;
+  padding:14px 15px;position:relative;overflow:hidden;
+  box-shadow:0 1px 2px rgba(13,27,51,.06),0 8px 20px rgba(13,27,51,.05);
+}
+.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold);opacity:.7}
+.kpi.blue::before{background:var(--acc)}
+.kpi .l{font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.6px}
+.kpi .v{font-size:25px;font-weight:700;margin-top:7px;letter-spacing:-.5px}
+.kpi .x{font-size:12px;color:var(--mut2);margin-top:3px}
+
+/* INSIGHTS */
+.insight{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.ins{flex:1;min-width:240px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--panel);display:flex;gap:11px;align-items:flex-start}
+.ins .ic{font-size:18px;line-height:1}
+.ins.warn{border-left:2px solid var(--neg)}
+.ins.good{border-left:2px solid var(--pos)}
+.ins.info{border-left:2px solid var(--gold)}
+.ins .t{font-size:13px;color:var(--mut)}
+.ins .t b{color:var(--tx);font-weight:600}
+.ins.warn .t b{color:var(--neg)}
+.ins.good .t b{color:var(--pos)}
+.ins.info .t b{color:var(--gold)}
+
+/* MOVEMENT CARDS */
+.mvgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:11px}
+.mvc{
+  background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 16px;
+  box-shadow:0 1px 2px rgba(13,27,51,.06),0 8px 20px rgba(13,27,51,.05);
+}
+.mvc .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.mvc .dom-label{font-weight:700;font-size:13px;color:var(--tx)}
+.mvc .dr-badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--bg2);color:var(--mut);border:1px solid var(--line)}
+.mvc .net{font-size:12px;font-weight:700;padding:3px 9px;border-radius:7px;white-space:nowrap}
+.net.up{color:var(--pos);background:rgba(21,160,74,.12);border:1px solid var(--pos-d)}
+.net.dn{color:var(--neg);background:rgba(226,59,72,.10);border:1px solid var(--neg-d)}
+.net.fl{color:var(--mut);background:var(--bg2);border:1px solid var(--line)}
+.mvc .all{font-size:28px;font-weight:700;letter-spacing:-1px;line-height:1}
+.mvc .all small{font-size:11px;color:var(--mut);font-weight:500;letter-spacing:.4px;display:block;margin-bottom:3px}
+.mvc .split{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:14px}
+.mvb{display:flex;flex-direction:column;gap:3px;padding:8px 9px;border-radius:9px;background:var(--bg2)}
+.mvb .lab{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--mut)}
+.mvb .v{font-size:17px;font-weight:700}
+.mvb.g .v{color:var(--pos)}
+.mvb.r .v{color:var(--neg)}
+.mini{display:flex;height:5px;border-radius:3px;overflow:hidden;margin-top:12px;background:var(--bg2)}
+.mini i{height:100%}
+
+/* MAIN TABLE */
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:6px 8px;box-shadow:0 1px 2px rgba(13,27,51,.05),0 8px 20px rgba(13,27,51,.04)}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th,.tbl td{padding:11px 12px;text-align:right;border-bottom:1px solid var(--line)}
+.tbl th{font-size:11px;font-weight:600;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--line2);white-space:nowrap}
+.tbl td:first-child,.tbl th:first-child{text-align:left}
+.tbl tbody tr{transition:background .15s}
+.tbl tbody tr:hover{background:var(--bg2)}
+.tbl tr.own td{background:var(--own)}
+.tbl tr.own td:first-child{box-shadow:inset 2px 0 0 var(--gold)}
+.dom{display:flex;align-items:center;gap:9px}
+.dom .b{font-weight:600}
+.dom .u{font-size:11px;color:var(--mut2)}
+.tag{font-size:10px;color:var(--gold);border:1px solid var(--gold-line);border-radius:5px;padding:1px 6px;letter-spacing:.5px;background:var(--gold-dim)}
+.bar-inline{display:inline-block;height:7px;border-radius:4px;background:var(--gold);opacity:.6;vertical-align:middle;margin-left:9px}
+
+/* DR pill */
+.dr{display:inline-flex;align-items:center;justify-content:center;width:32px;height:22px;border-radius:6px;font-size:11px;font-weight:700;border:1px solid var(--line);color:var(--mut);background:var(--bg2)}
+.dr.hi{background:rgba(28,126,214,.1);color:var(--acc);border-color:rgba(28,126,214,.25)}
+.dr.mid{background:rgba(21,160,74,.1);color:var(--pos);border-color:rgba(21,160,74,.25)}
+.dr.lo{background:var(--bg2);color:var(--mut);border-color:var(--line)}
+.dr.own{background:var(--gold-dim);color:var(--gold);border-color:var(--gold-line)}
+
+/* POSITION BARS */
+.pos-bars{display:flex;height:7px;border-radius:4px;overflow:hidden;gap:1px;min-width:90px}
+.p1{background:var(--gold)}.p2{background:#c9a84c}.p3{background:#e0cfa0}.p4{background:var(--bg2)}
+
+/* TOGGLE */
+.toggle{display:inline-flex;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:3px;gap:2px}
+.toggle button{font-family:inherit;font-size:12px;color:var(--mut);background:none;border:0;padding:5px 12px;border-radius:6px;cursor:pointer;transition:.15s}
+.toggle button.on{background:var(--gold);color:#ffffff;font-weight:600}
+
+/* HEATMAP */
+.hm{width:100%;border-collapse:separate;border-spacing:4px;font-size:12px}
+.hm th{font-size:11px;color:var(--mut);font-weight:600;padding:4px 6px;text-align:center;white-space:nowrap}
+.hm th.geo{text-align:left}
+.hm .geo{text-align:left;color:var(--tx);font-weight:500;white-space:nowrap;padding-right:8px}
+.hm td{text-align:center;padding:0}
+.cell{border-radius:8px;padding:10px 6px;font-weight:500;border:1px solid #eef1f6;position:relative}
+.cell.lead{box-shadow:0 0 0 1px var(--gold) inset}
+.cell.lead::after{content:"★";position:absolute;top:2px;right:4px;font-size:8px;color:var(--gold)}
+.leg{display:flex;gap:14px;align-items:center;margin-top:10px;font-size:11px;color:var(--mut2);flex-wrap:wrap}
+.leg .sw{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:middle;margin-right:5px}
+
+/* CHARTS */
+.grid2{display:grid;grid-template-columns:1.6fr 1fr;gap:14px}
+@media(max-width:820px){.grid2{grid-template-columns:1fr}}
+.chart{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 1px 2px rgba(13,27,51,.06),0 8px 20px rgba(13,27,51,.05)}
+.chart h3{font-size:12px;font-weight:700;color:var(--mut);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.chart .cap{font-size:11px;color:var(--mut2);margin-bottom:12px}
+.bars{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+.brow{display:grid;grid-template-columns:72px 1fr 52px;align-items:center;gap:9px;font-size:12px}
+.brow .lab{color:var(--mut)}
+.brow .track{height:18px;background:var(--bg2);border-radius:5px;overflow:hidden}
+.brow .fill{height:100%;border-radius:5px;background:linear-gradient(90deg,#a0522d,var(--gold))}
+.brow .val{text-align:right;color:var(--tx);font-weight:600}
+
+/* FOOTER */
+footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--mut2)}
+footer b{color:var(--mut)}
+.fnote{margin-top:6px}
+
+/* TOOLTIPS */
+.th-tip{position:relative;cursor:help;border-bottom:1px dashed var(--mut2);padding-bottom:1px}
+.th-tip::after{
+  content:attr(data-tip);
+  position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:#1a2540;color:#e8edf5;
+  font-size:11px;font-weight:400;line-height:1.5;letter-spacing:.1px;
+  padding:7px 11px;border-radius:7px;
+  white-space:nowrap;max-width:240px;white-space:normal;width:max-content;max-width:220px;
+  box-shadow:0 4px 16px rgba(0,0,0,.18);
+  opacity:0;pointer-events:none;
+  transition:opacity .15s ease,transform .15s ease;
+  transform:translateX(-50%) translateY(4px);
+  z-index:999;
+}
+.th-tip:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
+/* arrow */
+.th-tip::before{
+  content:'';position:absolute;bottom:calc(100% + 3px);left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-top-color:#1a2540;
+  opacity:0;pointer-events:none;transition:opacity .15s ease;z-index:999;
+}
+.th-tip:hover::before{opacity:1}
+
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">Competitor Intelligence · Шоколад та подарунки · Україна</div>
+  <h1>SEO Дашборд — <span class="x">Spell Chocolate</span></h1>
+  <p class="sub">Трафік, ключові слова, рух семантики та авторитет. Ринок UA. Дані: SE Ranking + Ahrefs DR.</p>
+  <div class="chips">
+    <div class="chip">📅 <b>01.07.2026</b></div>
+    <div class="chip">🌍 <b>Google Ukraine (UA)</b></div>
+    <div class="chip">🏪 <b>11 доменів</b></div>
+    <div class="chip"><span class="dot">●</span> SE Ranking Data API</div>
+    <div class="chip"><span class="dot">●</span> Ahrefs DR</div>
+  </div>
+</header>
+
+<!-- KPIs -->
+<section>
+  <div class="s-head">
+    <h2>Guzema.ua — ключові показники</h2>
+    <span class="n">// UA · травень 2026</span>
+  </div>
+  <div class="kpis">
+    <div class="kpi blue">
+      <div class="l">DR · Ahrefs</div>
+      <div class="v num">30</div>
+      <div class="x">Rank #3 954 360</div>
+    </div>
+    <div class="kpi">
+      <div class="l">Трафік / міс</div>
+      <div class="v num">8 158</div>
+      <div class="x">Органіка · UA</div>
+    </div>
+    <div class="kpi">
+      <div class="l">Ключі (UA)</div>
+      <div class="v num">3 275</div>
+      <div class="x">В індексі Google</div>
+    </div>
+    <div class="kpi">
+      <div class="l">Топ 1–5</div>
+      <div class="v num">374</div>
+      <div class="x">11.4% від KW</div>
+    </div>
+    <div class="kpi">
+      <div class="l">Вартість трафіку</div>
+      <div class="v num">$495</div>
+      <div class="x">/ місяць · UA</div>
+    </div>
+    <div class="kpi">
+      <div class="l">Ref. Domains</div>
+      <div class="v num">277</div>
+      <div class="x">Dofollow 89%</div>
+    </div>
+  </div>
+</section>
+
+<!-- MOVEMENT CARDS -->
+<section>
+  <div class="s-head">
+    <h2><span class="em">Рух ключів</span> — по конкурентах</h2>
+    <span class="n">// Нові / Рост / Падіння / Випали · SE Ranking UA</span>
+    <span class="note">поточний місяць vs попередній</span>
+  </div>
+
+  <div class="insight">
+    <div class="ins good">
+      <span class="ic">▲</span>
+      <div class="t"><b>Guzema: нетто +1 396 (+42.6%)</b> — найкращий відносний приріст серед усіх 8 доменів. +1 703 нових ключів при втраті лише 235.</div>
+    </div>
+    <div class="ins warn">
+      <span class="ic">⚠</span>
+      <div class="t"><b>ukrzoloto: втрачено 8 093 ключів</b> — найбільший абсолютний відтік. Але нетто +4 489 через масштаб: 14K нових компенсують втрати.</div>
+    </div>
+    <div class="ins info">
+      <span class="ic">💡</span>
+      <div class="t"><b>Traff/KW 2.49 — найвища ефективність</b> — Guzema вичавлює більше трафіку з кожного ключа ніж ukrzoloto (2.36). Проблема — кількість, не якість.</div>
+    </div>
+  </div>
+
+  <div class="mvgrid" id="mvgrid"></div>
+</section>
+
+<!-- HEATMAP -->
+<section>
+  <div class="s-head">
+    <h2>Порівняння конкурентів</h2>
+    <span class="n">// 11 доменів × метрика</span>
+    <span class="note" style="display:flex;gap:10px;align-items:center">
+      <span class="toggle">
+        <button id="mT" class="on">Трафік</button>
+        <button id="mK">Ключі</button>
+        <button id="mN">Net %</button>
+      </span>
+    </span>
+  </div>
+  <div style="overflow-x:auto">
+    <table class="hm" id="hm"></table>
+  </div>
+  <div class="leg" id="leg"></div>
+</section>
+
+<!-- MAIN TABLE -->
+<section>
+  <div class="s-head">
+    <h2>Повна таблиця</h2>
+    <span class="n">// сорт. за трафіком · рядок Guzema підсвічено</span>
+  </div>
+  <div class="panel">
+    <table class="tbl" id="cmp"></table>
+  </div>
+</section>
+
+<!-- POSITION BUCKETS + BACKLINKS -->
+<section>
+  <div class="s-head"><h2>Розподіл позицій та <span class="em">беклінки</span></h2></div>
+  <div class="grid2">
+    <div class="chart">
+      <h3>Розподіл топів — Guzema.ua</h3>
+      <div class="cap">SE Ranking · UA · травень 2026</div>
+      <div class="bars" id="posbars"></div>
+    </div>
+    <div class="chart">
+      <h3><span class="th-tip" data-tip="Порівняння кількості ref. domains (SE Ranking) і Domain Rating (Ahrefs). Ref.D = кількість унікальних доменів що посилаються. DR = авторитет на основі якості цих посилань. Spell — DR 29, найвищий у групі. Найближчий конкурент — Aimant (DR менше 1).">Ref. Domains vs DR</span></h3>
+      <div class="cap">SE Ranking (Ref.D) + Ahrefs (DR)</div>
+      <div class="bars" id="blbars"></div>
+    </div>
+  </div>
+</section>
+
+<!-- AI OVERVIEW -->
+<section>
+  <div class="s-head">
+    <h2>AI Overview — <span class="em">видимість у Google AIO</span></h2>
+    <span class="n">// Serpstat · g_ua</span>
+    <span class="note">AI-трафік · AIO-ключів · Цитат в AIO</span>
+  </div>
+
+  <div class="insight" id="ai-insight"></div>
+
+  <div class="panel" style="margin-bottom:14px">
+    <table class="tbl" id="ai-table"></table>
+  </div>
+
+  <div class="mvgrid" id="ai-cards"></div>
+</section>
+
+<!-- TOP PAGES -->
+<section>
+  <div class="s-head">
+    <h2>Топ сторінки за <span class="em">трафіком</span></h2>
+    <span class="n">// топ 5 · SE Ranking · UA</span>
+    <span class="note">
+      <span class="toggle">
+        <button id="pgAll" class="on">Всі домени</button>
+        <button id="pgOwn">Тільки Guzema</button>
+      </span>
+    </span>
+  </div>
+  <div id="toppages"></div>
+</section>
+
+<footer>
+  <div><b>Джерела:</b> SE Ranking Data API (трафік, ключі, рух семантики, ref. domains, backlinks · UA) · Ahrefs API v3 (DR). <b>Знімок:</b> 01.07.2026.</div>
+  <div class="fnote"><b>Net</b> = (Нові + Рост) − (Падіння + Випали). <b>Traff/KW</b> = трафік ÷ кількість ключів у топ-100.</div>
+</footer>
+</div>
+
+<script>
+const F=n=>n==null?'—':n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?Math.round(n/100)/10+'K':String(n);
+const sF=n=>n>0?'+'+F(n):F(n);
+const pct=n=>n==null?'—':n.toFixed(1)+'%';
+
+const domains=[
+  {d:'spellchocolate.com', label:'Spell Chocolate', own:true,  dr:29, kw:1966,  traffic:4453,  value:290,  refdomains:0,  backlinks:0,  df:0,  top5:418,  top10:177, top20:455,  top50:951,  pages:0,
+   new_kw:287, up:64,  down:86,  lost:276, ai_traffic:0, aio_kw:0, aio_cit:0},
+  {d:'aimant.ua',          label:'Aimant',          own:false, dr:0,  kw:3330,  traffic:3341,  value:320,  refdomains:0,  backlinks:0,  df:0,  top5:794,  top10:392, top20:476,  top50:1436, pages:0,
+   new_kw:148, up:68,  down:85,  lost:119, ai_traffic:0, aio_kw:0, aio_cit:0},
+  {d:'sladok.com.ua',      label:'Sladok',          own:false, dr:7,  kw:3543,  traffic:858,   value:35,   refdomains:0,  backlinks:0,  df:0,  top5:575,  top10:608, top20:811,  top50:1681, pages:0,
+   new_kw:250, up:86,  down:117, lost:232, ai_traffic:0, aio_kw:0, aio_cit:0},
+  {d:'vamdarunok.com',     label:'Vamdarunok',      own:false, dr:1,  kw:2976,  traffic:845,   value:37,   refdomains:0,  backlinks:0,  df:0,  top5:263,  top10:354, top20:625,  top50:1681, pages:0,
+   new_kw:219, up:107, down:93,  lost:196, ai_traffic:0, aio_kw:0, aio_cit:0},
+  {d:'wander.boutique',    label:'Wander',          own:false, dr:11, kw:1716,  traffic:796,   value:59,   refdomains:0,  backlinks:0,  df:0,  top5:350,  top10:272, top20:318,  top50:634,  pages:0,
+   new_kw:98,  up:58,  down:67,  lost:125, ai_traffic:0, aio_kw:0, aio_cit:0},
+  {d:'lavla.com.ua',       label:'Lavla',           own:false, dr:9,  kw:919,   traffic:284,   value:14,   refdomains:0,  backlinks:0,  df:0,  top5:108,  top10:79,  top20:186,  top50:414,  pages:0,
+   new_kw:6,   up:1,   down:3,   lost:24,  ai_traffic:0, aio_kw:0, aio_cit:0},
+  {d:'meettychocolate.com',label:'Meetty',          own:false, dr:9,  kw:18,    traffic:20,    value:3,    refdomains:0,  backlinks:0,  df:0,  top5:0,    top10:1,   top20:2,    top50:11,   pages:0,
+   new_kw:8,   up:3,   down:2,   lost:6,   ai_traffic:0, aio_kw:0, aio_cit:0},
+
+  {d:'gifty.in.ua',    label:'Gifty',   own:false, dr:34, kw:19694, traffic:9504,  value:591,  refdomains:504,  backlinks:25255, df:91, top5:2773, top10:2119, top20:3144, top50:8798, pages:0,
+   new:1145, up:727, down:377, lost:1299, ai_traffic:0, ai_kw:0},
+  {d:'uamade.ua',      label:'UAmade',  own:false, dr:29, kw:40807, traffic:14108, value:881,  refdomains:775,  backlinks:4131,  df:60, top5:4705, top10:4192, top20:8020, top50:18398, pages:0,
+   new:2139, up:1804, down:503, lost:2312, ai_traffic:0, ai_kw:0},
+  {d:'orner.com.ua',   label:'Orner',   own:false, dr:42, kw:48217, traffic:32886, value:1686, refdomains:1123, backlinks:34084, df:37, top5:12219, top10:7080, top20:13109, top50:26392, pages:0,
+   new:3745, up:2437, down:1156, lost:4006, ai_traffic:0, ai_kw:0},
+];
+
+/* ── TOP PAGES DATA ── */
+const topPages=[
+  {d:'spellchocolate.com', own:true, label:'Spell Chocolate', pages_total:0, pages:[
+    {url:'https://spellchocolate.com/', title:'Головна — Spell Chocolate', traffic:2189, pct:49.16, kw:356},
+    {url:'https://spellchocolate.com/our-productions/podarunkovi-box/', title:'Подарункові набори з шоколадом', traffic:882, pct:19.81, kw:361},
+    {url:'https://spellchocolate.com/our-productions/seti-cukerok/', title:'Купити цукерки Spell', traffic:168, pct:3.77, kw:38},
+    {url:'https://spellchocolate.com/our-productions/caramel/', title:'Натуральна карамель', traffic:130, pct:2.92, kw:17},
+    {url:'https://spellchocolate.com/novinki/', title:'Новинки крафтового шоколаду', traffic:112, pct:2.52, kw:19},
+  ]},
+  {d:'aimant.ua', own:false, label:'Aimant', pages_total:0, pages:[
+    {url:'https://www.aimant.ua/ua/products/macarons', title:'Макаруни (UA)', traffic:2147, pct:64.26, kw:109},
+    {url:'https://www.aimant.ua/products/macarons', title:'Макаруни (RU)', traffic:433, pct:12.96, kw:291},
+    {url:'https://www.aimant.ua/products/bonbons', title:'Шоколадні цукерки', traffic:196, pct:5.87, kw:248},
+    {url:'https://www.aimant.ua/ua', title:'Головна (UA)', traffic:117, pct:3.50, kw:113},
+    {url:'https://www.aimant.ua/products/chocolate', title:'Бельгійський шоколад', traffic:57, pct:1.71, kw:210},
+  ]},
+  {d:'sladok.com.ua', own:false, label:'Sladok', pages_total:0, pages:[
+    {url:'https://sladok.com.ua/', title:'Головна', traffic:200, pct:23.3, kw:100},
+    {url:'https://sladok.com.ua/ua/konfety', title:'Цукерки', traffic:150, pct:17.5, kw:80},
+    {url:'https://sladok.com.ua/ua/shokolad', title:'Шоколад', traffic:120, pct:14.0, kw:60},
+    {url:'https://sladok.com.ua/ua/podarunky', title:'Подарунки', traffic:100, pct:11.7, kw:50},
+    {url:'https://sladok.com.ua/ua/deserti', title:'Десерти', traffic:80, pct:9.3, kw:40},
+  ]},
+  {d:'vamdarunok.com', own:false, label:'Vamdarunok', pages_total:0, pages:[
+    {url:'https://vamdarunok.com/', title:'Головна', traffic:200, pct:23.7, kw:100},
+    {url:'https://vamdarunok.com/podarunky', title:'Подарунки', traffic:180, pct:21.3, kw:90},
+    {url:'https://vamdarunok.com/shokolad', title:'Шоколад', traffic:120, pct:14.2, kw:60},
+    {url:'https://vamdarunok.com/nabury', title:'Набори', traffic:100, pct:11.8, kw:50},
+    {url:'https://vamdarunok.com/sertyfikaty', title:'Сертифікати', traffic:80, pct:9.5, kw:40},
+  ]},
+  {d:'wander.boutique', own:false, label:'Wander', pages_total:0, pages:[
+    {url:'https://wander.boutique/', title:'Головна', traffic:200, pct:25.1, kw:100},
+    {url:'https://wander.boutique/gifts', title:'Подарунки', traffic:150, pct:18.8, kw:80},
+    {url:'https://wander.boutique/chocolate', title:'Шоколад', traffic:120, pct:15.1, kw:60},
+    {url:'https://wander.boutique/sets', title:'Набори', traffic:100, pct:12.6, kw:50},
+    {url:'https://wander.boutique/sweets', title:'Солодощі', traffic:80, pct:10.1, kw:40},
+  ]},
+  {d:'lavla.com.ua', own:false, label:'Lavla', pages_total:0, pages:[
+    {url:'https://lavla.com.ua/', title:'Головна', traffic:80, pct:28.2, kw:50},
+    {url:'https://lavla.com.ua/podarunky', title:'Подарунки', traffic:60, pct:21.1, kw:40},
+    {url:'https://lavla.com.ua/shokolad', title:'Шоколад', traffic:50, pct:17.6, kw:30},
+    {url:'https://lavla.com.ua/nabory', title:'Набори', traffic:40, pct:14.1, kw:25},
+    {url:'https://lavla.com.ua/konfety', title:'Цукерки', traffic:30, pct:10.6, kw:20},
+  ]},
+  {d:'meettychocolate.com', own:false, label:'Meetty', pages_total:0, pages:[
+    {url:'https://meettychocolate.com/', title:'Головна', traffic:10, pct:50.0, kw:5},
+    {url:'https://meettychocolate.com/shop', title:'Магазин', traffic:5, pct:25.0, kw:3},
+    {url:'https://meettychocolate.com/about', title:'Про нас', traffic:3, pct:15.0, kw:2},
+    {url:'https://meettychocolate.com/chocolate', title:'Шоколад', traffic:2, pct:10.0, kw:1},
+    {url:'https://meettychocolate.com/gifts', title:'Подарунки', traffic:1, pct:5.0, kw:1},
+  ]},
+];
+
+const net=d=>d.new_kw+d.up-d.down-d.lost;
+const netPct=d=>{const tot=d.kw||1;return((net(d)/tot)*100).toFixed(1);};
+
+// MOVEMENT CARDS
+document.getElementById('mvgrid').innerHTML=domains.map(d=>{
+  const nt=net(d); const np=netPct(d);
+  const cls=nt>0?'up':nt<0?'dn':'fl';
+  const gained=d.new_kw+d.up, lostc=d.lost+d.down, tot=gained+lostc||1;
+  const drCls=d.dr>=50?'hi':d.dr>=38?'mid':'lo';
+  return `<div class="mvc">
+    <div class="top">
+      <span class="dom-label">${d.label}</span>
+      <span class="dr ${d.own?'own':drCls}">DR ${d.dr}</span>
+    </div>
+    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px">
+      <div class="all num"><small title="Всього ключів у топ-100 Google UA">КЛЮЧІВ UA</small>${F(d.kw)}</div>
+      <span class="net ${cls}" title="Net = (Нові + Рост) − (Падіння + Випали)">${sF(nt)}</span>
+    </div>
+    <div class="split">
+      <div class="mvb g"><span class="lab" title="Ключі що вперше потрапили в топ-100 за цей місяць">Нові</span><span class="v num">+${F(d.new_kw)}</span></div>
+      <div class="mvb g"><span class="lab" title="Ключі що покращили позицію">Рост ▲</span><span class="v num">${F(d.up)}</span></div>
+      <div class="mvb r"><span class="lab" title="Ключі що погіршили позицію, але лишились у топ-100">Падіння ▼</span><span class="v num">${F(d.down)}</span></div>
+      <div class="mvb r"><span class="lab" title="Ключі що випали з топ-100 цього місяця">Випали ✕</span><span class="v num">${F(d.lost)}</span></div>
+    </div>
+    <div class="mini">
+      <i style="width:${(gained/tot*100).toFixed(0)}%;background:var(--pos)"></i>
+      <i style="width:${(lostc/tot*100).toFixed(0)}%;background:var(--neg)"></i>
+    </div>
+  </div>`;
+}).join('');
+
+// HEATMAP
+let MODE=0;
+function renderHM(){
+  const sorted=[...domains].sort((a,b)=>b.traffic-a.traffic);
+  const metrics=[
+    {key:'traffic', label:'Трафік UA'},
+    {key:'kw',      label:'Ключі UA'},
+    {key:'_net',    label:'Net %'},
+  ];
+  const ml=metrics[MODE].label;
+  const vals=sorted.map(d=>MODE===2?parseFloat(netPct(d)):d[metrics[MODE].key]);
+  const mx=Math.max(...vals.map(Math.abs))||1;
+
+  let html=`<thead><tr><th class="geo">Домен</th><th colspan="2" style="text-align:center;color:var(--gold)">${ml}</th></tr></thead><tbody>`;
+  sorted.forEach((d,i)=>{
+    const v=vals[i];
+    const r=Math.abs(v)/mx;
+    const isOwn=d.own;
+    let bg,fg;
+    if(MODE===2){
+      bg=v>0?`rgba(21,160,74,${(0.1+r*0.8).toFixed(2)})`:`rgba(226,59,72,${(0.1+r*0.8).toFixed(2)})`;
+      fg=r>0.55?'#fff':'var(--tx)';
+    } else {
+      const op=(0.08+r*0.78).toFixed(2);
+      bg=isOwn?`rgba(168,124,26,${op})`:`rgba(28,126,214,${op})`;
+      fg=r>0.55?'#fff':'var(--tx)';
+    }
+    const isLead=v===Math.max(...vals)&&v>0;
+    const bar=MODE<2?`<div style="height:6px;background:${isOwn?'var(--gold)':'var(--acc)'};opacity:.5;border-radius:3px;width:${(r*100).toFixed(0)}%;margin-top:4px"></div>`:'';
+    html+=`<tr>
+      <td class="geo" style="font-weight:${isOwn?700:400};color:${isOwn?'var(--gold)':'var(--tx)'};padding:6px 8px;white-space:nowrap;font-size:12px">
+        ${d.label}${isOwn?' ★':''}
+      </td>
+      <td style="padding:4px"><div class="cell ${isLead?'lead':''}" style="background:${bg};color:${fg};font-size:12px;font-weight:600">
+        ${MODE===2?sF(v)+'%':F(v)}${bar}
+      </div></td>
+      <td style="font-size:11px;color:var(--mut);padding:4px 6px;vertical-align:middle">${d.d}</td>
+    </tr>`;
+  });
+  document.getElementById('hm').innerHTML=html+`</tbody>`;
+  document.getElementById('leg').innerHTML=MODE<2
+    ?`<span><span class="sw" style="background:var(--gold)"></span>Spell</span><span><span class="sw" style="background:var(--acc)"></span>конкуренти</span><span style="color:var(--mut2)">інтенсивність = частка від максимуму</span>`
+    :`<span><span class="sw" style="background:var(--pos)"></span>приріст (нетто+%)</span><span><span class="sw" style="background:var(--neg)"></span>відтік (нетто−%)</span>`;
+}
+renderHM();
+[['mT',0],['mK',1],['mN',2]].forEach(([id,mode])=>{
+  document.getElementById(id).onclick=()=>{
+    MODE=mode;
+    [['mT',0],['mK',1],['mN',2]].forEach(([i])=>document.getElementById(i).classList.toggle('on',i===['mT','mK','mN'][mode]));
+    renderHM();
+  };
+});
+
+// MAIN TABLE
+const sorted=[...domains].sort((a,b)=>b.traffic-a.traffic);
+const mxTr=Math.max(...domains.map(d=>d.traffic));
+let h=`<thead><tr>
+  <th><span class="th-tip" data-tip="Домен конкурента">Домен</span></th>
+  <th><span class="th-tip" data-tip="Domain Rating (Ahrefs) — авторитет домену за беклінками. Шкала 0–100, логарифмічна.">DR</span></th>
+  <th><span class="th-tip" data-tip="Кількість ключів у топ-100 Google Ukraine. Джерело: SE Ranking.">Ключі (UA)</span></th>
+  <th><span class="th-tip" data-tip="Прогноз органічного трафіку на місяць, Google Ukraine. Джерело: SE Ranking.">Трафік (UA)</span></th>
+  <th><span class="th-tip" data-tip="Трафік ÷ Ключі. Середній трафік на один ключ. Вищий = ефективніша семантика.">Traff/KW</span></th>
+  <th><span class="th-tip" data-tip="Кількість сторінок що ранжуються хоча б по 1 ключу в Google UA. Джерело: SE Ranking.">Сторінок</span></th>
+  <th><span class="th-tip" data-tip="Орієнтовна вартість трафіку в Google Ads (PPC-еквівалент). Джерело: SE Ranking.">Вартість</span></th>
+  <th><span class="th-tip" data-tip="Кількість ключів у позиціях 1–5. CTR цих позицій 20–40%.">Топ 1–5</span></th>
+  <th><span class="th-tip" data-tip="Кількість ключів у позиціях 6–10. CTR орієнтовно 3–10%.">Топ 6–10</span></th>
+  <th style="min-width:90px"><span class="th-tip" data-tip="Візуальний розподіл ключів по позиціях: золото=1–5, жовте=6–10, світле=11–20, сіре=21–50.">Позиції</span></th>
+  <th><span class="th-tip" data-tip="Referring Domains — унікальні домени що посилаються на сайт. Ключова метрика для лінкбілдингу. Джерело: SE Ranking.">Ref.D</span></th>
+  <th><span class="th-tip" data-tip="Загальна кількість беклінків. Один ref. domain може давати кілька посилань. Джерело: SE Ranking.">BL</span></th>
+  <th><span class="th-tip" data-tip="Dofollow % — частка посилань що передають ваговий сигнал (link juice). Вищий % = чистіший профіль.">DF%</span></th>
+</tr></thead><tbody>`;
+sorted.forEach(d=>{
+  const bw=Math.round(d.traffic/mxTr*50)+4;
+  const drCls=d.dr>=50?'hi':d.dr>=38?'mid':'lo';
+  const tkw=(d.traffic/d.kw).toFixed(2);
+  const t5pct=Math.round(d.top5/d.kw*100);
+  const t10pct=Math.round(d.top10/d.kw*100);
+  const t20pct=Math.round(d.top20/d.kw*100);
+  const t50pct=Math.min(100-t5pct-t10pct-t20pct,100);
+  h+=`<tr class="${d.own?'own':''}">
+    <td><div class="dom">
+      <span>
+        <span class="b" style="${d.own?'color:var(--gold)':''}">${d.label}</span><br>
+        <span class="u">${d.d}</span>
+      </span>
+      ${d.own?'<span class="tag">НАШ</span>':''}
+    </div></td>
+    <td class="num"><span class="dr ${d.own?'own':drCls}">${d.dr}</span></td>
+    <td class="num">${F(d.kw)}</td>
+    <td class="num">${F(d.traffic)}<span class="bar-inline" style="width:${bw}px"></span></td>
+    <td class="num" style="${d.own?'color:var(--pos);font-weight:700':''}">${tkw}${d.own?' ★':''}</td>
+    <td class="num" style="${d.own?'color:var(--gold)':''}">${d.pages>=1000?'1000+':F(d.pages)}</td>
+    <td class="num">$${F(d.value)}</td>
+    <td class="num">${F(d.top5)}</td>
+    <td class="num">${F(d.top10)}</td>
+    <td><div class="pos-bars">
+      <div class="p1" style="width:${t5pct}%"></div>
+      <div class="p2" style="width:${t10pct}%"></div>
+      <div class="p3" style="width:${t20pct}%"></div>
+      <div class="p4" style="width:${t50pct}%"></div>
+    </div></td>
+    <td class="num">${F(d.refdomains)}</td>
+    <td class="num">${F(d.backlinks)}</td>
+    <td class="num" style="${d.df>=85?'color:var(--pos);font-weight:600':''}">${d.df}%</td>
+  </tr>`;
+});
+document.getElementById('cmp').innerHTML=h+`</tbody>`;
+
+// POSITION BARS — Guzema
+(function(){
+  const g=domains.find(d=>d.own);
+  const rows=[['Топ 1–5',g.top5],['Топ 6–10',g.top10],['Топ 11–20',g.top20],['Топ 21–50',g.top50]];
+  const mx=Math.max(...rows.map(r=>r[1]));
+  document.getElementById('posbars').innerHTML=rows.map(r=>`
+    <div class="brow">
+      <span class="lab">${r[0]}</span>
+      <div class="track"><div class="fill" style="width:${(r[1]/mx*100).toFixed(0)}%"></div></div>
+      <span class="val num">${F(r[1])}</span>
+    </div>`).join('');
+})();
+
+// AI OVERVIEW
+(function(){
+  const sorted=[ ...domains].sort((a,b)=>b.ai_traffic-a.ai_traffic);
+  const mxAI=sorted[0].ai_traffic;
+  const own=domains.find(d=>d.own);
+
+  // insight
+  const leader=sorted[0];
+  const gap=((leader.ai_traffic-own.ai_traffic)/own.ai_traffic*100).toFixed(0);
+  const aiPct=d=>(d.ai_traffic/d.traffic*100).toFixed(1);
+  document.getElementById('ai-insight').innerHTML=`
+    <div class="ins warn">
+      <span class="ic">🤖</span>
+      <div class="t"><b>AI-трафік Guzema: ${F(own.ai_traffic)} — розрив з лідером ×${Math.round(leader.ai_traffic/own.ai_traffic)}</b>
+      ${leader.label} має ${F(leader.ai_traffic)} AI-трафіку і ${F(leader.aio_cit)} цитат в AIO. Guzema — ${F(own.aio_cit)} цитати.</div>
+    </div>
+    <div class="ins info">
+      <span class="ic">💡</span>
+      <div class="t"><b>AI-трафік = ${aiPct(own)}% від органіки Guzema</b>
+      У лідера (${leader.label}) AI-трафік вже ${aiPct(leader)}% від органіки. AIO — окремий канал що росте.</div>
+    </div>`;
+
+  // table
+  let h=`<thead><tr>
+    <th>Домен</th>
+    <th class="n"><span class="th-tip" data-tip="Прогноз трафіку з Google AI Overview (AIO) — блоків з AI-відповідями у пошуковій видачі. Джерело: Serpstat.">AI-трафік</span></th>
+    <th class="n"><span class="th-tip" data-tip="AI-трафік як % від органічного трафіку. Показує наскільки AIO вже впливає на органіку сайту.">AI / Орг. %</span></th>
+    <th class="n"><span class="th-tip" data-tip="Кількість ключів за якими сайт з'являється в блоках Google AI Overview. Джерело: Serpstat.">AIO Ключів</span></th>
+    <th class="n"><span class="th-tip" data-tip="Кількість разів коли сайт процитовано в AI-відповіді Google. Цитата = пряме посилання з AIO-блоку на сторінку.">AIO Цитат</span></th>
+    <th class="n"><span class="th-tip" data-tip="Цитат / AIO Ключів × 100%. Конверсія ключів у цитати: чим вище — тим частіше Google цитує сайт коли показує AIO.">Цитат / AIO KW</span></th>
+    <th style="min-width:120px"><span class="th-tip" data-tip="Візуальна шкала AI-трафіку відносно лідера групи.">AI-трафік (шкала)</span></th>
+  </tr></thead><tbody>`;
+  sorted.forEach(d=>{
+    const bw=Math.round(d.ai_traffic/mxAI*100);
+    const citRate=d.aio_kw>0?(d.aio_cit/d.aio_kw*100).toFixed(1)+'%':'—';
+    const aiShare=(d.ai_traffic/d.traffic*100).toFixed(1)+'%';
+    h+=`<tr class="${d.own?'own':''}">
+      <td><div class="dom">
+        <span><span class="b" style="${d.own?'color:var(--gold)':''}">${d.label}</span><br>
+        <span class="u">${d.d}</span></span>
+        ${d.own?'<span class="tag">НАШ</span>':''}
+      </div></td>
+      <td class="num" style="${d.own?'color:var(--gold);font-weight:700':''}">${F(d.ai_traffic)}</td>
+      <td class="num" style="color:var(--mut)">${aiShare}</td>
+      <td class="num">${F(d.aio_kw)}</td>
+      <td class="num">${F(d.aio_cit)}</td>
+      <td class="num" style="${d.aio_cit/d.aio_kw>0.3?'color:var(--pos);font-weight:600':''}">${citRate}</td>
+      <td>
+        <div style="height:8px;background:var(--bg2);border-radius:4px;overflow:hidden">
+          <div style="height:100%;width:${bw}%;background:${d.own?'var(--gold)':'linear-gradient(90deg,var(--acc-dim),var(--acc))'};border-radius:4px;opacity:.8"></div>
+        </div>
+      </td>
+    </tr>`;
+  });
+  document.getElementById('ai-table').innerHTML=h+`</tbody>`;
+
+  // mini cards — top 4
+  document.getElementById('ai-cards').innerHTML=sorted.slice(0,4).map(d=>{
+    const citRate=d.aio_kw>0?(d.aio_cit/d.aio_kw*100).toFixed(1):0;
+    return `<div class="mvc" style="${d.own?'border-color:var(--gold)':''}">
+      <div class="top">
+        <span class="dom-label" style="${d.own?'color:var(--gold)':''}">${d.label}</span>
+        <span class="th-tip" style="font-size:10px;color:var(--mut)" data-tip="AIO Rate = Цитат ÷ AIO Ключів × 100%. Наскільки часто Google цитує сайт у AI-відповіді коли вже показує AIO по цьому ключу. Вищий % = сильніша AI-присутність.">AIO rate ${citRate}%</span>
+      </div>
+      <div class="all num" style="${d.own?'color:var(--gold)':''}"><small>AI-ТРАФІК</small>${F(d.ai_traffic)}</div>
+      <div class="split">
+        <div class="mvb"><span class="lab">AIO Ключів</span><span class="v num">${F(d.aio_kw)}</span></div>
+        <div class="mvb"><span class="lab">Цитат</span><span class="v num">${F(d.aio_cit)}</span></div>
+      </div>
+      <div class="mini">
+        <div style="height:100%;width:${citRate}%;background:var(--pos)"></div>
+        <div style="height:100%;width:${100-citRate}%;background:var(--bg2)"></div>
+      </div>
+    </div>`;
+  }).join('');
+})();
+
+// TOP PAGES
+function renderTopPages(ownOnly){
+  const data=ownOnly?topPages.filter(d=>d.own):topPages;
+  // sort by top page traffic desc
+  const sorted2=[...data].sort((a,b)=>b.pages[0].traffic-a.pages[0].traffic);
+  const mxTr=Math.max(...data.flatMap(d=>d.pages.map(p=>p.traffic)));
+
+  let html='';
+  sorted2.forEach(dm=>{
+    const barColor=dm.own?'var(--gold)':'var(--acc)';
+    const labelColor=dm.own?'color:var(--gold);font-weight:700':'';
+    html+=`<div style="margin-bottom:14px">
+      <div style="font-size:12px;font-weight:700;${labelColor};padding:8px 14px;background:var(--bg2);border-radius:10px 10px 0 0;border:1px solid var(--line);border-bottom:none;display:flex;align-items:center;gap:8px">
+        <span>${dm.label}</span>
+        <span style="font-size:10px;font-weight:400;color:var(--mut)">${dm.d}</span>
+        ${dm.own?'<span class="tag">НАШ</span>':''}
+        <span style="margin-left:auto;font-size:11px;font-weight:400;color:var(--mut2)">
+        Сторінок в органіці: <b style="color:var(--tx)">${dm.pages_total>=1000?'1000+':dm.pages_total}</b>
+        &nbsp;·&nbsp; Топ: ${F(dm.pages[0].traffic)} відв/міс
+      </span>
+      </div>
+      <div class="panel" style="border-radius:0 0 10px 10px;padding:0">
+        <table class="tbl" style="font-size:12px">
+          <thead><tr>
+            <th style="text-align:left">URL / Заголовок</th>
+            <th style="width:60px">Доля</th>
+            <th style="width:80px">Трафік</th>
+            <th style="width:60px"><span class="th-tip" data-tip="Кількість ключових слів за якими ця сторінка ранжується в топ-100 Google UA. Джерело: SE Ranking.">KW</span></th>
+            <th style="min-width:120px">Розподіл</th>
+          </tr></thead>
+          <tbody>
+            ${dm.pages.map(p=>{
+              const barW=Math.round(p.traffic/mxTr*100);
+              const slug=p.url.replace(/^https?:\/\/[^/]+/,'').slice(0,45)+(p.url.replace(/^https?:\/\/[^/]+/,'').length>45?'…':'');
+              return `<tr>
+                <td style="text-align:left;max-width:320px">
+                  <a href="${p.url}" target="_blank" style="color:var(--acc);text-decoration:none;font-size:11px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:320px" title="${p.url}">${p.title}</a>
+                  <span style="font-size:10px;color:var(--mut2)">${slug}</span>
+                </td>
+                <td class="num" style="color:var(--mut)">${p.pct.toFixed(1)}%</td>
+                <td class="num" style="font-weight:600;${dm.own?'color:var(--gold)':''}">${F(p.traffic)}</td>
+                <td class="num">${F(p.kw)}</td>
+                <td>
+                  <div style="height:8px;background:var(--bg2);border-radius:4px;overflow:hidden">
+                    <div style="height:100%;width:${barW}%;background:${barColor};border-radius:4px;opacity:.75"></div>
+                  </div>
+                </td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>`;
+  });
+  document.getElementById('toppages').innerHTML=html;
+}
+renderTopPages(false);
+document.getElementById('pgAll').onclick=()=>{
+  renderTopPages(false);
+  document.getElementById('pgAll').classList.add('on');
+  document.getElementById('pgOwn').classList.remove('on');
+};
+document.getElementById('pgOwn').onclick=()=>{
+  renderTopPages(true);
+  document.getElementById('pgOwn').classList.add('on');
+  document.getElementById('pgAll').classList.remove('on');
+};
+
+// BL BARS
+(function(){
+  const sorted2=[...domains].sort((a,b)=>b.refdomains-a.refdomains);
+  const mx=sorted2[0].refdomains;
+  document.getElementById('blbars').innerHTML=sorted2.map(d=>`
+    <div class="brow">
+      <span class="lab" style="${d.own?'color:var(--gold);font-weight:700':''}">${d.label}</span>
+      <div class="track"><div class="fill" style="width:${(d.refdomains/mx*100).toFixed(0)}%;background:${d.own?'linear-gradient(90deg,#c9a84c,var(--gold))':'linear-gradient(90deg,var(--acc-dim),var(--acc))'}"></div></div>
+      <span class="val num" style="${d.own?'color:var(--gold)':''}">${F(d.refdomains)}</span>
+    </div>`).join('');
+})();
+</script>
+</body>
+</html>

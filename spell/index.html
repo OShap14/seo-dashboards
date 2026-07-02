@@ -707,8 +707,7 @@ function renderTopPages(ownOnly){
         <span style="font-size:10px;font-weight:400;color:var(--mut)">${dm.d}</span>
         ${dm.own?'<span class="tag">НАШ</span>':''}
         <span style="margin-left:auto;font-size:11px;font-weight:400;color:var(--mut2)">
-        Сторінок в органіці: <b style="color:var(--tx)">${dm.pages_total>=1000?'1000+':dm.pages_total}</b>
-        &nbsp;·&nbsp; Топ: ${F(dm.pages[0].traffic)} відв/міс
+        Топ: ${F(dm.pages[0].traffic)} відв/міс
       </span>
       </div>
       <div class="panel" style="border-radius:0 0 10px 10px;padding:0">

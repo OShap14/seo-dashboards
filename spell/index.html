@@ -662,8 +662,8 @@ document.getElementById('cmp').innerHTML=h+`</tbody>`;
   });
   document.getElementById('ai-table').innerHTML=h+`</tbody>`;
 
-  // mini cards — top 4
-  document.getElementById('ai-cards').innerHTML=sorted.slice(0,4).map(d=>{
+  // mini cards — all domains
+  document.getElementById('ai-cards').innerHTML=sorted.map(d=>{
     const citRate=d.aio_kw>0?(d.aio_cit/d.aio_kw*100).toFixed(1):0;
     return `<div class="mvc" style="${d.own?'border-color:var(--gold)':''}">
       <div class="top">

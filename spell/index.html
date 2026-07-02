@@ -326,7 +326,7 @@ footer b{color:var(--mut)}
   <div class="s-head">
     <h2>AI Overview — <span class="em">видимість у Google AIO</span></h2>
     <span class="n">// Serpstat · g_ua</span>
-    <span class="note">AI-трафік · AIO-ключів · Цитат в AIO</span>
+    <span class="note">AIO-ключів · Цитат в AIO</span>
   </div>
 
   <div class="insight" id="ai-insight"></div>
@@ -615,48 +615,41 @@ document.getElementById('cmp').innerHTML=h+`</tbody>`;
 
 // AI OVERVIEW
 (function(){
-  const sorted=[ ...domains].sort((a,b)=>b.ai_traffic-a.ai_traffic);
-  const mxAI=sorted[0].ai_traffic;
+  const sorted=[...domains].sort((a,b)=>b.aio_kw-a.aio_kw);
+  const mxKW=sorted[0].aio_kw;
   const own=domains.find(d=>d.own);
+  const leader=sorted[0];
 
   // insight
-  const leader=sorted[0];
-  const gap=((leader.ai_traffic-own.ai_traffic)/own.ai_traffic*100).toFixed(0);
-  const aiPct=d=>(d.ai_traffic/d.traffic*100).toFixed(1);
   document.getElementById('ai-insight').innerHTML=`
     <div class="ins warn">
       <span class="ic">🤖</span>
-      <div class="t"><b>AI-трафік Spell: ${F(own.ai_traffic)} — розрив з лідером ×${Math.round(leader.ai_traffic/own.ai_traffic)}</b>
-      ${leader.label} має ${F(leader.ai_traffic)} AI-трафіку і ${F(leader.aio_cit)} цитат в AIO. Spell — ${F(own.aio_cit)} цитати.</div>
+      <div class="t"><b>AIO Ключів Spell: ${F(own.aio_kw)} — лідер ${leader.label}: ${F(leader.aio_kw)}</b>
+      Spell має ${F(own.aio_cit)} цитат в AIO, ${leader.label} — ${F(leader.aio_cit)}.</div>
     </div>
     <div class="ins info">
       <span class="ic">💡</span>
-      <div class="t"><b>AI-трафік = ${aiPct(own)}% від органіки Spell</b>
-      У лідера (${leader.label}) AI-трафік вже ${aiPct(leader)}% від органіки. AIO — окремий канал що росте.</div>
+      <div class="t"><b>AIO Rate Spell: ${own.aio_kw>0?(own.aio_cit/own.aio_kw*100).toFixed(1):0}%</b>
+      — конверсія AIO-ключів у цитати. У лідера (${leader.label}): ${leader.aio_kw>0?(leader.aio_cit/leader.aio_kw*100).toFixed(1):0}%. AIO — окремий канал що росте.</div>
     </div>`;
 
   // table
   let h=`<thead><tr>
     <th>Домен</th>
-    <th class="n"><span class="th-tip" data-tip="Прогноз трафіку з Google AI Overview (AIO) — блоків з AI-відповідями у пошуковій видачі. Джерело: Serpstat.">AI-трафік</span></th>
-    <th class="n"><span class="th-tip" data-tip="AI-трафік як % від органічного трафіку. Показує наскільки AIO вже впливає на органіку сайту.">AI / Орг. %</span></th>
     <th class="n"><span class="th-tip" data-tip="Кількість ключів за якими сайт з'являється в блоках Google AI Overview. Джерело: Serpstat.">AIO Ключів</span></th>
     <th class="n"><span class="th-tip" data-tip="Кількість разів коли сайт процитовано в AI-відповіді Google. Цитата = пряме посилання з AIO-блоку на сторінку.">AIO Цитат</span></th>
     <th class="n"><span class="th-tip" data-tip="Цитат / AIO Ключів × 100%. Конверсія ключів у цитати: чим вище — тим частіше Google цитує сайт коли показує AIO.">Цитат / AIO KW</span></th>
-    <th style="min-width:120px"><span class="th-tip" data-tip="Візуальна шкала AI-трафіку відносно лідера групи.">AI-трафік (шкала)</span></th>
+    <th style="min-width:120px"><span class="th-tip" data-tip="Візуальна шкала AIO Ключів відносно лідера групи.">AIO Ключів (шкала)</span></th>
   </tr></thead><tbody>`;
   sorted.forEach(d=>{
-    const bw=Math.round(d.ai_traffic/mxAI*100);
+    const bw=Math.round(d.aio_kw/mxKW*100);
     const citRate=d.aio_kw>0?(d.aio_cit/d.aio_kw*100).toFixed(1)+'%':'—';
-    const aiShare=(d.ai_traffic/d.traffic*100).toFixed(1)+'%';
     h+=`<tr class="${d.own?'own':''}">
       <td><div class="dom">
         <span><span class="b" style="${d.own?'color:var(--gold)':''}">${d.label}</span><br>
         <span class="u">${d.d}</span></span>
         ${d.own?'<span class="tag">НАШ</span>':''}
       </div></td>
-      <td class="num" style="${d.own?'color:var(--gold);font-weight:700':''}">${F(d.ai_traffic)}</td>
-      <td class="num" style="color:var(--mut)">${aiShare}</td>
       <td class="num">${F(d.aio_kw)}</td>
       <td class="num">${F(d.aio_cit)}</td>
       <td class="num" style="${d.aio_cit/d.aio_kw>0.3?'color:var(--pos);font-weight:600':''}">${citRate}</td>
@@ -675,12 +668,12 @@ document.getElementById('cmp').innerHTML=h+`</tbody>`;
     return `<div class="mvc" style="${d.own?'border-color:var(--gold)':''}">
       <div class="top">
         <span class="dom-label" style="${d.own?'color:var(--gold)':''}">${d.label}</span>
-        <span class="th-tip" style="font-size:10px;color:var(--mut)" data-tip="AIO Rate = Цитат ÷ AIO Ключів × 100%. Наскільки часто Google цитує сайт у AI-відповіді коли вже показує AIO по цьому ключу. Вищий % = сильніша AI-присутність.">AIO rate ${citRate}%</span>
+        <span class="th-tip" style="font-size:10px;color:var(--mut)" data-tip="AIO Rate = Цитат ÷ AIO Ключів × 100%.">AIO rate ${citRate}%</span>
       </div>
-      <div class="all num" style="${d.own?'color:var(--gold)':''}"><small>AI-ТРАФІК</small>${F(d.ai_traffic)}</div>
+      <div class="all num" style="${d.own?'color:var(--gold)':''}"><small>AIO КЛЮЧІВ</small>${F(d.aio_kw)}</div>
       <div class="split">
-        <div class="mvb"><span class="lab">AIO Ключів</span><span class="v num">${F(d.aio_kw)}</span></div>
         <div class="mvb"><span class="lab">Цитат</span><span class="v num">${F(d.aio_cit)}</span></div>
+        <div class="mvb g"><span class="lab">AIO Rate</span><span class="v num">${citRate}%</span></div>
       </div>
       <div class="mini">
         <div style="height:100%;width:${citRate}%;background:var(--pos)"></div>

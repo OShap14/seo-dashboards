@@ -227,13 +227,13 @@ footer b{color:var(--mut)}
     </div>
     <div class="kpi">
       <div class="l">Ключі (UA)</div>
-      <div class="v num">11 660</div>
+      <div class="v num">1 880</div>
       <div class="x">В індексі Google</div>
     </div>
     <div class="kpi">
       <div class="l">Топ 1–5</div>
       <div class="v num">423</div>
-      <div class="x">3.6% від KW</div>
+      <div class="x">22.5% від KW</div>
     </div>
     <div class="kpi">
       <div class="l">Вартість трафіку</div>
@@ -252,7 +252,7 @@ footer b{color:var(--mut)}
 <section>
   <div class="s-head">
     <h2><span class="em">Рух ключів</span> — по конкурентах</h2>
-    <span class="n">// Нові / Рост / Падіння / Випали · Serpstat UA</span>
+    <span class="n">// Нові / Рост / Падіння / Випали · SE Ranking UA</span>
     <span class="note">поточний місяць vs попередній</span>
   </div>
 
@@ -263,11 +263,11 @@ footer b{color:var(--mut)}
     </div>
     <div class="ins warn">
       <span class="ic">⚠</span>
-      <div class="t"><b>Orner лідирує за трафіком</b> — 152.2K/міс при 165.5K ключів. Traff/KW=0.92 — нижче ніж у Spell (0.41), але масштаб семантики у 14x більший.</div>
+      <div class="t"><b>Orner лідирує за трафіком</b> — 152.2K/міс при 48.2K ключів (SE Ranking). Traff/KW=3.16 — вище ніж у Spell (2.55), і семантика у 26x більша.</div>
     </div>
     <div class="ins info">
       <span class="ic">💡</span>
-      <div class="t"><b>Traff/KW 2.22 — найвища в групі</b> — Spell вичавлює більше трафіку з кожного ключа ніж усі конкуренти. Проблема — масштаб семантики: 1.9K ключів проти 48K у Orner.</div>
+      <div class="t"><b>Spell Traff/KW=2.55</b> — висока ефективність семантики, але масштаб критичний: 1.9K ключів (SE Ranking) проти 48.2K у Orner. Пріоритет — розширення семантики.</div>
     </div>
   </div>
 
@@ -365,95 +365,95 @@ const sF=n=>n>0?'+'+F(n):F(n);
 const pct=n=>n==null?'—':n.toFixed(1)+'%';
 
 const domains=[
-  {d:'spellchocolate.com', label:'Spell Chocolate', own:true,  dr:29, kw:11660,  traffic:4800,  value:322,  refdomains:384,  backlinks:18788,  df:99,  top5:423, top10:182, top20:403, top50:904, pages:0,
+  {d:'spellchocolate.com', label:'Spell Chocolate', own:true,  dr:29, kw:1880,  traffic:4800,  value:322,  refdomains:384,  backlinks:18788,  df:99,  top5:423, top10:182, top20:403, top50:904, pages:0,
    new_kw:169, up:67,  down:32,  lost:288, ai_traffic:0, aio_kw:753, aio_cit:239},
-  {d:'aimant.ua',          label:'Aimant',          own:false, dr:0,  kw:15520,  traffic:4827,  value:320,  refdomains:55,  backlinks:123,  df:20,  top5:780, top10:385, top20:478, top50:1420, pages:0,
+  {d:'aimant.ua',          label:'Aimant',          own:false, dr:0,  kw:3305,  traffic:4827,  value:320,  refdomains:55,  backlinks:123,  df:20,  top5:780, top10:385, top20:478, top50:1420, pages:0,
    new_kw:75,  up:67, down:45, lost:147, ai_traffic:0, aio_kw:1521, aio_cit:408},
-  {d:'sladok.com.ua',      label:'Sladok',          own:false, dr:7,  kw:24149,  traffic:7493,  value:35,   refdomains:131,  backlinks:472,  df:74,  top5:580,  top10:599, top20:809,  top50:1686, pages:0,
+  {d:'sladok.com.ua',      label:'Sladok',          own:false, dr:7,  kw:3546,  traffic:7493,  value:35,   refdomains:131,  backlinks:472,  df:74,  top5:580,  top10:599, top20:809,  top50:1686, pages:0,
    new_kw:245, up:103,  down:55, lost:227, ai_traffic:0, aio_kw:3740, aio_cit:894},
-  {d:'vamdarunok.com',     label:'Vamdarunok',      own:false, dr:1,  kw:5739,   traffic:7073,  value:37,   refdomains:72,  backlinks:221,  df:80,  top5:261,  top10:349, top20:623,  top50:1653, pages:0,
+  {d:'vamdarunok.com',     label:'Vamdarunok',      own:false, dr:1,  kw:2953,   traffic:7073,  value:37,   refdomains:72,  backlinks:221,  df:80,  top5:261,  top10:349, top20:623,  top50:1653, pages:0,
    new_kw:142,  up:62, down:55,  lost:211,  ai_traffic:0, aio_kw:2129, aio_cit:507},
-  {d:'wander.boutique',    label:'Wander',          own:false, dr:11, kw:3672,   traffic:2874,  value:59,   refdomains:131,  backlinks:191,  df:70,  top5:351,  top10:269, top20:301,  top50:651,  pages:0,
+  {d:'wander.boutique',    label:'Wander',          own:false, dr:11, kw:1706,   traffic:2874,  value:59,   refdomains:131,  backlinks:191,  df:70,  top5:351,  top10:269, top20:301,  top50:651,  pages:0,
    new_kw:69,  up:57,  down:27,  lost:99,   ai_traffic:0, aio_kw:998, aio_cit:377},
-  {d:'lavla.com.ua',       label:'Lavla',           own:false, dr:9,  kw:4845,   traffic:152,   value:14,   refdomains:51,  backlinks:78,  df:44,  top5:107,  top10:79,  top20:188,  top50:411,  pages:0,
+  {d:'lavla.com.ua',       label:'Lavla',           own:false, dr:9,  kw:915,   traffic:152,   value:14,   refdomains:51,  backlinks:78,  df:44,  top5:107,  top10:79,  top20:188,  top50:411,  pages:0,
    new_kw:6,   up:2,   down:1,   lost:10, ai_traffic:0, aio_kw:58, aio_cit:0},
-  {d:'meettychocolate.com',label:'Meetty',          own:false, dr:9,  kw:70,     traffic:34,    value:3,    refdomains:48,  backlinks:113,  df:42,  top5:0,   top10:0,  top20:1,   top50:5,   pages:0,
+  {d:'meettychocolate.com',label:'Meetty',          own:false, dr:9,  kw:11,     traffic:34,    value:3,    refdomains:48,  backlinks:113,  df:42,  top5:0,   top10:0,  top20:1,   top50:5,   pages:0,
    new_kw:3,   up:1,   down:1,   lost:10,   ai_traffic:0, aio_kw:17, aio_cit:4},
-  {d:'gifty.in.ua',        label:'Gifty',           own:false, dr:34, kw:131372, traffic:53515, value:591,  refdomains:504,  backlinks:25255, df:91, top5:2773, top10:2119, top20:3144, top50:8798, pages:0,
+  {d:'gifty.in.ua',        label:'Gifty',           own:false, dr:34, kw:19694, traffic:53515, value:591,  refdomains:504,  backlinks:25255, df:91, top5:2773, top10:2119, top20:3144, top50:8798, pages:0,
    new_kw:1145, up:727, down:377, lost:1299, ai_traffic:0, aio_kw:12911, aio_cit:3714},
-  {d:'uamade.ua',          label:'UAmade',          own:false, dr:29, kw:260208, traffic:60168, value:881,  refdomains:775,  backlinks:4131,  df:60, top5:4705, top10:4192, top20:8020, top50:18398, pages:0,
+  {d:'uamade.ua',          label:'UAmade',          own:false, dr:29, kw:40807, traffic:60168, value:881,  refdomains:775,  backlinks:4131,  df:60, top5:4705, top10:4192, top20:8020, top50:18398, pages:0,
    new_kw:2139, up:1804, down:503, lost:2312, ai_traffic:0, aio_kw:20382, aio_cit:3801},
-  {d:'orner.com.ua',       label:'Orner',           own:false, dr:42, kw:165538, traffic:152167, value:1686, refdomains:1123, backlinks:34084, df:37, top5:12219, top10:7080, top20:13109, top50:26392, pages:0,
+  {d:'orner.com.ua',       label:'Orner',           own:false, dr:42, kw:48217, traffic:152167, value:1686, refdomains:1123, backlinks:34084, df:37, top5:12219, top10:7080, top20:13109, top50:26392, pages:0,
    new_kw:3745, up:2437, down:1156, lost:4006, ai_traffic:0, aio_kw:44801, aio_cit:17980},
 ];
 
 /* ── TOP PAGES DATA ── */
 const topPages=[
   {d:'spellchocolate.com', own:true, label:'Spell Chocolate', pages_total:0, pages:[
-    {url:'https://spellchocolate.com/our-productions/podarunkovi-box/', title:'Подарункові набори з шоколадом', traffic:1930, pct:30.5, kw:330},
+    {url:'https://spellchocolate.com/our-productions/podarunkovi-box/', title:'Подарункові набори з шоколадом', traffic:1930, pct:30.5, kw:1880},
     {url:'https://spellchocolate.com/our-productions/podarunkovi-box/z-pechivom', title:'Набори з печивом', traffic:1723, pct:27.2, kw:1},
     {url:'https://spellchocolate.com/', title:'Головна', traffic:1432, pct:22.7, kw:1672},
     {url:'https://spellchocolate.com/our-productions/caramel/', title:'Натуральна карамель', traffic:636, pct:10.1, kw:132},
     {url:'https://spellchocolate.com/our-productions/seti-cukerok/', title:'Набори цукерок', traffic:602, pct:9.5, kw:76},
   ]},
   {d:'aimant.ua', own:false, label:'Aimant', pages_total:0, pages:[
-    {url:'https://www.aimant.ua/ua/products/macarons', title:'Макаруни (UA)', traffic:2011, pct:65.4, kw:99},
+    {url:'https://www.aimant.ua/ua/products/macarons', title:'Макаруни (UA)', traffic:2011, pct:65.4, kw:3305},
     {url:'https://www.aimant.ua/products/macarons', title:'Макаруни', traffic:478, pct:15.6, kw:1295},
     {url:'https://www.aimant.ua/products/easter', title:'Пасхальні солодощі', traffic:282, pct:9.2, kw:288},
     {url:'https://www.aimant.ua/products/chocolate', title:'Шоколад', traffic:157, pct:5.1, kw:748},
     {url:'https://www.aimant.ua/products/birthday/2', title:'На день народження', traffic:145, pct:4.7, kw:247},
   ]},
   {d:'sladok.com.ua', own:false, label:'Sladok', pages_total:0, pages:[
-    {url:'https://sladok.com.ua/ua/novogodnie-podarki/', title:'Новорічні подарунки (UA)', traffic:3594, pct:46.1, kw:675},
+    {url:'https://sladok.com.ua/ua/novogodnie-podarki/', title:'Новорічні подарунки (UA)', traffic:3594, pct:46.1, kw:3546},
     {url:'https://sladok.com.ua/novogodnie-podarki/', title:'Новорічні подарунки', traffic:1795, pct:23.0, kw:6496},
     {url:'https://sladok.com.ua/ua', title:'Головна UA', traffic:1042, pct:13.4, kw:578},
     {url:'https://sladok.com.ua/', title:'Головна', traffic:730, pct:9.4, kw:11272},
     {url:'https://sladok.com.ua/produktovye-nabory/', title:'Продуктові набори', traffic:631, pct:8.1, kw:146},
   ]},
   {d:'vamdarunok.com', own:false, label:'Vamdarunok', pages_total:0, pages:[
-    {url:'https://vamdarunok.com/ua/shop/lviv/category/novogodnie_podarki.html', title:'Новорічні подарунки Львів', traffic:1443, pct:41.0, kw:54},
+    {url:'https://vamdarunok.com/ua/shop/lviv/category/novogodnie_podarki.html', title:'Новорічні подарунки Львів', traffic:1443, pct:41.0, kw:2953},
     {url:'https://vamdarunok.com/ru/shop/kharkiv/', title:'Магазин Харків', traffic:955, pct:27.2, kw:185},
     {url:'https://vamdarunok.com/ua/category/podarochnaya_upakovka.html', title:'Подарункова упаковка', traffic:574, pct:16.3, kw:110},
     {url:'https://vamdarunok.com/ua/category/svechi.html', title:'Свічки', traffic:293, pct:8.3, kw:10},
     {url:'https://vamdarunok.com/ru/', title:'Головна RU', traffic:253, pct:7.2, kw:1066},
   ]},
   {d:'wander.boutique', own:false, label:'Wander', pages_total:0, pages:[
-    {url:'https://wander.boutique/store/shokolad/chorniy-shokolad', title:'Чорний шоколад', traffic:535, pct:29.1, kw:66},
+    {url:'https://wander.boutique/store/shokolad/chorniy-shokolad', title:'Чорний шоколад', traffic:535, pct:29.1, kw:1706},
     {url:'https://wander.boutique/store', title:'Магазин', traffic:512, pct:27.9, kw:98},
     {url:'https://wander.boutique/store/shokolad/dubayskyy-shokolad', title:'Дубайський шоколад', traffic:350, pct:19.1, kw:3},
     {url:'https://wander.boutique/', title:'Головна', traffic:264, pct:14.4, kw:260},
     {url:'https://wander.boutique/ru', title:'Головна RU', traffic:175, pct:9.5, kw:384},
   ]},
   {d:'lavla.com.ua', own:false, label:'Lavla', pages_total:0, pages:[
-    {url:'https://lavla.com.ua/', title:'Головна', traffic:146, pct:79.8, kw:2560},
+    {url:'https://lavla.com.ua/', title:'Головна', traffic:146, pct:79.8, kw:915},
     {url:'https://lavla.com.ua/ru/products/prem-alniy-kilimok-dlya-yogi-luna-yoga-mat-travel-moon', title:'Йога килимок Moon', traffic:13, pct:7.1, kw:2},
     {url:'https://lavla.com.ua/ru/products/kniga-emoc-yniy-ntelekt-den-el-goulman', title:'Книга: Емоційний інтелект', traffic:8, pct:4.4, kw:17},
     {url:'https://lavla.com.ua/ru/catalog/dlya-doma', title:'Для дому', traffic:8, pct:4.4, kw:1},
     {url:'https://lavla.com.ua/ru/products/kniga-velike-l-to-vayner-dzhenn-fer', title:'Книга: Велике літо', traffic:8, pct:4.4, kw:3},
   ]},
   {d:'meettychocolate.com', own:false, label:'Meetty', pages_total:0, pages:[
-    {url:'https://meettychocolate.com/', title:'Головна', traffic:442, pct:95.7, kw:55},
+    {url:'https://meettychocolate.com/', title:'Головна', traffic:442, pct:95.7, kw:11},
     {url:'https://meettychocolate.com/product/чорний-шоколад-100/', title:'Чорний шоколад 100%', traffic:8, pct:1.7, kw:5},
     {url:'https://meettychocolate.com/home-eng/', title:'Home (EN)', traffic:7, pct:1.5, kw:3},
     {url:'https://meettychocolate.com/product-category/dark-category/', title:'Dark chocolate', traffic:3, pct:0.6, kw:2},
     {url:'https://meettychocolate.com/shop/', title:'Магазин', traffic:2, pct:0.4, kw:3},
   ]},
   {d:'gifty.in.ua', own:false, label:'Gifty', pages_total:0, pages:[
-    {url:'https://gifty.in.ua/catalog/kalendari', title:'Календарі', traffic:16454, pct:37.7, kw:257},
+    {url:'https://gifty.in.ua/catalog/kalendari', title:'Календарі', traffic:16454, pct:37.7, kw:19694},
     {url:'https://gifty.in.ua/', title:'Головна', traffic:11011, pct:25.2, kw:3751},
     {url:'https://gifty.in.ua/blog/read/idei-yak-provesti-den-materi-cshob-zapamyatalosya', title:'Блог: День матері', traffic:8714, pct:20.0, kw:48},
     {url:'https://gifty.in.ua/catalog/postery', title:'Постери', traffic:4281, pct:9.8, kw:86},
     {url:'https://gifty.in.ua/catalog/planeri', title:'Планери', traffic:3178, pct:7.3, kw:166},
   ]},
   {d:'uamade.ua', own:false, label:'UAmade', pages_total:0, pages:[
-    {url:'https://uamade.ua/uk/gifts/', title:'Подарунки', traffic:12103, pct:43.4, kw:478},
+    {url:'https://uamade.ua/uk/gifts/', title:'Подарунки', traffic:12103, pct:43.4, kw:40807},
     {url:'https://uamade.ua/uk/uvlecheniya/kancelyariya/otkrytki/den-rozhdeniya/', title:'Листівки на ДН', traffic:6276, pct:22.5, kw:54},
     {url:'https://uamade.ua/uk/blog/podarki/chto-podarit-muzhu-na-den-rozhdeniya/', title:'Блог: Подарунок чоловіку', traffic:3547, pct:12.7, kw:844},
     {url:'https://uamade.ua/uk/gifts/na-prazdnik/den-svyatogo-nikolaya/', title:'Подарунки на Миколая', traffic:3017, pct:10.8, kw:589},
     {url:'https://uamade.ua/uk/gifts/na-prazdnik/den-rozhdeniya/', title:'Подарунки на ДН', traffic:2960, pct:10.6, kw:1345},
   ]},
   {d:'orner.com.ua', own:false, label:'Orner', pages_total:0, pages:[
-    {url:'https://orner.com.ua/ua/category/fotoalbomy', title:'Фотоальбоми (UA)', traffic:6887, pct:24.0, kw:370},
+    {url:'https://orner.com.ua/ua/category/fotoalbomy', title:'Фотоальбоми (UA)', traffic:6887, pct:24.0, kw:48217},
     {url:'https://orner.com.ua/category/fotoalbomy', title:'Фотоальбоми', traffic:5884, pct:20.5, kw:5003},
     {url:'https://orner.com.ua/ua/category/planery', title:'Планери', traffic:5690, pct:19.9, kw:223},
     {url:'https://orner.com.ua/ua/category/karty-taro', title:'Карти Таро', traffic:5535, pct:19.3, kw:142},

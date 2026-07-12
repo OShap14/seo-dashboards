@@ -231,29 +231,8 @@ footer b{color:var(--mut)}
     </div>
   </div>
 
-  <!-- GSC Scorecards -->
-  <div class="kpis" style="margin-bottom:20px">
-    <div class="kpi blue">
-      <div class="kpi-label">КЛІКИ / 3 МІС</div>
-      <div class="kpi-val">16 039</div>
-      <div class="kpi-sub">Google Search · Веб</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-label">ПОКАЗИ / 3 МІС</div>
-      <div class="kpi-val">146 509</div>
-      <div class="kpi-sub">Унікальні запити × дні</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-label">СЕРЕДНІЙ CTR</div>
-      <div class="kpi-val">11.3%</div>
-      <div class="kpi-sub">Клікабельність у видачі</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-label">СЕРЕДНЯ ПОЗИЦІЯ</div>
-      <div class="kpi-val">6.0</div>
-      <div class="kpi-sub">Позиція в Google</div>
-    </div>
-  </div>
+  <!-- GSC Scorecards — rendered by JS -->
+  <div class="kpis" id="gsc-kpis" style="margin-bottom:20px"></div>
 
   <!-- GSC Chart -->
   <div class="card" style="padding:16px;margin-bottom:20px">
@@ -281,10 +260,10 @@ footer b{color:var(--mut)}
   </div>
 
   <script>
-  document.addEventListener('DOMContentLoaded',function(){
-    const raw=[
+  const gscRaw=[
 ["2026-03-18",147,1994,7.37,4.5],["2026-03-19",118,2149,5.49,4.1],["2026-03-20",131,2574,5.09,4.3],["2026-03-21",123,2422,5.08,5.2],["2026-03-22",109,2159,5.05,4.7],["2026-03-23",106,2093,5.06,5],["2026-03-24",112,1974,5.67,4.3],["2026-03-25",122,2034,6.0,4.5],["2026-03-26",144,2170,6.64,4.2],["2026-03-27",145,2376,6.1,4.7],["2026-03-28",94,2017,4.66,6.7],["2026-03-29",107,1909,5.61,5.3],["2026-03-30",126,2024,6.23,4.9],["2026-03-31",116,1815,6.39,4.7],["2026-04-01",121,2605,4.64,3.7],["2026-04-02",133,1818,7.32,4.8],["2026-04-03",104,1595,6.52,4.7],["2026-04-04",116,1798,6.45,5.3],["2026-04-05",115,1892,6.08,5.3],["2026-04-06",116,1808,6.42,5.8],["2026-04-07",108,1721,6.28,4.7],["2026-04-08",152,1797,8.46,4.3],["2026-04-09",120,1554,7.72,4.3],["2026-04-10",113,1785,6.33,4.5],["2026-04-11",119,1920,6.2,6.8],["2026-04-12",107,1903,5.62,6.3],["2026-04-13",127,1805,7.04,5.2],["2026-04-14",110,1795,6.13,4.4],["2026-04-15",151,1925,7.84,4.6],["2026-04-16",108,1938,5.57,4.8],["2026-04-17",125,1817,6.88,5.4],["2026-04-18",117,2066,5.66,6.1],["2026-04-19",119,2130,5.59,6.1],["2026-04-20",139,1916,7.25,6.5],["2026-04-21",151,1690,8.93,5.7],["2026-04-22",138,1662,8.3,6.2],["2026-04-23",163,1759,9.27,6],["2026-04-24",120,1476,8.13,5.1],["2026-04-25",128,1752,7.31,6.8],["2026-04-26",122,1909,6.39,6.2],["2026-04-27",168,1671,10.05,5.2],["2026-04-28",175,1699,10.3,5.8],["2026-04-29",140,1670,8.38,5.2],["2026-04-30",115,1514,7.6,5.1],["2026-05-01",116,1573,7.37,5.3],["2026-05-02",127,1553,8.18,7.5],["2026-05-03",105,1962,5.35,7.9],["2026-05-04",135,2250,6.0,6.8],["2026-05-05",134,1532,8.75,5.7],["2026-05-06",141,1512,9.33,5.2],["2026-05-07",138,1570,8.79,5.9],["2026-05-08",154,1548,9.95,5.8],["2026-05-09",114,1740,6.55,8],["2026-05-10",154,1913,8.05,8.3],["2026-05-11",131,1551,8.45,5.8],["2026-05-12",180,1556,11.57,5.1],["2026-05-13",159,1507,10.55,5.1],["2026-05-14",163,1581,10.31,5.5],["2026-05-15",178,1504,11.84,4.9],["2026-05-16",150,1570,9.55,6.7],["2026-05-17",161,1507,10.68,5.4],["2026-05-18",334,1923,17.37,7.4],["2026-05-19",286,1633,17.51,4.1],["2026-05-20",326,1693,19.26,4.5],["2026-05-21",348,1887,18.44,5.1],["2026-05-22",321,1552,20.68,5],["2026-05-23",210,1536,13.67,9.1],["2026-05-24",207,1350,15.33,5.8],["2026-05-25",347,1484,23.38,4.3],["2026-05-26",341,1433,23.8,3.8],["2026-05-27",334,1501,22.25,4.2],["2026-05-28",294,1426,20.62,4.7],["2026-05-29",259,1391,18.62,5.1],["2026-05-30",224,1547,14.48,6.4],["2026-05-31",213,1686,12.63,5.6],["2026-06-01",226,1463,15.45,9],["2026-06-02",227,1260,18.02,4.4],["2026-06-03",270,1292,20.9,5.4],["2026-06-04",238,1400,17.0,6.8],["2026-06-05",347,1597,21.73,4.1],["2026-06-06",189,1476,12.8,9.1],["2026-06-07",212,1582,13.4,7.2],["2026-06-08",205,1500,13.67,5.8],["2026-06-09",246,1503,16.37,5.8],["2026-06-10",253,1669,15.16,6],["2026-06-11",233,1387,16.8,4.7],["2026-06-12",209,1409,14.83,4.9],["2026-06-13",137,1494,9.17,10.2],["2026-06-14",148,1440,10.28,6.1],["2026-06-15",158,1529,10.33,11.5],["2026-06-16",187,1397,13.39,5.3],["2026-06-17",200,1360,14.71,6],["2026-06-18",165,1377,11.98,8.9],["2026-06-19",163,1305,12.49,4.7],["2026-06-20",160,1468,10.9,8.7],["2026-06-21",136,1373,9.91,6],["2026-06-22",173,1161,14.9,5.6],["2026-06-23",169,1439,11.74,7.7],["2026-06-24",166,1230,13.5,5.1],["2026-06-25",151,1235,12.23,5.2],["2026-06-26",166,1230,13.5,5.1],["2026-06-27",145,1496,9.69,12.5],["2026-06-28",146,1345,10.86,6.4],["2026-06-29",127,1398,9.08,10.7],["2026-06-30",163,1333,12.23,5.5],["2026-07-01",135,1207,11.18,6.9],["2026-07-02",187,1442,12.97,6.7],["2026-07-03",150,1483,10.11,4.7],["2026-07-04",143,1532,9.33,8.9],["2026-07-05",144,1458,9.88,6.5],["2026-07-06",162,1422,11.39,5.6],["2026-07-07",151,1321,11.43,5.3],["2026-07-08",141,1399,10.08,5.8],["2026-07-09",190,1509,12.59,5.4],["2026-07-10",198,1657,11.95,4.7]
 ];
+  document.addEventListener('DOMContentLoaded',function(){
 
     const canvas = document.getElementById('gscChart');
     const tooltip = document.getElementById('gsc-tooltip');
@@ -293,8 +272,8 @@ footer b{color:var(--mut)}
     const H = 220;
     const PAD = {l:46, r:52, t:16, b:28};
 
-    const clicksVals = raw.map(r=>r[1]);
-    const impVals    = raw.map(r=>r[2]);
+    const clicksVals = gscRaw.map(r=>r[1]);
+    const impVals    = gscRaw.map(r=>r[2]);
     const cMax = Math.max(...clicksVals);
     const iMax = Math.max(...impVals);
     // nice round max
@@ -350,7 +329,7 @@ footer b{color:var(--mut)}
       ctx.fillStyle = '#5f6368';
       ctx.textAlign = 'center';
       xTicks.forEach(ti=>{
-        if(ti >= raw.length) return;
+        if(ti >= gscRaw.length) return;
         const x = getX(ti, gw);
         const d = raw[ti][0].slice(5).replace('-','.');
         ctx.fillText(d, x, H - 6);
@@ -358,7 +337,7 @@ footer b{color:var(--mut)}
 
       // Impressions line (purple, behind)
       ctx.beginPath();
-      raw.forEach((r,i)=>{
+      gscRaw.forEach((r,i)=>{
         const x = getX(i,gw), y = getYi(r[2],gh);
         i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
       });
@@ -369,7 +348,7 @@ footer b{color:var(--mut)}
 
       // Clicks line (blue, in front)
       ctx.beginPath();
-      raw.forEach((r,i)=>{
+      gscRaw.forEach((r,i)=>{
         const x = getX(i,gw), y = getYc(r[1],gh);
         i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
       });
@@ -385,8 +364,8 @@ footer b{color:var(--mut)}
       const W = canvas.parentElement.offsetWidth;
       const gw = W - PAD.l - PAD.r;
       const frac = (mx - PAD.l) / gw;
-      const i = Math.max(0, Math.min(raw.length-1, Math.round(frac*(raw.length-1))));
-      const r = raw[i];
+      const i = Math.max(0, Math.min(gscRaw.length-1, Math.round(frac*(gscRaw.length-1))));
+      const r = gscRaw[i];
       const x = getX(i, gw);
 
       // crosshair
@@ -497,38 +476,8 @@ footer b{color:var(--mut)}
       <span style="color:#555">SE Ranking рахує скільки запитів сайт має в Google і який трафік це приносить. DR (Domain Rating) від Ahrefs — оцінка авторитетності сайту від 0 до 100. Чим вищий DR — тим більше довіряє сайту Google. Ref. Domains — кількість сайтів що посилаються на Ploom.ua.</span>
     </div>
   </div>
-  <div class="kpis">
-    <div class="kpi blue">
-      <div class="l">DR · Ahrefs</div>
-      <div class="v num">30</div>
-      <div class="x">Rank #3 954 360</div>
-    </div>
-    <div class="kpi">
-      <div class="l">Трафік / міс</div>
-      <div class="v num">8 158</div>
-      <div class="x">Органіка · UA</div>
-    </div>
-    <div class="kpi">
-      <div class="l">Ключі (UA)</div>
-      <div class="v num">3 275</div>
-      <div class="x">В індексі Google</div>
-    </div>
-    <div class="kpi">
-      <div class="l">Топ 1–5</div>
-      <div class="v num">374</div>
-      <div class="x">11.4% від KW</div>
-    </div>
-    <div class="kpi">
-      <div class="l">Вартість трафіку</div>
-      <div class="v num">$495</div>
-      <div class="x">/ місяць · UA</div>
-    </div>
-    <div class="kpi">
-      <div class="l">Ref. Domains</div>
-      <div class="v num">277</div>
-      <div class="x">Dofollow 89%</div>
-    </div>
-  </div>
+  <!-- SE Ranking KPIs — rendered by JS -->
+  <div class="kpis" id="se-kpis"></div>
 </section>
 
 <!-- MOVEMENT CARDS -->
@@ -685,7 +634,7 @@ const pct=n=>n==null?'—':n.toFixed(1)+'%';
 const domains=[
   {d:'ploom.ua',    label:'Ploom',  own:true,  dr:33, kw:1352,  traffic:1998,   value:0,    refdomains:201,  backlinks:253,   df:83, top5:310,  top10:191, top20:242,  top50:853,  pages:0,
    new_kw:194, up:65,   down:38,  lost:251, ai_traffic:17,  aio_kw:11,  aio_cit:0,   ai_pos:5.64,
-   prev_kw:1389, prev_traffic:2222, prev_top5:308, prev_top10:200, prev_top20:248, prev_top50:817},
+   prev_dr:30, prev_kw:1389, prev_traffic:2222, prev_top5:308, prev_top10:200, prev_top20:248, prev_top50:817},
   {d:'iqos.com.ua', label:'IQOS',   own:false, dr:34, kw:33411, traffic:117952, value:1227, refdomains:657,  backlinks:1799,  df:43, top5:4296, top10:2341,top20:3695, top50:15828,pages:0,
    new_kw:2009,up:815,down:715,lost:5322, ai_traffic:400, aio_kw:816, aio_cit:366, ai_pos:4.20,
    prev_kw:36555, prev_traffic:127276, prev_top5:4336, prev_top10:2354, prev_top20:3825, prev_top50:16869},
@@ -732,13 +681,22 @@ document.getElementById('mvgrid').innerHTML=domains.map(d=>{
   const dKW   = d.prev_kw     ? d.kw      - d.prev_kw     : null;
   const dTR   = d.prev_traffic ? d.traffic - d.prev_traffic : null;
   const dTop5 = d.prev_top5   ? d.top5    - d.prev_top5   : null;
-  const delta = (v, base) => {
-    if(v===null) return '';
+  const dlt = (v, base, suffix='') => {
+    if(v===null) return '<span style="color:var(--mut2)">—</span>';
     const pct = base ? (v/base*100).toFixed(1) : 0;
     const col = v>0?'var(--pos)':v<0?'var(--neg)':'var(--mut2)';
     const sign = v>0?'+':'';
-    return `<span style="font-size:11px;font-weight:600;color:${col};margin-left:6px">${sign}${F(v)} (${sign}${pct}%)</span>`;
+    return `<span style="font-weight:700;color:${col}">${sign}${F(v)}${suffix} <span style="font-weight:400;opacity:.75">(${sign}${pct}%)</span></span>`;
   };
+  const momBlock = (dKW!==null||dTR!==null||dTop5!==null) ? `
+    <div style="background:var(--bg2);border-radius:8px;padding:7px 10px;margin-bottom:10px;border:1px solid var(--line)">
+      <div style="font-size:10px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">vs червень</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px">
+        <div style="font-size:10px;color:var(--mut2)">Ключі<br>${dlt(dKW,d.prev_kw)}</div>
+        <div style="font-size:10px;color:var(--mut2)">Трафік<br>${dlt(dTR,d.prev_traffic)}</div>
+        <div style="font-size:10px;color:var(--mut2)">Топ-5<br>${dlt(dTop5,d.prev_top5)}</div>
+      </div>
+    </div>` : '<div style="margin-bottom:10px"></div>';
   return `<div class="mvc">
     <div class="top">
       <span class="dom-label">${d.label}</span>
@@ -748,7 +706,7 @@ document.getElementById('mvgrid').innerHTML=domains.map(d=>{
       <div class="all num"><small title="Всього ключів у топ-100 Google UA">КЛЮЧІВ UA</small>${F(d.kw)}</div>
       <span class="net ${cls}" title="Net = (Нові + Рост) − (Падіння + Випали)">${sF(nt)}</span>
     </div>
-    ${dKW!==null?`<div style="font-size:11px;color:var(--mut2);margin-bottom:10px">vs червень: ${delta(dKW,d.prev_kw)}</div>`:'<div style="margin-bottom:10px"></div>'}
+    ${momBlock}
     <div class="split">
       <div class="mvb g"><span class="lab" title="Ключі що вперше потрапили в топ-100 за цей місяць">Нові</span><span class="v num">+${F(d.new_kw)}</span></div>
       <div class="mvb g"><span class="lab" title="Ключі що покращили позицію">Рост ▲</span><span class="v num">${F(d.up)}</span></div>
@@ -1013,6 +971,100 @@ function renderTopPages(ownOnly){
   document.getElementById('toppages').innerHTML=html;
 }
 renderTopPages(false);
+// ═══════════════ SE RANKING KPI CARDS (JS-driven from domains[0]) ════════════
+(function(){
+  const d = domains.find(x=>x.own);
+  const mkKpi = (label, valStr, sub, prevVal, curNumVal, isBlue) => {
+    let dHtml = '';
+    if(prevVal!=null && curNumVal!=null) {
+      const diff = curNumVal - prevVal;
+      const pctD = prevVal > 0 ? (diff/prevVal*100).toFixed(1) : 0;
+      const col = diff>0?'var(--pos)':diff<0?'var(--neg)':'var(--mut2)';
+      const sign = diff>0?'+':'';
+      dHtml = `<div style="font-size:10px;color:var(--mut2);margin-top:5px;line-height:1.4">vs червень:&nbsp;<span style="font-weight:700;color:${col}">${sign}${F(diff)} <span style="font-weight:400">(${sign}${pctD}%)</span></span></div>`;
+    }
+    return `<div class="kpi${isBlue?' blue':''}">
+      <div class="l">${label}</div>
+      <div class="v num">${valStr}</div>
+      <div class="x">${sub}</div>
+      ${dHtml}
+    </div>`;
+  };
+  const t5pct = d.kw>0?(d.top5/d.kw*100).toFixed(1):'0';
+  document.getElementById('se-kpis').innerHTML = [
+    mkKpi('DR · Ahrefs',       String(d.dr),              'Авторитет домену',    d.prev_dr||null,      d.dr,       true),
+    mkKpi('Трафік / міс',      F(d.traffic),              'Органіка · UA',       d.prev_traffic||null, d.traffic),
+    mkKpi('Ключі (UA)',        F(d.kw),                   'В індексі Google',    d.prev_kw||null,      d.kw),
+    mkKpi('Топ 1–5',           F(d.top5),                 `${t5pct}% від KW`,    d.prev_top5||null,    d.top5),
+    mkKpi('Вартість трафіку',  '$'+F(d.value||0),         '/ місяць · UA'),
+    mkKpi('Ref. Domains',      F(d.refdomains),           `Dofollow ${d.df}%`),
+  ].join('');
+})();
+
+// ═══════════════ GSC KPI CARDS (with June vs May comparison) ═════════════════
+(function(){
+  // Compute monthly stats from gscRaw
+  function mStats(prefix) {
+    const rows = gscRaw.filter(r=>r[0].startsWith(prefix));
+    if(!rows.length) return null;
+    const clicks = rows.reduce((s,r)=>s+r[1],0);
+    const imps   = rows.reduce((s,r)=>s+r[2],0);
+    const ctr    = imps>0 ? (clicks/imps*100) : 0;
+    const pos    = rows.reduce((s,r)=>s+r[4],0)/rows.length;
+    return {clicks, imps, ctr:parseFloat(ctr.toFixed(2)), pos:parseFloat(pos.toFixed(2)), n:rows.length};
+  }
+  const jun = mStats('2026-06');
+  const may = mStats('2026-05');
+
+  const gscDelta = (cur, prev, fmt) => {
+    if(!prev) return '';
+    const diff = cur - prev;
+    const pct  = prev>0?(diff/prev*100).toFixed(1):0;
+    const col  = diff>0?'var(--pos)':diff<0?'var(--neg)':'var(--mut2)';
+    const sign = diff>0?'+':'';
+    const valStr = fmt==='pct' ? `${sign}${Math.abs(diff).toFixed(2)}pp` :
+                   fmt==='pos' ? `${sign}${diff.toFixed(2)}` :
+                   `${sign}${Math.round(diff).toLocaleString('uk-UA')}`;
+    const pctStr = fmt==='pct'||fmt==='pos' ? '' : ` (${sign}${pct}%)`;
+    return `<div style="font-size:10px;color:var(--mut2);margin-top:5px;line-height:1.4">
+      vs травень: <span style="font-weight:700;color:${col}">${valStr}${pctStr}</span>
+      <span style="font-size:9px;color:var(--mut2);display:block">черв: ${fmt==='pct'?jun.ctr.toFixed(1)+'%':fmt==='pos'?jun.pos.toFixed(1):Math.round(jun[fmt==='clicks'?'clicks':'imps']).toLocaleString()} · тра: ${fmt==='pct'?may.ctr.toFixed(1)+'%':fmt==='pos'?may.pos.toFixed(1):Math.round(may[fmt==='clicks'?'clicks':'imps']).toLocaleString()}</span>
+    </div>`;
+  };
+
+  const totClicks=gscRaw.reduce((s,r)=>s+r[1],0);
+  const totImps=gscRaw.reduce((s,r)=>s+r[2],0);
+  const avgCtr=(totClicks/totImps*100).toFixed(1);
+  const avgPos=(gscRaw.reduce((s,r)=>s+r[4],0)/gscRaw.length).toFixed(1);
+
+  document.getElementById('gsc-kpis').innerHTML = `
+    <div class="kpi blue">
+      <div class="l">КЛІКИ / 3 МІС</div>
+      <div class="v num">${totClicks.toLocaleString('uk-UA')}</div>
+      <div class="x">Google Search · Веб</div>
+      ${gscDelta(jun?.clicks,may?.clicks,'clicks')}
+    </div>
+    <div class="kpi">
+      <div class="l">ПОКАЗИ / 3 МІС</div>
+      <div class="v num">${totImps.toLocaleString('uk-UA')}</div>
+      <div class="x">Унікальні запити × дні</div>
+      ${gscDelta(jun?.imps,may?.imps,'imps')}
+    </div>
+    <div class="kpi">
+      <div class="l">СЕРЕДНІЙ CTR</div>
+      <div class="v num">${avgCtr}%</div>
+      <div class="x">Клікабельність у видачі</div>
+      ${gscDelta(jun?.ctr,may?.ctr,'pct')}
+    </div>
+    <div class="kpi">
+      <div class="l">СЕРЕДНЯ ПОЗИЦІЯ</div>
+      <div class="v num">${avgPos}</div>
+      <div class="x">Позиція в Google</div>
+      ${gscDelta(jun?.pos,may?.pos,'pos')}
+    </div>`;
+})();
+
+
 document.getElementById('pgAll').onclick=()=>{
   renderTopPages(false);
   document.getElementById('pgAll').classList.add('on');

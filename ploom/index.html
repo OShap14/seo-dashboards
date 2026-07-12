@@ -620,6 +620,12 @@ footer b{color:var(--mut)}
   <div id="toppages"></div>
 </section>
 
+<section>
+  <h2>📊 Зведена таблиця MoM</h2>
+  <p style="font-size:12px;color:var(--mut2);margin-bottom:16px">Всі ключові показники — порівняння поточного місяця з попереднім</p>
+  <div id="mom-table"></div>
+</section>
+
 <footer>
   <div><b>Джерела:</b> SE Ranking Data API (трафік, ключі, рух семантики, ref. domains, backlinks · UA) · Ahrefs API v3 (DR). <b>Знімок:</b> 12.07.2026.</div>
   <div class="fnote"><b>Net</b> = (Нові + Рост) − (Падіння + Випали). <b>Traff/KW</b> = трафік ÷ кількість ключів у топ-100.</div>
@@ -1346,6 +1352,105 @@ document.addEventListener('DOMContentLoaded', function() {
   for(let i=1;i<=9;i++) { if(checks['r'+i]) applyCheck('r'+i, true); }
   updateProgress();
 });
+
+// ═══════════════ MoM SUMMARY TABLE ═══════════════
+(function(){
+  // GSC monthly stats
+  function mStats(prefix) {
+    const rows = gscRaw.filter(r=>r[0].startsWith(prefix));
+    if(!rows.length) return null;
+    const clicks = rows.reduce((s,r)=>s+r[1],0);
+    const imps   = rows.reduce((s,r)=>s+r[2],0);
+    const ctr    = imps>0 ? (clicks/imps*100) : 0;
+    const pos    = rows.reduce((s,r)=>s+r[4],0)/rows.length;
+    return {clicks, imps, ctr:parseFloat(ctr.toFixed(2)), pos:parseFloat(pos.toFixed(2))};
+  }
+  const jun = mStats('2026-06');
+  const may = mStats('2026-05');
+
+  // SE Ranking domain
+  const d = domains.find(x=>x.own);
+
+  // Helper: render one delta cell
+  function cell(cur, prev, lowerBetter, isCtr, isPct) {
+    if(cur==null || prev==null) return '<td class="num" style="color:var(--mut2)">—</td><td></td>';
+    const diff = cur - prev;
+    const pctD = prev !== 0 ? (diff/Math.abs(prev)*100) : 0;
+    const good = lowerBetter ? diff < 0 : diff > 0;
+    const neutral = diff === 0;
+    const col = neutral ? 'var(--mut2)' : good ? 'var(--pos)' : 'var(--neg)';
+    const sign = diff > 0 ? '+' : '';
+    const absStr = isCtr ? `${sign}${diff.toFixed(2)}pp` : isPct ? `${sign}${diff.toFixed(1)}` : `${sign}${F(diff)}`;
+    const pctStr = `${sign}${pctD.toFixed(1)}%`;
+    return `<td class="num" style="color:${col};font-weight:700">${absStr}</td>
+            <td style="color:${col};font-size:11px;opacity:.85">${pctStr}</td>`;
+  }
+
+  function fmtVal(v, isCtr, isPos) {
+    if(v==null) return '—';
+    if(isCtr) return v.toFixed(2)+'%';
+    if(isPos) return v.toFixed(1);
+    return F(v);
+  }
+
+  const rows = [
+    // [група, назва, поточне, попереднє, period, lowerBetter, isCtr, isPct]
+    {group:'GSC · Червень vs Травень', name:'Кліки',    cur:jun?.clicks, prev:may?.clicks, lb:false},
+    {group:'',                          name:'Покази',   cur:jun?.imps,   prev:may?.imps,   lb:false},
+    {group:'',                          name:'CTR',      cur:jun?.ctr,    prev:may?.ctr,    lb:false, isCtr:true},
+    {group:'',                          name:'Позиція',  cur:jun?.pos,    prev:may?.pos,    lb:true,  isPos:true},
+    {group:'SE Ranking · Липень vs Червень', name:'Трафік (UA)', cur:d.traffic, prev:d.prev_traffic, lb:false},
+    {group:'',                          name:'Ключі (UA)',cur:d.kw,       prev:d.prev_kw,   lb:false},
+    {group:'',                          name:'Топ 1–5',  cur:d.top5,     prev:d.prev_top5, lb:false},
+    {group:'',                          name:'Топ 1–10', cur:d.top10,    prev:d.prev_top10,lb:false},
+    {group:'',                          name:'Топ 11–20',cur:d.top20,    prev:d.prev_top20,lb:false},
+    {group:'',                          name:'Топ 21–50',cur:d.top50,    prev:d.prev_top50,lb:false},
+    {group:'',                          name:'DR (Ahrefs)',cur:d.dr,     prev:d.prev_dr,   lb:false},
+  ];
+
+  const tStyle = `width:100%;border-collapse:collapse;font-size:13px`;
+  const thStyle = `padding:8px 12px;text-align:left;font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.4px;border-bottom:2px solid var(--line);background:var(--bg2)`;
+  const thR = `padding:8px 12px;text-align:right;font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.4px;border-bottom:2px solid var(--line);background:var(--bg2)`;
+
+  let html = `<div style="overflow-x:auto;border-radius:12px;border:1px solid var(--line);background:var(--panel)">
+  <table style="${tStyle}">
+    <thead>
+      <tr>
+        <th style="${thStyle}">Показник</th>
+        <th style="${thR}">Попередній міс.</th>
+        <th style="${thR}">Поточний міс.</th>
+        <th style="${thR}">Δ абс.</th>
+        <th style="${thR}">Δ %</th>
+      </tr>
+    </thead>
+    <tbody>`;
+
+  let lastGroup = '';
+  rows.forEach((r, idx) => {
+    const isGroupRow = r.group !== '';
+    if(isGroupRow) {
+      lastGroup = r.group;
+      const [src, period] = r.group.split(' · ');
+      html += `<tr>
+        <td colspan="5" style="padding:10px 12px 4px;font-size:11px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:.5px;background:var(--bg2);border-top:${idx>0?'2px solid var(--line)':'none'}">${src} <span style="font-weight:400;color:var(--mut2)">· ${period}</span></td>
+      </tr>`;
+    }
+
+    const curStr  = fmtVal(r.cur,  r.isCtr, r.isPos);
+    const prevStr = fmtVal(r.prev, r.isCtr, r.isPos);
+    const zebra = idx % 2 === 0 ? 'var(--bg)' : 'var(--panel)';
+
+    html += `<tr style="background:${zebra};border-top:1px solid var(--line)">
+      <td style="padding:9px 12px;font-weight:500">${r.name}</td>
+      <td class="num" style="padding:9px 12px;text-align:right;color:var(--mut2)">${prevStr}</td>
+      <td class="num" style="padding:9px 12px;text-align:right;font-weight:600">${curStr}</td>
+      ${cell(r.cur, r.prev, r.lb, r.isCtr, r.isPos).replace(/<td/g,'<td style="padding:9px 12px;text-align:right"')}
+    </tr>`;
+  });
+
+  html += `</tbody></table></div>`;
+  document.getElementById('mom-table').innerHTML = html;
+})();
 </script>
 
 </div><!-- /wrap -->

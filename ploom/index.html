@@ -281,7 +281,7 @@ footer b{color:var(--mut)}
     const cTop = niceMax(cMax);
     const iTop = niceMax(iMax);
 
-    function getX(i, gw){ return PAD.l + gw * (i/(raw.length-1)); }
+    function getX(i, gw){ return PAD.l + gw * (i/(gscRaw.length-1)); }
     function getYc(v, gh){ return PAD.t + gh * (1 - v/cTop); }
     function getYi(v, gh){ return PAD.t + gh * (1 - v/iTop); }
 
@@ -331,7 +331,7 @@ footer b{color:var(--mut)}
       xTicks.forEach(ti=>{
         if(ti >= gscRaw.length) return;
         const x = getX(ti, gw);
-        const d = raw[ti][0].slice(5).replace('-','.');
+        const d = gscRaw[ti][0].slice(5).replace('-','.');
         ctx.fillText(d, x, H - 6);
       });
 

@@ -467,7 +467,7 @@ footer b{color:var(--mut)}
 <section>
   <div class="s-head">
     <h2>Ploom.ua — ключові показники</h2>
-    <span class="n">// UA · липень 2026</span>
+    <span class="n">// UA · серпень 2026</span>
   </div>
   <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;padding:10px 14px;background:#e3f0ff;border-radius:8px;border-left:3px solid #1a6fb5">
     <span style="font-size:16px">📈</span>
@@ -638,15 +638,15 @@ const sF=n=>n>0?'+'+F(n):F(n);
 const pct=n=>n==null?'—':n.toFixed(1)+'%';
 
 const domains=[
-  {d:'ploom.ua',    label:'Ploom',  own:true,  dr:33, kw:1352,  traffic:1998,   value:0,    refdomains:201,  backlinks:253,   df:83, top5:310,  top10:191, top20:242,  top50:853,  pages:0,
-   new_kw:194, up:65,   down:38,  lost:251, ai_traffic:17,  aio_kw:11,  aio_cit:0,   ai_pos:5.64,
-   prev_dr:30, prev_kw:1389, prev_traffic:2222, prev_top5:308, prev_top10:200, prev_top20:248, prev_top50:817},
-  {d:'iqos.com.ua', label:'IQOS',   own:false, dr:34, kw:33411, traffic:117952, value:1227, refdomains:657,  backlinks:1799,  df:43, top5:4296, top10:2341,top20:3695, top50:15828,pages:0,
-   new_kw:2009,up:815,down:715,lost:5322, ai_traffic:400, aio_kw:816, aio_cit:366, ai_pos:4.20,
-   prev_kw:36555, prev_traffic:127276, prev_top5:4336, prev_top10:2354, prev_top20:3825, prev_top50:16869},
-  {d:'myglo.com.ua',label:'Glo',    own:false, dr:29, kw:12200, traffic:22446,  value:122,  refdomains:525,  backlinks:1401,  df:63, top5:5110, top10:2603,top20:3590, top50:10397,pages:0,
-   new_kw:1097,up:498,down:403,lost:2797, ai_traffic:204, aio_kw:386, aio_cit:146, ai_pos:4.30,
-   prev_kw:13463, prev_traffic:23847, prev_top5:5155, prev_top10:2659, prev_top20:3659, prev_top50:10809},
+  {d:'ploom.ua',    label:'Ploom',  own:true,  dr:33, kw:913,   traffic:1880,   value:0,    refdomains:201,  backlinks:253,   df:83, top5:375,  top10:133, top20:206,  top50:718,  pages:0,
+   new_kw:1004, up:131,  down:100, lost:1515, ai_traffic:17,  aio_kw:11,  aio_cit:0,   ai_pos:5.64,
+   prev_dr:33, prev_kw:1352, prev_traffic:1998, prev_top5:310, prev_top10:191, prev_top20:242, prev_top50:853},
+  {d:'iqos.com.ua', label:'IQOS',   own:false, dr:34, kw:16676, traffic:130976, value:1548, refdomains:657,  backlinks:1799,  df:43, top5:4340, top10:2210,top20:3056, top50:11026,pages:0,
+   new_kw:10061,up:2384,down:2448,lost:28178, ai_traffic:400, aio_kw:816, aio_cit:366, ai_pos:4.20,
+   prev_kw:33411, prev_traffic:117952, prev_top5:4296, prev_top10:2341, prev_top20:3695, prev_top50:15828},
+  {d:'myglo.com.ua',label:'Glo',    own:false, dr:29, kw:6845,  traffic:19215,  value:93,   refdomains:525,  backlinks:1401,  df:63, top5:5643, top10:2211,top20:3296, top50:9907, pages:0,
+   new_kw:13960,up:3062,down:2482,lost:20513, ai_traffic:204, aio_kw:386, aio_cit:146, ai_pos:4.30,
+   prev_kw:12200, prev_traffic:22446, prev_top5:5110, prev_top10:2603, prev_top20:3590, prev_top50:10397},
 ];
 
 /* ── TOP PAGES DATA ── */
@@ -1102,76 +1102,55 @@ document.getElementById('pgOwn').onclick=()=>{
 <section>
   <div class="s-head">
     <h2>✅ Виконані роботи</h2>
-    <span class="n">// Звітний період · Червень 2026</span>
+    <span class="n">// Звітний період · Липень 2026</span>
   </div>
 
   <!-- Блок 1: Технічна SEO -->
   <div style="margin-bottom:8px;padding:6px 0 4px;border-bottom:2px solid var(--line)">
-    <span style="font-size:10px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:.6px">🔧 Технічна SEO та аналітика</span>
+    <span style="font-size:10px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:.6px">🔧 Технічна SEO та canonical</span>
   </div>
   <div style="display:grid;gap:12px;margin-bottom:24px">
     <div class="card" style="padding:16px 20px">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
         <span style="background:#e3f2fd;color:#1565c0;font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px">1.1</span>
-        <h3 style="font-size:14px;font-weight:600;margin:0">Аналіз даних GSC</h3>
+        <h3 style="font-size:14px;font-weight:600;margin:0">FAQ з юридичною командою</h3>
       </div>
-      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Отримано повний доступ до Search Console та проведено аналіз трафіку, позицій та індексації. Зафіксовано ріст органічного трафіку, виявлено проблемні сторінки.</p>
+      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Опрацьовано FAQ разом з юридичною командою клієнта: правки формулювань, уточнення про перемикання режимів через застосунок, додавання посилань, перевірка canonical. Координація щодо контенту для фірмових магазинів, сторінок пристрою та стіків.</p>
     </div>
     <div class="card" style="padding:16px 20px">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
         <span style="background:#e3f2fd;color:#1565c0;font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px">1.2</span>
-        <h3 style="font-size:14px;font-weight:600;margin:0">SEO-аудит глобальної команди клієнта</h3>
+        <h3 style="font-size:14px;font-weight:600;margin:0">Оновлення логіки canonical</h3>
       </div>
-      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Опрацьовано аудит від глобальної команди клієнта: розподіл задач по пріоритетах, підготовка карти редіректів для всіх 404-URL, погодження з технічною командою.</p>
-    </div>
-    <div class="card" style="padding:16px 20px">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="background:#e3f2fd;color:#1565c0;font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px">1.3</span>
-        <h3 style="font-size:14px;font-weight:600;margin:0">Редіректи та canonical</h3>
-      </div>
-      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Налаштовано всі редіректи на сайті за картою 404-URL. Визначено та виправлено сторінки з некоректними canonical-тегами.</p>
-    </div>
-    <div class="card" style="padding:16px 20px">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="background:#e3f2fd;color:#1565c0;font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px">1.4</span>
-        <h3 style="font-size:14px;font-weight:600;margin:0">Sitemap</h3>
-      </div>
-      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Повторний парсинг сайту, чистка нерелевантних URL, генерація нового sitemap.xml та оновлення в Search Console.</p>
-    </div>
-    <div class="card" style="padding:16px 20px">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="background:#e3f2fd;color:#1565c0;font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px">1.5</span>
-        <h3 style="font-size:14px;font-weight:600;margin:0">Аналіз конкурентів у видачі</h3>
-      </div>
-      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Аналіз видачі та позицій конкурентів IQOS і Glo. Визначено розриви в семантичному покритті та контентні можливості для ploom.ua.</p>
+      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Оновлено логіку проставлення canonical URL для сторінок FAQ та категорій. Виправлено некоректні canonical-теги після перевірки з юридичною командою.</p>
     </div>
   </div>
 
-  <!-- Блок 2: Контент та семантика -->
+  <!-- Блок 2: Контент -->
   <div style="margin-bottom:8px;padding:6px 0 4px;border-bottom:2px solid var(--line)">
-    <span style="font-size:10px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:.6px">📝 Контент та семантика</span>
+    <span style="font-size:10px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:.6px">📝 Контент</span>
   </div>
   <div style="display:grid;gap:12px;margin-bottom:24px">
     <div class="card" style="padding:16px 20px">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
         <span style="background:#f3e5f5;color:#6a1b9a;font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px">2.1</span>
-        <h3 style="font-size:14px;font-weight:600;margin:0">Мета-дані: стіки, головні сторінки, Magento</h3>
+        <h3 style="font-size:14px;font-weight:600;margin:0">Тексти для пристрою Ploom AURA та стіків EVO</h3>
       </div>
-      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Написано мета-дані для стіків EVO та «Собраніє». Підготовлено нові Title/Description для головних сторінок UK/RU. Виправлено мета-дані «Смарт Апгрейд» у Magento.</p>
+      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Підготовлено ТЗ під контент для сторінок пристрою та стіків. Написано тексти для категорій пристрою Ploom AURA та стіків EVO у двох варіантах. Проведено доопрацювання за коментарями клієнта.</p>
     </div>
     <div class="card" style="padding:16px 20px">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
         <span style="background:#f3e5f5;color:#6a1b9a;font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px">2.2</span>
-        <h3 style="font-size:14px;font-weight:600;margin:0">Тексти для розділу «Фірмові магазини» + FAQ</h3>
+        <h3 style="font-size:14px;font-weight:600;margin:0">Доопрацювання текстів «Фірмові магазини»</h3>
       </div>
-      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Підготовлено тексти для розділу «Фірмові магазини» у двох варіантах структури. Пропрацьовано блоки FAQ для пріоритетних сторінок.</p>
+      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Доопрацьовано тексти для розділу «Фірмові магазини» відповідно до вимог юридичної команди та коментарів клієнта.</p>
     </div>
     <div class="card" style="padding:16px 20px">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
         <span style="background:#f3e5f5;color:#6a1b9a;font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px">2.3</span>
-        <h3 style="font-size:14px;font-weight:600;margin:0">Збір небрендової семантики</h3>
+        <h3 style="font-size:14px;font-weight:600;margin:0">Оновлення FAQ</h3>
       </div>
-      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Зібрано небрендові запити по категоріях аксесуарів: палички для чистки, зарядні пристрої, чохли, панелі, органайзери. Семантика кластеризована і готова до впровадження.</p>
+      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Оновлено блоки FAQ на пріоритетних сторінках після узгодження з юридичною командою. Формулювання приведено у відповідність до вимог комплаєнсу.</p>
     </div>
   </div>
 
@@ -1183,37 +1162,44 @@ document.getElementById('pgOwn').onclick=()=>{
     <div class="card" style="padding:16px 20px">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
         <span style="background:#fff8e1;color:#e65100;font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px">3.1</span>
-        <h3 style="font-size:14px;font-weight:600;margin:0">Аналіз анкор-профілю та підбір донорів</h3>
+        <h3 style="font-size:14px;font-weight:600;margin:0">Аналіз анкорів та підбір донорів · 15 розміщень</h3>
       </div>
-      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Проаналізовано поточний анкор-профіль та беклінки. Підібрано та перевірено outreach-донорів для закупівлі.</p>
+      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Проаналізовано поточний анкор-профіль, підібрано донорів для закупівлі. Узгоджено збільшення обсягу до 15 аутріч-розміщень (замість 12). Проведено координацію та підготовку до закупівлі.</p>
     </div>
     <div class="card" style="padding:16px 20px">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
         <span style="background:#fff8e1;color:#e65100;font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px">3.2</span>
-        <h3 style="font-size:14px;font-weight:600;margin:0">12 аутріч-розміщень</h3>
+        <h3 style="font-size:14px;font-weight:600;margin:0">Закупка 15 посилань · парсинг донорів Glo</h3>
       </div>
-      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Підготовлено ТЗ і тексти для розміщень. Проведено координацію та контроль закупівлі 12 аутріч-посилань. Моніторинг індексації всіх розміщених лінків.</p>
+      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Проведено закупку 15 аутріч-посилань. Спарсено домени-донори конкурента Glo для подальшого аналізу і закупівлі у наступних місяцях.</p>
     </div>
   </div>
 
-  <!-- Блок 4: Проєкт -->
+  <!-- Блок 4: Проєктний менеджмент -->
   <div style="margin-bottom:8px;padding:6px 0 4px;border-bottom:2px solid var(--line)">
-    <span style="font-size:10px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:.6px">📊 Проєктний менеджмент</span>
+    <span style="font-size:10px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:.6px">📊 Проєктний менеджмент та ГМБ</span>
   </div>
   <div style="display:grid;gap:12px">
     <div class="card" style="padding:16px 20px">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
         <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px">4.1</span>
-        <h3 style="font-size:14px;font-weight:600;margin:0">SEO-дашборд звітності</h3>
+        <h3 style="font-size:14px;font-weight:600;margin:0">SEO-дашборд · оновлення</h3>
       </div>
-      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Розроблено інтерактивний SEO-дашборд для щомісячної звітності: аналітика з GSC та SE Ranking, виконані роботи, рекомендації, зведена таблиця MoM.</p>
+      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Оновлено дашборд на новому URL, актуалізовано виконані роботи і додано плани на липень.</p>
     </div>
     <div class="card" style="padding:16px 20px">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
         <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px">4.2</span>
+        <h3 style="font-size:14px;font-weight:600;margin:0">ГМБ (Google Business Profile)</h3>
+      </div>
+      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Підготовлено рекомендації по оновленню опису картки на мапі та додаванню товарів у картки Google Business Profile.</p>
+    </div>
+    <div class="card" style="padding:16px 20px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+        <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px">4.3</span>
         <h3 style="font-size:14px;font-weight:600;margin:0">Менеджмент проєкту</h3>
       </div>
-      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Координація з клієнтом та технічною командою, проведення статус-колів, контроль виконання задач та дотримання термінів.</p>
+      <p style="font-size:13px;color:var(--mut);line-height:1.6;margin:0">Статус-коли з клієнтом, координація з юридичною командою, узгодження кошторису за липень. Підготовлено акт і рахунок за червень.</p>
     </div>
   </div>
 </section>
@@ -1467,7 +1453,7 @@ document.addEventListener('DOMContentLoaded', function() {
     {group:'',                          name:'Покази',   cur:jun?.imps,   prev:may?.imps,   lb:false},
     {group:'',                          name:'CTR',      cur:jun?.ctr,    prev:may?.ctr,    lb:false, isCtr:true},
     {group:'',                          name:'Позиція',  cur:jun?.pos,    prev:may?.pos,    lb:true,  isPos:true},
-    {group:'SE Ranking · Липень vs Червень', name:'Трафік (UA)', cur:d.traffic, prev:d.prev_traffic, lb:false},
+    {group:'SE Ranking · Серпень vs Липень', name:'Трафік (UA)', cur:d.traffic, prev:d.prev_traffic, lb:false},
     {group:'',                          name:'Ключі (UA)',cur:d.kw,       prev:d.prev_kw,   lb:false},
     {group:'',                          name:'Топ 1–5',  cur:d.top5,     prev:d.prev_top5, lb:false},
     {group:'',                          name:'Топ 1–10', cur:d.top10,    prev:d.prev_top10,lb:false},

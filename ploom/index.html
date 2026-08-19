@@ -1007,9 +1007,8 @@ renderTopPages(false);
   ].join('');
 })();
 
-// ═══════════════ GSC KPI CARDS (with June vs May comparison) ═════════════════
+// ═══════════════ GSC KPI CARDS ═════════════════
 (function(){
-  // Compute monthly stats from gscRaw
   function mStats(prefix) {
     const rows = gscRaw.filter(r=>r[0].startsWith(prefix));
     if(!rows.length) return null;
@@ -1019,23 +1018,23 @@ renderTopPages(false);
     const pos    = rows.reduce((s,r)=>s+r[4],0)/rows.length;
     return {clicks, imps, ctr:parseFloat(ctr.toFixed(2)), pos:parseFloat(pos.toFixed(2)), n:rows.length};
   }
-  const jun = mStats('2026-07');
-  const may = mStats('2026-06');
+  const jul = mStats('2026-07');
+  const jun = mStats('2026-06');
+  // YoY — July 2025 (GSC export)
+  const yoy = {clicks:4810, ctr:5.7, pos:24.4};
 
-  const gscDelta = (cur, prev, fmt) => {
-    if(!prev) return '';
+  const delta = (cur, prev, fmt, label) => {
+    if(prev==null) return '';
     const diff = cur - prev;
     const pct  = prev>0?(diff/prev*100).toFixed(1):0;
     const col  = diff>0?'var(--pos)':diff<0?'var(--neg)':'var(--mut2)';
     const sign = diff>0?'+':'';
-    const valStr = fmt==='pct' ? `${sign}${Math.abs(diff).toFixed(2)}pp` :
-                   fmt==='pos' ? `${sign}${diff.toFixed(2)}` :
+    const valStr = fmt==='pct' ? `${sign}${Math.abs(diff).toFixed(1)}pp` :
+                   fmt==='pos' ? `${sign}${diff.toFixed(1)}` :
                    `${sign}${Math.round(diff).toLocaleString('uk-UA')}`;
     const pctStr = fmt==='pct'||fmt==='pos' ? '' : ` (${sign}${pct}%)`;
-    return `<div style="font-size:10px;color:var(--mut2);margin-top:5px;line-height:1.4">
-      vs червень: <span style="font-weight:700;color:${col}">${valStr}${pctStr}</span>
-      <span style="font-size:9px;color:var(--mut2);display:block">лип: ${fmt==='pct'?jun.ctr.toFixed(1)+'%':fmt==='pos'?jun.pos.toFixed(1):Math.round(jun[fmt==='clicks'?'clicks':'imps']).toLocaleString()} · черв: ${fmt==='pct'?may.ctr.toFixed(1)+'%':fmt==='pos'?may.pos.toFixed(1):Math.round(may[fmt==='clicks'?'clicks':'imps']).toLocaleString()}</span>
-    </div>`;
+    return `<div style="font-size:10px;color:var(--mut2);margin-top:4px;line-height:1.5">
+      ${label}: <span style="font-weight:700;color:${col}">${valStr}${pctStr}</span></div>`;
   };
 
   const totClicks=gscRaw.reduce((s,r)=>s+r[1],0);
@@ -1043,31 +1042,74 @@ renderTopPages(false);
   const avgCtr=(totClicks/totImps*100).toFixed(1);
   const avgPos=(gscRaw.reduce((s,r)=>s+r[4],0)/gscRaw.length).toFixed(1);
 
+  // MoM helpers
+  const momC = jul && jun ? jul.clicks - jun.clicks : 0;
+  const momCpct = jun ? (momC/jun.clicks*100).toFixed(1) : 0;
+  const momI = jul && jun ? jul.imps - jun.imps : 0;
+  const momIpct = jun ? (momI/jun.imps*100).toFixed(1) : 0;
+  const momCtr = jul && jun ? (jul.ctr - jun.ctr).toFixed(1) : 0;
+  const momPos = jul && jun ? (jul.pos - jun.pos).toFixed(1) : 0;
+  // YoY helpers
+  const yoyC = jul ? jul.clicks - yoy.clicks : 0;
+  const yoyFmt = n => (n>=0?'+':'')+Math.round(n).toLocaleString('uk-UA');
+  const yoyPct = jul ? ((yoyC/yoy.clicks)*100).toFixed(1) : 0;
+  const yoyCtr = jul ? (jul.ctr - yoy.ctr).toFixed(1) : 0;
+  const yoyPos = jul ? (jul.pos - yoy.pos).toFixed(1) : 0;
+  const col = v => parseFloat(v)>0?'var(--pos)':parseFloat(v)<0?'var(--neg)':'var(--mut2)';
+  const sign = v => parseFloat(v)>0?'+':'';
+
   document.getElementById('gsc-kpis').innerHTML = `
     <div class="kpi blue">
-      <div class="l">КЛІКИ / 3 МІС</div>
-      <div class="v num">${totClicks.toLocaleString('uk-UA')}</div>
-      <div class="x">Google Search · Веб</div>
-      ${gscDelta(jun?.clicks,may?.clicks,'clicks')}
+      <div class="l">КЛІКИ · ЛИПЕНЬ 2026</div>
+      <div class="v num">${jul?.clicks.toLocaleString('uk-UA')||'—'}</div>
+      <div class="x">лип: ${jul?.clicks.toLocaleString()||'—'} · черв: ${jun?.clicks.toLocaleString()||'—'}</div>
+      ${delta(jul?.clicks,jun?.clicks,'num','MoM vs червень')}
+      ${delta(jul?.clicks,yoy.clicks,'num','YoY vs лип\'25')}
     </div>
     <div class="kpi">
-      <div class="l">ПОКАЗИ / 3 МІС</div>
-      <div class="v num">${totImps.toLocaleString('uk-UA')}</div>
-      <div class="x">Унікальні запити × дні</div>
-      ${gscDelta(jun?.imps,may?.imps,'imps')}
+      <div class="l">ПОКАЗИ · ЛИПЕНЬ 2026</div>
+      <div class="v num">${jul?.imps.toLocaleString('uk-UA')||'—'}</div>
+      <div class="x">лип: ${jul?.imps.toLocaleString()||'—'} · черв: ${jun?.imps.toLocaleString()||'—'}</div>
+      ${delta(jul?.imps,jun?.imps,'num','MoM vs червень')}
     </div>
     <div class="kpi">
-      <div class="l">СЕРЕДНІЙ CTR</div>
-      <div class="v num">${avgCtr}%</div>
-      <div class="x">Клікабельність у видачі</div>
-      ${gscDelta(jun?.ctr,may?.ctr,'pct')}
+      <div class="l">СЕРЕДНІЙ CTR · ЛИПЕНЬ</div>
+      <div class="v num">${jul?.ctr.toFixed(1)||'—'}%</div>
+      <div class="x">лип: ${jul?.ctr.toFixed(1)||'—'}% · черв: ${jun?.ctr.toFixed(1)||'—'}%</div>
+      ${delta(jul?.ctr,jun?.ctr,'pct','MoM vs червень')}
+      ${delta(jul?.ctr,yoy.ctr,'pct','YoY vs лип\'25')}
     </div>
     <div class="kpi">
-      <div class="l">СЕРЕДНЯ ПОЗИЦІЯ</div>
-      <div class="v num">${avgPos}</div>
-      <div class="x">Позиція в Google</div>
-      ${gscDelta(jun?.pos,may?.pos,'pos')}
+      <div class="l">СЕРЕДНЯ ПОЗИЦІЯ · ЛИПЕНЬ</div>
+      <div class="v num">${jul?.pos.toFixed(1)||'—'}</div>
+      <div class="x">лип: ${jul?.pos.toFixed(1)||'—'} · черв: ${jun?.pos.toFixed(1)||'—'} · лип'25: ${yoy.pos}</div>
+      ${delta(jul?.pos,jun?.pos,'pos','MoM vs червень')}
+      ${delta(jul?.pos,yoy.pos,'pos','YoY vs лип\'25')}
     </div>`;
+
+  // ── Висновок ──────────────────────────────────────────────
+  const momSign = n => parseFloat(n)>=0?'+':'';
+  const momCol  = n => parseFloat(n)>0?'#2e7d32':parseFloat(n)<0?'#c62828':'#555';
+  const conclusion = `
+  <div style="margin-top:16px;padding:16px 20px;background:var(--card);border:1px solid var(--line);border-radius:10px;border-left:4px solid var(--acc)">
+    <div style="font-size:11px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">📊 Динаміка трафіку · Липень 2026</div>
+    <div style="font-size:13px;color:var(--txt);line-height:1.8">
+      <b>Місяць до місяця (Липень vs Червень):</b> кліки
+      <span style="font-weight:700;color:${momCol(momC)}">${momSign(momC)}${Math.round(momC).toLocaleString('uk-UA')} (${momSign(momCpct)}${momCpct}%)</span>,
+      покази <span style="font-weight:700;color:${momCol(momI)}">${momSign(momI)}${Math.round(momI).toLocaleString('uk-UA')} (${momSign(momIpct)}${momIpct}%)</span>,
+      CTR <span style="font-weight:700;color:${momCol(momCtr)}">${momSign(momCtr)}${momCtr}pp</span>,
+      позиція <span style="font-weight:700;color:${momCol(-parseFloat(momPos))}">${momSign(momPos)}${momPos}</span>.
+      ${parseFloat(momC)<0?'Зниження кліків пов\'язане зі спадом CTR — покази при цьому зросли, що говорить про розширення видимості.':'Кліки зросли на тлі покращення позицій.'}
+    </div>
+    <div style="font-size:13px;color:var(--txt);line-height:1.8;margin-top:6px">
+      <b>Рік до року (Липень 2026 vs Липень 2025):</b> кліки
+      <span style="font-weight:700;color:${momCol(yoyC)}">${yoyFmt(yoyC)} (${momSign(yoyPct)}${yoyPct}%)</span>,
+      CTR <span style="font-weight:700;color:${momCol(yoyCtr)}">${momSign(yoyCtr)}${yoyCtr}pp</span> (${yoy.ctr}% → ${jul?.ctr.toFixed(1)}%),
+      позиція <span style="font-weight:700;color:${momCol(-parseFloat(yoyPos))}">${sign(yoyPos)}${yoyPos}</span> (${yoy.pos} → ${jul?.pos.toFixed(1)}).
+      Значне покращення середньої позиції з ${yoy.pos} до ${jul?.pos.toFixed(1)} свідчить про суттєве зростання видимості порівняно з минулим роком.
+    </div>
+  </div>`;
+  document.getElementById('gsc-kpis').insertAdjacentHTML('afterend', conclusion);
 })();
 
 

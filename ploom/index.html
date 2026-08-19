@@ -1033,8 +1033,8 @@ renderTopPages(false);
                    `${sign}${Math.round(diff).toLocaleString('uk-UA')}`;
     const pctStr = fmt==='pct'||fmt==='pos' ? '' : ` (${sign}${pct}%)`;
     return `<div style="font-size:10px;color:var(--mut2);margin-top:5px;line-height:1.4">
-      vs травень: <span style="font-weight:700;color:${col}">${valStr}${pctStr}</span>
-      <span style="font-size:9px;color:var(--mut2);display:block">черв: ${fmt==='pct'?jun.ctr.toFixed(1)+'%':fmt==='pos'?jun.pos.toFixed(1):Math.round(jun[fmt==='clicks'?'clicks':'imps']).toLocaleString()} · тра: ${fmt==='pct'?may.ctr.toFixed(1)+'%':fmt==='pos'?may.pos.toFixed(1):Math.round(may[fmt==='clicks'?'clicks':'imps']).toLocaleString()}</span>
+      vs червень: <span style="font-weight:700;color:${col}">${valStr}${pctStr}</span>
+      <span style="font-size:9px;color:var(--mut2);display:block">лип: ${fmt==='pct'?jun.ctr.toFixed(1)+'%':fmt==='pos'?jun.pos.toFixed(1):Math.round(jun[fmt==='clicks'?'clicks':'imps']).toLocaleString()} · черв: ${fmt==='pct'?may.ctr.toFixed(1)+'%':fmt==='pos'?may.pos.toFixed(1):Math.round(may[fmt==='clicks'?'clicks':'imps']).toLocaleString()}</span>
     </div>`;
   };
 

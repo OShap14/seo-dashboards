@@ -272,6 +272,17 @@ footer b{color:var(--mut)}
   </div>
 
   <div class="mvgrid" id="mvgrid"></div>
+
+<div class="insight" style="margin-top:16px">
+  <div class="ins good">
+    <div class="ic">📈</div>
+    <div class="t"><b>Guzema — єдина у ТОП-5 зростає.</b> У серпні кількість ключів у першій п'ятірці збільшилась з 339 до 479 (+41%). Це найбільш кліканий діапазон — зростання тут прямо впливає на трафік.</div>
+  </div>
+  <div class="ins info">
+    <div class="ic">🏆</div>
+    <div class="t"><b>Ринок стискається — Guzema тримається.</b> Більшість конкурентів втратили семантику у серпні (Ukrzoloto −11%, Stolychna −20%, LoveYou −34%). На цьому фоні Guzema демонструє найкращу відносну динаміку серед брендів схожого розміру.</div>
+  </div>
+</div>
 </section>
 
 <!-- HEATMAP -->
@@ -299,7 +310,18 @@ footer b{color:var(--mut)}
     <h2>Повна таблиця</h2>
     <span class="n">// сорт. за трафіком · рядок Guzema підсвічено</span>
   </div>
-  <div class="panel">
+  
+<div class="insight" style="margin-bottom:16px">
+  <div class="ins good">
+    <div class="ic">💎</div>
+    <div class="t"><b>Ніша преміум-ювелірки вільна.</b> Zolotiyvik і Ukrzoloto ведуть боротьбу за масовий сегмент із сотнями тисяч ключів. Guzema займає унікальну позицію у преміум-ніші — менший об'єм, але вища якість трафіку та конверсія.</div>
+  </div>
+  <div class="ins good">
+    <div class="ic">🎯</div>
+    <div class="t"><b>DR 33 — вище за ринковий мінімум для конкурентного Топ-5.</b> При авторитеті DR 33 сайт вже займає Топ-5 за 479 ключами. Зростання DR через лінкбілдинг прискорить захоплення нових позицій.</div>
+  </div>
+</div>
+<div class="panel">
     <table class="tbl" id="cmp"></table>
   </div>
 </section>
@@ -365,27 +387,27 @@ const sF=n=>n>0?'+'+F(n):F(n);
 const pct=n=>n==null?'—':n.toFixed(1)+'%';
 
 const domains=[
-  {d:'guzema.ua',     label:'Guzema',         own:true,  dr:33,  kw:1873,  traffic:7987,  value:404,   refdomains:277,   backlinks:2270,   df:89, top5:479,  top10:333, top20:468, top50:1140, pages:100,
+  {d:'guzema.ua',     label:'Guzema',         own:true,  dr:33,  kw:1873,  traffic:7987,  value:404,   refdomains:277,   backlinks:2270,   df:89, top5:479,  top10:333, top20:468, top50:1140, pages:100, prev_kw:2566, prev_traffic:12932, prev_top5:339, prev_top10:336, prev_top20:435, prev_top50:1332,
    new_kw:1575, up:302,   down:322, lost:2122,  ai_traffic:21594,  aio_kw:376,   aio_cit:61},
-  {d:'ukrzoloto.ua',  label:'Ukrzoloto',       own:false, dr:55,  kw:96411,traffic:119589,value:8361, refdomains:2440,  backlinks:406957, df:99, top5:50746,top10:20065,top20:23994,top50:49943, pages:511,
+  {d:'ukrzoloto.ua',  label:'Ukrzoloto',       own:false, dr:55,  kw:96411,traffic:119589,value:8361, refdomains:2440,  backlinks:406957, df:99, top5:50746,top10:20065,top20:23994,top50:49943, pages:511, prev_kw:107896, prev_traffic:182799, prev_top5:41577, prev_top10:16804, prev_top20:23339, prev_top50:53195,
    new_kw:75040,up:18945,down:23349,lost:80444,  ai_traffic:1581517,aio_kw:57643, aio_cit:21526},
-  {d:'stolychnashop.com.ua',label:'Stolychna', own:false, dr:48,  kw:67616, traffic:73315, value:6448,  refdomains:1815,  backlinks:61959,  df:92, top5:24960,top10:17751,top20:19928,top50:25280, pages:1000,
+  {d:'stolychnashop.com.ua',label:'Stolychna', own:false, dr:48,  kw:67616, traffic:73315, value:6448,  refdomains:1815,  backlinks:61959,  df:92, top5:24960,top10:17751,top20:19928,top50:25280, pages:1000, prev_kw:84022, prev_traffic:66202, prev_top5:21102, prev_top10:18522, prev_top20:18657, prev_top50:34254,
    new_kw:45896,up:7075,down:6320,lost:65034,  ai_traffic:401080, aio_kw:40143, aio_cit:12380},
-  {d:'aurum.in.ua',   label:'Aurum',           own:false, dr:42,  kw:62051, traffic:68569, value:6076,  refdomains:1500,  backlinks:8101,   df:80, top5:28787,top10:16407,top20:16891,top50:21213, pages:820,
+  {d:'aurum.in.ua',   label:'Aurum',           own:false, dr:42,  kw:62051, traffic:68569, value:6076,  refdomains:1500,  backlinks:8101,   df:80, top5:28787,top10:16407,top20:16891,top50:21213, pages:820, prev_kw:69247, prev_traffic:69173, prev_top5:19152, prev_top10:15316, prev_top20:19526, prev_top50:29146,
    new_kw:33158, up:13484,down:8434,lost:41955,  ai_traffic:495874, aio_kw:35288, aio_cit:12489},
-  {d:'zolotakraina.ua',label:'Zolota Kraina',  own:false, dr:42,  kw:61204, traffic:32741, value:2237,  refdomains:920,   backlinks:19328,  df:73, top5:17234,top10:16504,top20:17752,top50:24033, pages:950,
+  {d:'zolotakraina.ua',label:'Zolota Kraina',  own:false, dr:42,  kw:61204, traffic:32741, value:2237,  refdomains:920,   backlinks:19328,  df:73, top5:17234,top10:16504,top20:17752,top50:24033, pages:950, prev_kw:63361, prev_traffic:39761, prev_top5:14368, prev_top10:16489, prev_top20:16970, prev_top50:25678,
    new_kw:47859, up:3234, down:4093,lost:52801,  ai_traffic:419989, aio_kw:29638, aio_cit:8740},
-  {d:'kuz.ua',        label:'Kuz',             own:false, dr:51,  kw:37549, traffic:66688, value:4404,  refdomains:1329,  backlinks:5244,   df:67, top5:19792,top10:8806, top20:8922,top50:14731, pages:730,
+  {d:'kuz.ua',        label:'Kuz',             own:false, dr:51,  kw:37549, traffic:66688, value:4404,  refdomains:1329,  backlinks:5244,   df:67, top5:19792,top10:8806, top20:8922,top50:14731, pages:730, prev_kw:46946, prev_traffic:70172, prev_top5:14465, prev_top10:8244, prev_top20:10112, prev_top50:21044,
    new_kw:23727, up:5778, down:5150,lost:30233,  ai_traffic:253519, aio_kw:13451, aio_cit:4595},
-  {d:'sovajewels.com',label:'Sova Jewels',     own:false, dr:51,  kw:21649, traffic:38738, value:3625,  refdomains:1506,  backlinks:6199,   df:60, top5:9298, top10:4233, top20:5240, top50:8856, pages:680,
+  {d:'sovajewels.com',label:'Sova Jewels',     own:false, dr:51,  kw:21649, traffic:38738, value:3625,  refdomains:1506,  backlinks:6199,   df:60, top5:9298, top10:4233, top20:5240, top50:8856, pages:680, prev_kw:35686, prev_traffic:41587, prev_top5:8271, prev_top10:5265, prev_top20:6769, prev_top50:14125,
    new_kw:11107, up:2055, down:1840, lost:26418,  ai_traffic:148986, aio_kw:4673,  aio_cit:1132},
-  {d:'loveyou-jewels.com',label:'Love You',    own:false, dr:41,  kw:8868, traffic:9446, value:1000,  refdomains:236,   backlinks:1043,   df:55, top5:1788, top10:1556, top20:2150, top50:3378,  pages:290,
+  {d:'loveyou-jewels.com',label:'Love You',    own:false, dr:41,  kw:8868, traffic:9446, value:1000,  refdomains:236,   backlinks:1043,   df:55, top5:1788, top10:1556, top20:2150, top50:3378,  pages:290, prev_kw:13325, prev_traffic:11903, prev_top5:1631, prev_top10:1842, prev_top20:2868, prev_top50:5637,
    new_kw:2842,  up:894, down:837, lost:7845,   ai_traffic:80863,  aio_kw:2059,  aio_cit:522},
-  {d:'zolotiyvik.ua', label:'Zolotiy Vik',     own:false, dr:53,  kw:94185,traffic:171567,value:11872, refdomains:1613,  backlinks:180781, df:99, top5:51155,top10:21390,top20:21726,top50:41540, pages:1000,
+  {d:'zolotiyvik.ua', label:'Zolotiy Vik',     own:false, dr:53,  kw:94185,traffic:171567,value:11872, refdomains:1613,  backlinks:180781, df:99, top5:51155,top10:21390,top20:21726,top50:41540, pages:1000, prev_kw:116109, prev_traffic:187789, prev_top5:39256, prev_top10:20904, prev_top20:21228, prev_top50:49001,
    new_kw:63712,up:20888,down:21389,lost:80570,  ai_traffic:0, aio_kw:0, aio_cit:0},
-  {d:'zlato.ua',      label:'Zlato',           own:false, dr:44,  kw:81432, traffic:31448, value:2071,  refdomains:2999,  backlinks:335261, df:94, top5:28678,top10:22235,top20:29182,top50:40013, pages:1000,
+  {d:'zlato.ua',      label:'Zlato',           own:false, dr:44,  kw:81432, traffic:31448, value:2071,  refdomains:2999,  backlinks:335261, df:94, top5:28678,top10:22235,top20:29182,top50:40013, pages:1000, prev_kw:94770, prev_traffic:30257, prev_top5:21143, prev_top10:21399, prev_top20:32156, prev_top50:52613,
    new_kw:54903, up:15767,down:11703,lost:71489,  ai_traffic:0, aio_kw:0, aio_cit:0},
-  {d:'dukachi.ua',    label:'Dukachi',         own:false, dr:25,  kw:745,   traffic:632,   value:59,   refdomains:17,    backlinks:192,    df:81, top5:67,   top10:68,  top20:157, top50:434,   pages:123,
+  {d:'dukachi.ua',    label:'Dukachi',         own:false, dr:25,  kw:745,   traffic:632,   value:59,   refdomains:17,    backlinks:192,    df:81, top5:67,   top10:68,  top20:157, top50:434,   pages:123, prev_kw:811, prev_traffic:928, prev_top5:60, prev_top10:50, prev_top20:155, prev_top50:448,
    new_kw:486,   up:149,  down:77,  lost:548,    ai_traffic:0, aio_kw:0, aio_cit:0},
 ];
 
@@ -498,6 +520,27 @@ document.getElementById('mvgrid').innerHTML=domains.map(d=>{
       <i style="width:${(gained/tot*100).toFixed(0)}%;background:var(--pos)"></i>
       <i style="width:${(lostc/tot*100).toFixed(0)}%;background:var(--neg)"></i>
     </div>
+    ${(function(){
+      if(!d.prev_kw) return '';
+      var dKw=d.kw-d.prev_kw, dTr=d.traffic-d.prev_traffic, dT5=d.top5-d.prev_top5;
+      var pKw=(dKw/d.prev_kw*100).toFixed(1), pTr=(dTr/d.prev_traffic*100).toFixed(1), pT5=(dT5/(d.prev_top5||1)*100).toFixed(1);
+      function c(v){return v>0?'var(--pos)':v<0?'var(--neg)':'var(--mut)';}
+      function s(v){return (v>0?'+':'')+v;}
+      function Fn(n){return Math.abs(n)>=1000?Math.round(Math.abs(n)/100)/10+'K':String(Math.abs(n));}
+      return '<div style="margin-top:10px;padding:8px 9px;background:var(--bg2);border-radius:8px">'
+        +'<div style="font-size:10px;font-weight:700;letter-spacing:.6px;color:var(--mut2);text-transform:uppercase;margin-bottom:6px">VS ЛИПЕНЬ</div>'
+        +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;font-size:11px">'
+        +'<div><div style="color:var(--mut2);font-size:10px;margin-bottom:2px">Ключі</div>'
+        +'<div style="font-weight:700;color:'+c(dKw)+'">'+(dKw>=0?'+':'')+Fn(dKw)+(dKw>=0?'↑':'↓')+'</div>'
+        +'<div style="color:var(--mut2)">'+pKw+'%</div></div>'
+        +'<div><div style="color:var(--mut2);font-size:10px;margin-bottom:2px">Трафік</div>'
+        +'<div style="font-weight:700;color:'+c(dTr)+'">'+(dTr>=0?'+':'')+Fn(dTr)+(dTr>=0?'↑':'↓')+'</div>'
+        +'<div style="color:var(--mut2)">'+pTr+'%</div></div>'
+        +'<div><div style="color:var(--mut2);font-size:10px;margin-bottom:2px">Топ-5</div>'
+        +'<div style="font-weight:700;color:'+c(dT5)+'">'+(dT5>=0?'+':'')+Fn(dT5)+(dT5>=0?'↑':'↓')+'</div>'
+        +'<div style="color:var(--mut2)">'+pT5+'%</div></div>'
+        +'</div></div>';
+    })()}
   </div>`;
 }).join('');
 

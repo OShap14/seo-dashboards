@@ -7,12 +7,16 @@
 <style>
   :root {
     --accent: #0070f3;
+    --accent-dim: #e6f0ff;
     --bg: #fafafa;
     --card-bg: #ffffff;
     --border: #e5e7eb;
     --text: #1a1a1a;
     --text-muted: #6b7280;
     --guzema-bg: #eaf3ff;
+    --up: #0a8a3e;
+    --down: #d92d20;
+    --flat: #6b7280;
   }
   * { box-sizing: border-box; }
   body {
@@ -22,49 +26,78 @@
     color: var(--text);
     line-height: 1.5;
   }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 40px 24px 80px; }
-  header { margin-bottom: 32px; }
-  h1 { font-size: 28px; margin: 0 0 6px; font-weight: 700; }
-  .subtitle { color: var(--text-muted); font-size: 14px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 40px 24px 80px; }
+  header { margin-bottom: 8px; }
+  .eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 8px; }
+  h1 { font-size: 30px; margin: 0 0 8px; font-weight: 700; }
+  .subtitle { color: var(--text-muted); font-size: 14px; max-width: 720px; }
   .accent { color: var(--accent); }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 32px; }
+  .meta-chip { font-size: 12px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 999px; padding: 6px 14px; color: var(--text-muted); }
 
   .kpi-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin: 28px 0 40px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+    margin: 0 0 40px;
   }
   .kpi-card {
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 20px;
+    padding: 18px 16px;
   }
-  .kpi-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px; }
-  .kpi-value { font-size: 26px; font-weight: 700; color: var(--accent); }
-  .kpi-note { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+  .kpi-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px; }
+  .kpi-value { font-size: 22px; font-weight: 700; }
+  .kpi-delta { font-size: 12px; margin-top: 6px; font-weight: 600; }
+  .kpi-delta.up { color: var(--up); }
+  .kpi-delta.down { color: var(--down); }
+  .kpi-delta.flat { color: var(--flat); }
+  .kpi-note { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
 
-  section { margin-bottom: 40px; }
-  h2 { font-size: 18px; margin-bottom: 14px; border-left: 3px solid var(--accent); padding-left: 10px; }
+  section { margin-bottom: 44px; }
+  h2 { font-size: 19px; margin-bottom: 4px; }
+  .section-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; }
 
   table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
-  th, td { padding: 12px 14px; text-align: left; font-size: 13px; border-bottom: 1px solid var(--border); }
-  th { background: #f5f6f8; color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 0.03em; }
+  th, td { padding: 11px 14px; text-align: left; font-size: 13px; border-bottom: 1px solid var(--border); }
+  th { background: #f5f6f8; color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 10.5px; letter-spacing: 0.03em; }
   tr:last-child td { border-bottom: none; }
   tr.highlight { background: var(--guzema-bg); font-weight: 600; }
   tr.highlight td:first-child { color: var(--accent); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .delta-up { color: var(--up); }
+  .delta-down { color: var(--down); }
+  .delta-flat { color: var(--flat); }
 
-  .insight-list { display: grid; gap: 12px; }
-  .insight { background: var(--card-bg); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 14px 16px; font-size: 14px; }
+  .insight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+  .insight { background: var(--card-bg); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 14px 16px; font-size: 13.5px; }
+  .insight .icon { font-size: 15px; margin-right: 4px; }
   .insight b { color: var(--accent); }
+  .insight.warn { border-left-color: #d97706; }
+  .insight.good { border-left-color: var(--up); }
 
-  .note-box { background: #fff8e6; border: 1px solid #f2d98a; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #6b5900; margin-bottom: 20px; }
+  .summary-box {
+    background: linear-gradient(135deg, var(--accent-dim), #fff);
+    border: 1px solid #bcd9ff;
+    border-radius: 12px;
+    padding: 22px 24px;
+    font-size: 14px;
+  }
+  .summary-box .title { font-weight: 700; font-size: 15px; margin-bottom: 8px; }
+
+  .note-box { background: #fff8e6; border: 1px solid #f2d98a; border-radius: 8px; padding: 12px 16px; font-size: 12.5px; color: #6b5900; margin-bottom: 20px; }
 
   footer { border-top: 1px solid var(--border); padding-top: 20px; font-size: 12px; color: var(--text-muted); }
+  footer p { margin: 4px 0; }
 
-  @media (max-width: 720px) {
+  @media (max-width: 900px) {
+    .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+    .insight-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
     .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-    table { font-size: 12px; }
+    table { font-size: 11.5px; }
   }
 </style>
 </head>
@@ -72,152 +105,264 @@
 <div class="wrap">
 
   <header>
-    <h1>SEO Дашборд — <span class="accent">Guzema Fine Jewelry</span></h1>
-    <div class="subtitle">Конкурентний аналіз · ринок Україна · оновлено 26.08.2026</div>
+    <div class="eyebrow">Competitor Intelligence · Ювелірний ринок · Україна</div>
+    <h1>SEO Дашборд — <span class="accent">Guzema</span></h1>
+    <div class="subtitle">Трафік, ключові слова, рух семантики та авторитет домену. Ринок UA. Дані: Ahrefs API v3 (Site Explorer, Domain Rating).</div>
+    <div class="meta-row">
+      <div class="meta-chip">📅 26.08.2026</div>
+      <div class="meta-chip">🌍 Ukraine (UA)</div>
+      <div class="meta-chip">🏪 8 доменів</div>
+      <div class="meta-chip">● Ahrefs API v3</div>
+    </div>
   </header>
 
   <div class="note-box">
-    ⚠️ Дані трафіку/ключів через SE Ranking Domain Overview API недоступні цього тижня (акаунт SE Ranking: "Empty balance"). Показники нижче базуються на даних беклінк-профілю (доступні) та розрахунковому трафіку guzema.ua з Domain Pages API. Порівняння трафіку/ключів конкурентів буде відновлено після поповнення балансу SE Ranking.
-  </div>
-
-  <div class="kpi-grid">
-    <div class="kpi-card">
-      <div class="kpi-label">Оцінений трафік guzema.ua</div>
-      <div class="kpi-value">~7 990</div>
-      <div class="kpi-note">розрахунок з частки топ-сторінки (42.16%)</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Domain Rating (InLink Rank)</div>
-      <div class="kpi-value">45</div>
-      <div class="kpi-note">за даними SE Ranking Backlinks</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Referring Domains</div>
-      <div class="kpi-value">297</div>
-      <div class="kpi-note">133 dofollow</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Backlinks total</div>
-      <div class="kpi-value">1 762</div>
-      <div class="kpi-note">1 501 dofollow / 261 nofollow</div>
-    </div>
+    ⚠️ SE Ranking Domain Overview API цього тижня недоступний (акаунт: "Empty balance"), тому знімок побудований на Ahrefs API v3 — traffic/keywords/DR за 01.08.2026 у порівнянні з 01.07.2026 (MoM). Дані реальні, не оціночні.
   </div>
 
   <section>
-    <h2>Порівняння доменів (беклінк-профіль)</h2>
+    <h2>Guzema.ua — ключові показники</h2>
+    <div class="section-sub">UA · серпень 2026 vs липень 2026 (MoM)</div>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Трафік / міс</div>
+        <div class="kpi-value">17 813</div>
+        <div class="kpi-delta down">▼ −2.2% MoM</div>
+        <div class="kpi-note">18 222 → 17 813</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Ключі (UA)</div>
+        <div class="kpi-value">338</div>
+        <div class="kpi-delta down">▼ −7.9% MoM</div>
+        <div class="kpi-note">367 → 338</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Топ 1–3</div>
+        <div class="kpi-value">111</div>
+        <div class="kpi-delta down">▼ −11.9% MoM</div>
+        <div class="kpi-note">126 → 111</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">DR · Ahrefs</div>
+        <div class="kpi-value">33</div>
+        <div class="kpi-delta up">▲ +2 MoM</div>
+        <div class="kpi-note">30 (черв) → 31 (лип) → 33 (серп)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Ref. Domains</div>
+        <div class="kpi-value">271</div>
+        <div class="kpi-note">5 400 backlinks (live)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Traffic / Keyword</div>
+        <div class="kpi-value">52.7</div>
+        <div class="kpi-note">найвища ефективність у групі</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Рух показників — по конкурентах</h2>
+    <div class="section-sub">Трафік / Ключі / Топ 1-3 · Ahrefs · серпень vs липень 2026</div>
+    <div class="insight-grid">
+      <div class="insight warn">
+        <span class="icon">⚠</span><b>Guzema: трафік −2.2% MoM — найгірша динаміка серед 8 доменів.</b> 6 з 7 конкурентів зросли за трафіком, лідери — aurum.in.ua (+34.4%) та ukrzoloto.ua (+19.5%). Тільки zolotakraina.ua (−1.1%) теж у мінусі.
+      </div>
+      <div class="insight warn">
+        <span class="icon">⚠</span><b>Ключове ядро скорочується швидше за ринок: −7.9%.</b> Це друге найгірше падіння після loveyou-jewels.com (−7.9%, ідентично). Топ 1-3 позицій впало на −11.9% — теж друге місце з кінця після loveyou-jewels (−15.8%).
+      </div>
+      <div class="insight good">
+        <span class="icon">▲</span><b>DR +2 (31→33) — одне з найкращих зростань авторитету в групі</b>, нарівні з ukrzoloto.ua та loveyou-jewels.com. Traff/KW 52.7 — у 2+ рази вище за найближчого конкурента (sovajewels.com, 24.8).
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Повна таблиця — MoM порівняння 8 доменів</h2>
+    <div class="section-sub">Ahrefs · 01.08.2026 vs 01.07.2026 · сорт. за трафіком · рядок Guzema підсвічено</div>
     <table>
       <thead>
         <tr>
           <th>Домен</th>
-          <th>DR</th>
-          <th>Backlinks</th>
-          <th>Ref. domains</th>
-          <th>Dofollow RD</th>
-          <th>Pages w/ links</th>
+          <th class="num">Трафік</th>
+          <th class="num">Δ трафік</th>
+          <th class="num">Ключі</th>
+          <th class="num">Δ ключі</th>
+          <th class="num">Топ 1-3</th>
+          <th class="num">Δ Топ 1-3</th>
+          <th class="num">DR</th>
+          <th class="num">Δ DR</th>
+          <th class="num">Ref.D</th>
+          <th class="num">Traff/KW</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="highlight">
-          <td>guzema.ua</td>
-          <td>45</td>
-          <td>1 762</td>
-          <td>297</td>
-          <td>133</td>
-          <td>71</td>
-        </tr>
         <tr>
           <td>ukrzoloto.ua</td>
-          <td>66</td>
-          <td>408 576</td>
-          <td>2 369</td>
-          <td>1 451</td>
-          <td>594</td>
-        </tr>
-        <tr>
-          <td>sovajewels.com</td>
-          <td>67</td>
-          <td>5 517</td>
-          <td>1 433</td>
-          <td>944</td>
-          <td>1 369</td>
-        </tr>
-        <tr>
-          <td>loveyou-jewels.com</td>
-          <td>48</td>
-          <td>1 019</td>
-          <td>252</td>
-          <td>165</td>
-          <td>261</td>
+          <td class="num">244 455</td>
+          <td class="num delta-up">+19.5%</td>
+          <td class="num">13 431</td>
+          <td class="num delta-down">−2.7%</td>
+          <td class="num">6 688</td>
+          <td class="num delta-down">−4.9%</td>
+          <td class="num">55</td>
+          <td class="num delta-up">+2</td>
+          <td class="num">2 253</td>
+          <td class="num">18.2</td>
         </tr>
         <tr>
           <td>aurum.in.ua</td>
-          <td>64</td>
-          <td>11 345</td>
-          <td>1 489</td>
-          <td>1 162</td>
-          <td>305</td>
-        </tr>
-        <tr>
-          <td>kuz.ua</td>
-          <td>52</td>
-          <td>4 396</td>
-          <td>1 293</td>
-          <td>1 050</td>
-          <td>407</td>
-        </tr>
-        <tr>
-          <td>zolotakraina.ua</td>
-          <td>55</td>
-          <td>19 048</td>
-          <td>896</td>
-          <td>638</td>
-          <td>351</td>
+          <td class="num">158 471</td>
+          <td class="num delta-up">+34.4%</td>
+          <td class="num">9 727</td>
+          <td class="num delta-down">−0.8%</td>
+          <td class="num">3 955</td>
+          <td class="num delta-up">+2.1%</td>
+          <td class="num">43</td>
+          <td class="num delta-up">+1</td>
+          <td class="num">1 515</td>
+          <td class="num">16.3</td>
         </tr>
         <tr>
           <td>stolychnashop.com.ua</td>
-          <td>69</td>
-          <td>61 355</td>
-          <td>1 715</td>
-          <td>1 197</td>
-          <td>793</td>
+          <td class="num">141 026</td>
+          <td class="num delta-up">+8.6%</td>
+          <td class="num">8 792</td>
+          <td class="num delta-down">−0.2%</td>
+          <td class="num">2 900</td>
+          <td class="num delta-up">+0.1%</td>
+          <td class="num">47</td>
+          <td class="num delta-down">−1</td>
+          <td class="num">1 729</td>
+          <td class="num">16.0</td>
+        </tr>
+        <tr>
+          <td>kuz.ua</td>
+          <td class="num">75 778</td>
+          <td class="num delta-up">+10.1%</td>
+          <td class="num">5 692</td>
+          <td class="num delta-down">−0.2%</td>
+          <td class="num">1 932</td>
+          <td class="num delta-up">+2.6%</td>
+          <td class="num">51</td>
+          <td class="num delta-flat">0</td>
+          <td class="num">1 215</td>
+          <td class="num">13.3</td>
+        </tr>
+        <tr>
+          <td>sovajewels.com</td>
+          <td class="num">50 242</td>
+          <td class="num delta-up">+7.7%</td>
+          <td class="num">2 029</td>
+          <td class="num delta-down">−6.0%</td>
+          <td class="num">779</td>
+          <td class="num delta-up">+3.9%</td>
+          <td class="num">52</td>
+          <td class="num delta-up">+1</td>
+          <td class="num">1 680</td>
+          <td class="num">24.8</td>
+        </tr>
+        <tr>
+          <td>zolotakraina.ua</td>
+          <td class="num">50 020</td>
+          <td class="num delta-down">−1.1%</td>
+          <td class="num">7 747</td>
+          <td class="num delta-down">−4.5%</td>
+          <td class="num">1 925</td>
+          <td class="num delta-down">−4.6%</td>
+          <td class="num">42</td>
+          <td class="num delta-flat">0</td>
+          <td class="num">1 095</td>
+          <td class="num">6.5</td>
+        </tr>
+        <tr class="highlight">
+          <td>guzema.ua</td>
+          <td class="num">17 813</td>
+          <td class="num delta-down">−2.2%</td>
+          <td class="num">338</td>
+          <td class="num delta-down">−7.9%</td>
+          <td class="num">111</td>
+          <td class="num delta-down">−11.9%</td>
+          <td class="num">33</td>
+          <td class="num delta-up">+2</td>
+          <td class="num">271</td>
+          <td class="num">52.7</td>
+        </tr>
+        <tr>
+          <td>loveyou-jewels.com</td>
+          <td class="num">14 107</td>
+          <td class="num delta-up">+4.4%</td>
+          <td class="num">955</td>
+          <td class="num delta-down">−7.9%</td>
+          <td class="num">272</td>
+          <td class="num delta-down">−15.8%</td>
+          <td class="num">42</td>
+          <td class="num delta-up">+2</td>
+          <td class="num">666</td>
+          <td class="num">14.8</td>
         </tr>
       </tbody>
     </table>
   </section>
 
   <section>
-    <h2>Топ-5 сторінок guzema.ua за трафіком</h2>
+    <h2>Топ-5 сторінок guzema.ua — MoM</h2>
+    <div class="section-sub">Ahrefs · UA · трафік і ключі за сторінкою, серпень vs липень 2026</div>
     <table>
       <thead>
         <tr>
           <th>URL</th>
-          <th>Трафік (оцінка)</th>
-          <th>% від домену</th>
-          <th>Ключі</th>
+          <th>Топ-запит</th>
+          <th class="num">Трафік</th>
+          <th class="num">Δ трафік</th>
+          <th class="num">Ключі</th>
+          <th class="num">Δ ключі</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>/</td><td>3 367</td><td>42.16%</td><td>314</td></tr>
-        <tr><td>/yuvelirni-prykrasy/kabluchky/</td><td>1 896</td><td>23.74%</td><td>53</td></tr>
-        <tr><td>/yuvelirni-prykrasy/</td><td>540</td><td>6.76%</td><td>195</td></tr>
-        <tr><td>/yuvelirni-prykrasy/serezhky/</td><td>254</td><td>3.18%</td><td>110</td></tr>
-        <tr><td>/yuvelirni-prykrasy/kafy/</td><td>218</td><td>2.73%</td><td>76</td></tr>
+        <tr><td>/</td><td>guzema</td><td class="num">8 725</td><td class="num delta-down">−8.4%</td><td class="num">39</td><td class="num delta-down">−5</td></tr>
+        <tr><td>/yuvelirni-prykrasy/kabluchky/</td><td>гузема</td><td class="num">4 299</td><td class="num delta-up">+688.8%</td><td class="num">21</td><td class="num delta-down">−5</td></tr>
+        <tr><td>/yuvelirni-prykrasy/serezhky/</td><td>сережки</td><td class="num">877</td><td class="num delta-up">+177.5%</td><td class="num">33</td><td class="num delta-down">−5</td></tr>
+        <tr><td>/yuvelirni-prykrasy/kabluchky/filter/…-engagement/</td><td>каблучка на заручини</td><td class="num">843</td><td class="num delta-down">−16.0%</td><td class="num">48</td><td class="num delta-down">−11</td></tr>
+        <tr><td>/yuvelirni-prykrasy/kafy/</td><td>каф</td><td class="num">783</td><td class="num delta-up">+29.0%</td><td class="num">32</td><td class="num delta-up">+1</td></tr>
       </tbody>
     </table>
   </section>
 
   <section>
-    <h2>Рух ключів і топ-інсайти</h2>
-    <div class="insight-list">
-      <div class="insight"><b>DR-розрив із топ-конкурентами:</b> guzema.ua (DR 45) відстає від stolychnashop.com.ua (69), sovajewels.com (67) та ukrzoloto.ua (66) на 20+ пунктів — головний бар'єр для росту у конкурентних кластерах.</div>
-      <div class="insight"><b>Referring domains у 4-5 разів менше лідерів:</b> 297 у guzema.ua проти 2 369 у ukrzoloto.ua та 1 489 у aurum.in.ua — лінкбілдинг залишається пріоритетом №1.</div>
-      <div class="insight"><b>Концентрація трафіку guzema.ua на 2 сторінках:</b> головна + категорія "каблучки" дають ~66% усього оціненого трафіку — низька диверсифікація, варто підсилювати внутрішні категорійні сторінки (сережки, кольє, браслети).</div>
-      <div class="insight"><b>Дані трафіку конкурентів недоступні цього тижня</b> через вичерпання балансу SE Ranking API (Domain Overview). Рекомендація: поповнити баланс до наступного оновлення для повного порівняння трафіку/ключів/росту-падіння.</div>
+    <h2>📊 Зведена таблиця MoM — guzema.ua</h2>
+    <div class="section-sub">Всі ключові показники · липень 2026 → серпень 2026</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Показник</th>
+          <th class="num">Липень 2026</th>
+          <th class="num">Серпень 2026</th>
+          <th class="num">Δ абс.</th>
+          <th class="num">Δ %</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Трафік (UA)</td><td class="num">18 222</td><td class="num">17 813</td><td class="num delta-down">−409</td><td class="num delta-down">−2.2%</td></tr>
+        <tr><td>Ключові слова</td><td class="num">367</td><td class="num">338</td><td class="num delta-down">−29</td><td class="num delta-down">−7.9%</td></tr>
+        <tr><td>Топ 1-3 позицій</td><td class="num">126</td><td class="num">111</td><td class="num delta-down">−15</td><td class="num delta-down">−11.9%</td></tr>
+        <tr><td>Вартість трафіку (est.)</td><td class="num">$920.83</td><td class="num">$554.25</td><td class="num delta-down">−$366.58</td><td class="num delta-down">−39.8%</td></tr>
+        <tr><td>Domain Rating</td><td class="num">31</td><td class="num">33</td><td class="num delta-up">+2</td><td class="num delta-up">+6.5%</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <div class="summary-box">
+      <div class="title">🏆 Підсумок місяця — авторитет росте, трафік і ядро семантики просідають</div>
+      Серпень 2026 для guzema.ua — неоднозначний місяць. Трафік знизився на <b>−2.2% MoM</b> (18 222 → 17 813) — це <b>найслабша динаміка серед усіх 8 доменів у виборці</b>: 6 з 7 конкурентів зросли за трафіком, а лідери росту (aurum.in.ua +34.4%, ukrzoloto.ua +19.5%) значно віддаляються. Ключове ядро скоротилось швидше ринку (−7.9%), а кількість запитів у топ 1-3 впала на −11.9% — друге найгірше падіння після loveyou-jewels.com (−15.8%). Позитив місяця: <b>Domain Rating виріс на +2 пункти (31→33)</b> — одне з найкращих MoM-зростань авторитету в групі, а показник ефективності <b>Traffic/Keyword (52.7)</b> залишається найвищим серед конкурентів більш ніж удвічі — наявні позиції конвертують у трафік значно краще, ніж у будь-кого з конкурентів, ймовірно завдяки силі брендового попиту. Пріоритет на вересень: зупинити ерозію ключового ядра і повернути втрачені топ 1-3 позиції, поки це не почало стискати трафікову базу далі; паралельно — використати зростання DR для нарощування небрендової семантики.
     </div>
   </section>
 
   <footer>
-    Дашборд згенеровано автоматично · Дата оновлення: 26.08.2026 · Джерело даних: SE Ranking API (Backlinks, Domain Pages, Domain Authority) · Наступне оновлення: щопонеділка
+    <p><b>Джерела:</b> Ahrefs API v3 — Site Explorer (traffic, keywords, top pages, MoM diff), Domain Rating History, Backlinks Stats. Ринок: Ukraine (UA).</p>
+    <p><b>Знімок:</b> 26.08.2026 · MoM = 01.08.2026 vs 01.07.2026. <b>Traff/KW</b> = трафік ÷ кількість ключів у топ-100.</p>
+    <p>SE Ranking Domain Overview API був недоступний на момент формування звіту ("Empty balance") — дані трафіку/ключів взято з Ahrefs API v3 замість SE Ranking.</p>
   </footer>
 
 </div>

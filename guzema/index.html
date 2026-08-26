@@ -414,11 +414,11 @@ const domains=[
 /* ── TOP PAGES DATA ── */
 const topPages=[
   {d:'guzema.ua', own:true, label:'Guzema', pages_total:20, pages:[
-    {url:'https://guzema.ua/', title:'Головна — Guzema', traffic:5472, pct:26.17, kw:508},
-    {url:'https://guzema.ua/yuvelirni-prykrasy/kabluchky/', title:'Каблучки', traffic:4789, pct:22.91, kw:60},
-    {url:'https://guzema.ua/yuvelirni-prykrasy/serezhky/', title:'Сережки', traffic:3666, pct:17.53, kw:113},
+    {url:'https://guzema.ua/', title:'Головна — Guzema', traffic:5472, pct:26.17, kw:508, prev_traffic:2822},
+    {url:'https://guzema.ua/yuvelirni-prykrasy/kabluchky/', title:'Каблучки', traffic:4789, pct:22.91, kw:60, prev_traffic:539},
+    {url:'https://guzema.ua/yuvelirni-prykrasy/serezhky/', title:'Сережки', traffic:3666, pct:17.53, kw:113, prev_traffic:537},
     {url:'https://guzema.ua/yuvelirni-prykrasy/kabluchky/filter/types_of_rings-for_an_engagement/', title:'Каблучки — Заручини', traffic:3347, pct:16.01, kw:145},
-    {url:'https://guzema.ua/yuvelirni-prykrasy/', title:'Ювелірні прикраси', traffic:3304, pct:15.8, kw:285}
+    {url:'https://guzema.ua/yuvelirni-prykrasy/', title:'Ювелірні прикраси', traffic:3304, pct:15.8, kw:285, prev_traffic:1592}
   ]},
   {d:'ukrzoloto.ua', own:false, label:'Ukrzoloto', pages_total:511, pages:[
     {url:'https://ukrzoloto.ua/uk/', title:'Головна (UA)', traffic:27574, pct:10.61, kw:11541},
@@ -797,7 +797,9 @@ function renderTopPages(ownOnly){
                   <span style="font-size:10px;color:var(--mut2)">${slug}</span>
                 </td>
                 <td class="num" style="color:var(--mut)">${p.pct.toFixed(1)}%</td>
-                <td class="num" style="font-weight:600;${dm.own?'color:var(--gold)':''}">${F(p.traffic)}</td>
+                <td class="num" style="font-weight:600;${dm.own?'color:var(--gold)':''}">
+                  ${F(p.traffic)}${p.prev_traffic?(function(){var dv=p.traffic-p.prev_traffic,pct=(dv/p.prev_traffic*100).toFixed(0);var c=dv>0?'var(--pos)':dv<0?'var(--neg)':'var(--mut)';var bg=dv>0?'rgba(21,160,74,.08)':dv<0?'rgba(226,59,72,.07)':'var(--bg2)';var bl=dv>0?'var(--pos-d)':dv<0?'var(--neg-d)':'var(--line)';return '<span style="font-size:9px;font-weight:700;color:'+c+';background:'+bg+';border:1px solid '+bl+';padding:1px 5px;border-radius:5px;margin-left:4px">'+(dv>0?'+':'')+pct+'%</span>';})():''}
+                </td>
                 <td class="num">${F(p.kw)}</td>
                 <td>
                   <div style="height:8px;background:var(--bg2);border-radius:4px;overflow:hidden">

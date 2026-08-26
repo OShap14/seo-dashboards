@@ -154,7 +154,7 @@ section{margin-top:32px;animation:fade .6s ease both}
 .chart h3{font-size:12px;font-weight:700;color:var(--mut);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
 .chart .cap{font-size:11px;color:var(--mut2);margin-bottom:12px}
 .bars{display:flex;flex-direction:column;gap:9px;margin-top:4px}
-.brow{display:grid;grid-template-columns:72px 1fr 52px;align-items:center;gap:9px;font-size:12px}
+.brow{display:grid;grid-template-columns:72px 1fr 52px 52px;align-items:center;gap:9px;font-size:12px}
 .brow .lab{color:var(--mut)}
 .brow .track{height:18px;background:var(--bg2);border-radius:5px;overflow:hidden}
 .brow .fill{height:100%;border-radius:5px;background:linear-gradient(90deg,#c9a84c,var(--gold))}
@@ -655,14 +655,23 @@ document.getElementById('cmp').innerHTML=h+`</tbody>`;
 // POSITION BARS — Guzema
 (function(){
   const g=domains.find(d=>d.own);
-  const rows=[['Топ 1–5',g.top5],['Топ 6–10',g.top10],['Топ 11–20',g.top20],['Топ 21–50',g.top50]];
+  const rows=[
+    ['Топ 1–5', g.top5,  g.prev_top5],
+    ['Топ 6–10',g.top10, g.prev_top10],
+    ['Топ 11–20',g.top20,g.prev_top20],
+    ['Топ 21–50',g.top50,g.prev_top50]
+  ];
   const mx=Math.max(...rows.map(r=>r[1]));
-  document.getElementById('posbars').innerHTML=rows.map(r=>`
-    <div class="brow">
-      <span class="lab">${r[0]}</span>
-      <div class="track"><div class="fill" style="width:${(r[1]/mx*100).toFixed(0)}%"></div></div>
-      <span class="val num">${F(r[1])}</span>
-    </div>`).join('');
+  document.getElementById('posbars').innerHTML=rows.map(r=>{
+    var cur=r[1], prev=r[2], lbl=r[0];
+    var d=cur-prev, pct=prev?(d/prev*100).toFixed(0):0;
+    var sign=d>0?'+':'', col=d>0?'var(--pos)':d<0?'var(--neg)':'var(--mut)';
+    var chip=prev?('<span style="font-size:10px;font-weight:700;color:'+col+';background:'+(d>0?'rgba(21,160,74,.10)':d<0?'rgba(226,59,72,.08)':'var(--bg2)')+';border:1px solid '+(d>0?'var(--pos-d)':d<0?'var(--neg-d)':'var(--line)')+';padding:2px 6px;border-radius:6px;white-space:nowrap">'+sign+pct+'%</span>'):'';
+    return '<div class="brow"><span class="lab">'+lbl+'</span>'
+      +'<div class="track"><div class="fill" style="width:'+(cur/mx*100).toFixed(0)+'%"></div></div>'
+      +'<span class="val num">'+F(cur)+'</span>'
+      +chip+'</div>';
+  }).join('');
 })();
 
 // AI OVERVIEW

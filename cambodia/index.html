@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>1xBet Cambodia — SEO Dashboard</title>
+<style>
+:root{
+  --kh:#032EA1;
+  --kh2:#E00025;
+  --accent:#E00025;
+  --own:#E00025;
+  --own-bg:rgba(224,0,37,.08);
+  --own-d:#b8001e;
+  --pos:#15a04a;
+  --pos-d:#0e7a37;
+  --neg:#e23b48;
+  --neg-d:#b8001e;
+  --mut:#8c96a3;
+  --bg:#0f1117;
+  --bg2:#181c24;
+  --bg3:#1e2330;
+  --card:#1a1f2b;
+  --line:#2a3040;
+  --txt:#e8eaf0;
+  --txt2:#8c96a3;
+  --txt3:#5a6375;
+  --radius:10px;
+  --shadow:0 2px 12px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;min-height:100vh}
+.wrap{max-width:1280px;margin:0 auto;padding:24px 20px}
+
+/* HEADER */
+.header{display:flex;align-items:center;gap:16px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.flag{font-size:38px;line-height:1}
+.header-text h1{font-size:22px;font-weight:700;letter-spacing:-.3px}
+.header-text p{color:var(--txt2);font-size:12px;margin-top:3px}
+.badge{margin-left:auto;background:var(--own-bg);border:1px solid var(--own-d);color:var(--own);padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.5px}
+
+/* KPI CARDS */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.kpi-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;position:relative;overflow:hidden}
+.kpi-card.own-card{border-color:var(--own-d);background:linear-gradient(135deg,var(--bg2) 0%,rgba(224,0,37,.05) 100%)}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--line);border-radius:3px 0 0 3px}
+.kpi-card.own-card::before{background:var(--own)}
+.kpi-label{font-size:10px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.kpi-val{font-size:28px;font-weight:800;letter-spacing:-1px;color:var(--txt)}
+.kpi-card.own-card .kpi-val{color:var(--own)}
+.kpi-sub{font-size:11px;color:var(--txt2);margin-top:4px}
+
+/* SECTION */
+.section{margin-bottom:28px}
+.section-title{font-size:12px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-title::after{content:'';flex:1;height:1px;background:var(--line)}
+
+/* TABLE */
+.tbl-wrap{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+table{width:100%;border-collapse:collapse}
+th{background:var(--bg3);color:var(--txt3);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;padding:10px 12px;text-align:right;white-space:nowrap}
+th:first-child{text-align:left}
+td{padding:10px 12px;text-align:right;border-top:1px solid var(--line);color:var(--txt);font-variant-numeric:tabular-nums}
+td:first-child{text-align:left}
+tr.own-row td{background:var(--own-bg)}
+tr.own-row td:first-child{border-left:3px solid var(--own)}
+.dom-cell{display:flex;flex-direction:column;gap:1px}
+.dom-main{font-weight:700;font-size:12px}
+.dom-sub{font-size:10px;color:var(--txt3)}
+tr.own-row .dom-main{color:var(--own)}
+.dr-pill{display:inline-block;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:700;background:var(--bg3)}
+.num-big{font-size:13px;font-weight:700}
+.num-sm{font-size:11px;color:var(--txt2)}
+
+/* BAR CHARTS */
+.bars-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px}
+.bar-chart{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.bar-chart-title{font-size:11px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:14px}
+.brow{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.brow:last-child{margin-bottom:0}
+.brow-label{width:100px;font-size:11px;color:var(--txt2);text-align:right;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brow-track{flex:1;background:var(--bg3);border-radius:3px;height:8px;overflow:hidden}
+.brow-fill{height:100%;border-radius:3px;transition:width .3s}
+.brow-val{width:60px;font-size:11px;font-weight:700;color:var(--txt);flex-shrink:0}
+.own-bar .brow-label{color:var(--own);font-weight:700}
+.own-bar .brow-val{color:var(--own)}
+
+/* POSITIONS CHART */
+.pos-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.pos-col{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px;text-align:center}
+.pos-col-title{font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.pos-brow{display:flex;align-items:center;gap:6px;margin-bottom:5px}
+.pos-brow:last-child{margin-bottom:0}
+.pos-label{width:70px;font-size:10px;color:var(--txt2);text-align:right;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pos-track{flex:1;background:var(--bg3);border-radius:2px;height:6px;overflow:hidden}
+.pos-fill{height:100%;border-radius:2px}
+.pos-val{width:38px;font-size:10px;font-weight:700;color:var(--txt);flex-shrink:0;text-align:left}
+.pos-brow.own-pos .pos-label{color:var(--own);font-weight:700}
+.pos-brow.own-pos .pos-val{color:var(--own)}
+
+/* FOOTER */
+.footer{text-align:center;color:var(--txt3);font-size:11px;margin-top:32px;padding-top:20px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="flag">🇰🇭</div>
+  <div class="header-text">
+    <h1>1xBet Cambodia — SEO Performance</h1>
+    <p>GEO: Cambodia (KH) &nbsp;·&nbsp; Дані: SE Ranking + Ahrefs &nbsp;·&nbsp; Серпень 2026</p>
+  </div>
+  <div class="badge">cambodia.1xbet.com</div>
+</div>
+
+<!-- KPI CARDS -->
+<div class="kpi-grid" id="kpi-grid"></div>
+
+<!-- TABLE -->
+<div class="section">
+  <div class="section-title">Конкурентний аналіз</div>
+  <div class="tbl-wrap">
+    <table id="comp-table">
+      <thead>
+        <tr>
+          <th>Домен</th>
+          <th>DR</th>
+          <th>Трафік</th>
+          <th>KW</th>
+          <th>Топ-5</th>
+          <th>Топ-10</th>
+          <th>Топ-20</th>
+          <th>Топ-50</th>
+          <th>Топ-100</th>
+        </tr>
+      </thead>
+      <tbody id="comp-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- BAR CHARTS -->
+<div class="bars-grid">
+  <div class="bar-chart">
+    <div class="bar-chart-title">Органічний трафік (KH)</div>
+    <div id="traffic-bars"></div>
+  </div>
+  <div class="bar-chart">
+    <div class="bar-chart-title">Domain Rating (Ahrefs)</div>
+    <div id="dr-bars"></div>
+  </div>
+</div>
+
+<!-- POSITIONS -->
+<div class="section">
+  <div class="section-title">Розподіл позицій</div>
+  <div class="pos-grid" id="pos-grid"></div>
+</div>
+
+<div class="footer">
+  SEO Dashboard · GEO: Cambodia · Серпень 2026 · SE Ranking (KH) + Ahrefs DR
+</div>
+
+</div>
+
+<script>
+const domains=[
+  {d:'cambodia.1xbet.com',label:'1xBet KH',own:true, dr:87,traffic:12232,kw:1996,top5:886, top10:413,top20:532, top50:1292,top100:2215},
+  {d:'bet365.com',         label:'Bet365',  own:false,dr:82,traffic:8571, kw:4259,top5:1236,top10:310,top20:460, top50:1682,top100:4621},
+  {d:'sbobet.com',         label:'Sbobet',  own:false,dr:75,traffic:4961, kw:264, top5:450, top10:115,top20:159, top50:306, top100:138},
+  {d:'stake.com',          label:'Stake',   own:false,dr:84,traffic:2644, kw:1846,top5:104, top10:149,top20:225, top50:860, top100:1068},
+  {d:'betway.com',         label:'Betway',  own:false,dr:80,traffic:4766, kw:1494,top5:278, top10:172,top20:268, top50:822, top100:1041},
+  {d:'888sport.com',       label:'888sport',own:false,dr:71,traffic:887,  kw:1064,top5:190, top10:78, top20:164, top50:525, top100:300},
+  {d:'dafabet.com',        label:'Dafabet', own:false,dr:71,traffic:165,  kw:37,  top5:41,  top10:3,  top20:3,   top50:10,  top100:23},
+  {d:'ibet788.com',        label:'iBet788', own:false,dr:9, traffic:4397, kw:98,  top5:52,  top10:29, top20:32,  top50:24,  top100:2},
+];
+
+function F(n){return n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(1)+'K':String(n);}
+function Fn(n){return n.toLocaleString();}
+
+// KPI
+(function(){
+  const g=domains.find(d=>d.own);
+  const cards=[
+    {label:'Органічний трафік',val:Fn(g.traffic),sub:'SE Ranking KH'},
+    {label:'Ключові слова',val:Fn(g.kw),sub:'SE Ranking KH'},
+    {label:'Топ-5 позиції',val:Fn(g.top5),sub:'SE Ranking KH'},
+    {label:'Domain Rating',val:g.dr,sub:'Ahrefs'},
+  ];
+  document.getElementById('kpi-grid').innerHTML=cards.map(c=>`
+    <div class="kpi-card own-card">
+      <div class="kpi-label">${c.label}</div>
+      <div class="kpi-val">${c.val}</div>
+      <div class="kpi-sub">${c.sub}</div>
+    </div>`).join('');
+})();
+
+// TABLE
+(function(){
+  const sorted=[...domains].sort((a,b)=>b.traffic-a.traffic);
+  document.getElementById('comp-tbody').innerHTML=sorted.map(d=>`
+    <tr class="${d.own?'own-row':''}">
+      <td><div class="dom-cell"><div class="dom-main">${d.label}</div><div class="dom-sub">${d.d}</div></div></td>
+      <td><span class="dr-pill">${d.dr}</span></td>
+      <td><span class="num-big">${Fn(d.traffic)}</span></td>
+      <td>${Fn(d.kw)}</td>
+      <td>${Fn(d.top5)}</td>
+      <td>${Fn(d.top10)}</td>
+      <td>${Fn(d.top20)}</td>
+      <td>${Fn(d.top50)}</td>
+      <td>${Fn(d.top100)}</td>
+    </tr>`).join('');
+})();
+
+// TRAFFIC BARS
+(function(){
+  const sorted=[...domains].sort((a,b)=>b.traffic-a.traffic);
+  const mx=sorted[0].traffic;
+  document.getElementById('traffic-bars').innerHTML=sorted.map(d=>`
+    <div class="brow${d.own?' own-bar':''}">
+      <div class="brow-label">${d.label}</div>
+      <div class="brow-track"><div class="brow-fill" style="width:${(d.traffic/mx*100).toFixed(1)}%;background:${d.own?'var(--own)':'var(--kh)'}"></div></div>
+      <div class="brow-val">${F(d.traffic)}</div>
+    </div>`).join('');
+})();
+
+// DR BARS
+(function(){
+  const sorted=[...domains].sort((a,b)=>b.dr-a.dr);
+  const mx=100;
+  document.getElementById('dr-bars').innerHTML=sorted.map(d=>`
+    <div class="brow${d.own?' own-bar':''}">
+      <div class="brow-label">${d.label}</div>
+      <div class="brow-track"><div class="brow-fill" style="width:${(d.dr/mx*100).toFixed(1)}%;background:${d.own?'var(--own)':'var(--kh)'}"></div></div>
+      <div class="brow-val">${d.dr}</div>
+    </div>`).join('');
+})();
+
+// POSITIONS GRID
+(function(){
+  const cols=[
+    {key:'top5',label:'Топ-5'},
+    {key:'top10',label:'Топ-10'},
+    {key:'top20',label:'Топ-20'},
+    {key:'top50',label:'Топ-50'},
+    {key:'top100',label:'Топ-100'},
+  ];
+  document.getElementById('pos-grid').innerHTML=cols.map(col=>{
+    const sorted=[...domains].sort((a,b)=>b[col.key]-a[col.key]);
+    const mx=sorted[0][col.key];
+    return `<div class="pos-col">
+      <div class="pos-col-title">${col.label}</div>
+      ${sorted.map(d=>`
+        <div class="pos-brow${d.own?' own-pos':''}">
+          <div class="pos-label">${d.label}</div>
+          <div class="pos-track"><div class="pos-fill" style="width:${(d[col.key]/mx*100).toFixed(1)}%;background:${d.own?'var(--own)':'var(--kh)'}"></div></div>
+          <div class="pos-val">${Fn(d[col.key])}</div>
+        </div>`).join('')}
+    </div>`;
+  }).join('');
+})();
+</script>
+</body>
+</html>

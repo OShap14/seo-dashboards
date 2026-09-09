@@ -190,6 +190,25 @@ footer b{color:var(--mut)}
 .th-tip:hover::before{opacity:1}
 
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* MoM delta in KPI */
+.kpi .x.mom{font-size:12px;font-weight:600;margin-top:4px}
+.kpi .x.mom.pos{color:var(--pos)}
+.kpi .x.mom.neg{color:var(--neg)}
+.kpi .x.mom.flat{color:var(--mut)}
+
+/* MoM table */
+.mom-table{width:100%;border-collapse:collapse;font-size:13px}
+.mom-table th,.mom-table td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--line)}
+.mom-table th{font-size:11px;font-weight:600;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--line2)}
+.mom-table td:first-child,.mom-table th:first-child{text-align:left}
+.mom-table tr.own td{background:var(--own)}
+.mom-table tr.own td:first-child{box-shadow:inset 2px 0 0 var(--gold)}
+.mom-table .dpos{color:var(--pos);font-weight:600}
+.mom-table .dneg{color:var(--neg);font-weight:600}
+.mom-table .dflat{color:var(--mut)}
+.mom-table .sec-head th{background:var(--bg2);font-size:11px;font-weight:700;color:var(--mut);letter-spacing:1px;text-align:left;padding:7px 12px;border-top:1px solid var(--line2)}
+
 </style>
 </head>
 <body>
@@ -214,31 +233,34 @@ footer b{color:var(--mut)}
     <h2>Spell Chocolate — ключові показники</h2>
     <span class="n">// UA · серпень 2026</span>
   </div>
-  <div class="kpis">
+  <div class="kpis" id="spell-kpis">
     <div class="kpi blue">
       <div class="l">DR · Ahrefs</div>
       <div class="v num">35</div>
-      <div class="x">Ahrefs DR</div>
+      <div class="x mom pos">vs липень: +4 (+12.9%)</div>
     </div>
     <div class="kpi">
       <div class="l">Трафік / міс</div>
       <div class="v num">7 369</div>
-      <div class="x">Serpstat · UA</div>
+      <div class="x">Органіка · UA</div>
+      <div class="x mom neg">vs липень: −373 (−4.8%)</div>
     </div>
     <div class="kpi">
       <div class="l">Ключі (UA)</div>
       <div class="v num">11 446</div>
-      <div class="x">Serpstat · UA</div>
+      <div class="x">Serpstat · серпень 2026</div>
     </div>
     <div class="kpi">
-      <div class="l">Топ 1–5</div>
+      <div class="l">AIO Ключів</div>
       <div class="v num">873</div>
-      <div class="x">AIO Ключів (Serpstat)</div>
+      <div class="x">Serpstat AIO · UA</div>
+      <div class="x mom pos">vs липень: +50 (+6.1%)</div>
     </div>
     <div class="kpi">
-      <div class="l">Вартість трафіку</div>
+      <div class="l">AIO Цитат</div>
       <div class="v num">319</div>
-      <div class="x">AIO Цитат (Serpstat)</div>
+      <div class="x">Serpstat AIO · UA</div>
+      <div class="x mom pos">vs липень: +24 (+8.1%)</div>
     </div>
     <div class="kpi">
       <div class="l">Ref. Domains</div>
@@ -366,25 +388,35 @@ const pct=n=>n==null?'—':n.toFixed(1)+'%';
 
 const domains=[
   {d:'spellchocolate.com', label:'Spell Chocolate', own:true,  dr:35, kw:11446, traffic:7369,  value:203,  refdomains:384,  backlinks:18788,  df:99,  top5:725,  top10:235, top20:327, top50:857,  pages:0,
-   new_kw:112, up:47, down:28, lost:135, ai_traffic:0, aio_kw:873,   aio_cit:319},
+   new_kw:112, up:47, down:28, lost:135, ai_traffic:0, aio_kw:873,   aio_cit:319,
+   prev_dr:31,  prev_traffic:7742,  prev_aio_kw:823,  prev_aio_cit:295},
   {d:'aimant.ua',          label:'Aimant',          own:false, dr:0,  kw:15122, traffic:7847,  value:262,  refdomains:55,   backlinks:123,    df:20,  top5:723,  top10:352, top20:507, top50:1249, pages:0,
-   new_kw:46,  up:60, down:75, lost:122, ai_traffic:0, aio_kw:1576,  aio_cit:431},
+   new_kw:46,  up:60, down:75, lost:122, ai_traffic:0, aio_kw:1576,  aio_cit:431,
+   prev_dr:0,   prev_traffic:5165,  prev_aio_kw:1550, prev_aio_cit:421},
   {d:'sladok.com.ua',      label:'Sladok',          own:false, dr:10, kw:23450, traffic:6450,  value:27,   refdomains:131,  backlinks:472,    df:74,  top5:694,  top10:548, top20:842, top50:1511, pages:0,
-   new_kw:144, up:144,down:161,lost:182, ai_traffic:0, aio_kw:3891,  aio_cit:935},
+   new_kw:144, up:144,down:161,lost:182, ai_traffic:0, aio_kw:3891,  aio_cit:935,
+   prev_dr:8,   prev_traffic:6847,  prev_aio_kw:3806, prev_aio_cit:916},
   {d:'vamdarunok.com',     label:'Vamdarunok',      own:false, dr:1,  kw:5688,  traffic:5797,  value:22,   refdomains:72,   backlinks:221,    df:80,  top5:484,  top10:409, top20:705, top50:1627, pages:0,
-   new_kw:112, up:85, down:89, lost:126, ai_traffic:0, aio_kw:2233,  aio_cit:526},
+   new_kw:112, up:85, down:89, lost:126, ai_traffic:0, aio_kw:2233,  aio_cit:526,
+   prev_dr:1,   prev_traffic:4966,  prev_aio_kw:2170, prev_aio_cit:514},
   {d:'wander.boutique',    label:'Wander',          own:false, dr:10, kw:3620,  traffic:3203,  value:61,   refdomains:131,  backlinks:191,    df:70,  top5:426,  top10:248, top20:317, top50:584,  pages:0,
-   new_kw:59,  up:37, down:34, lost:66,  ai_traffic:0, aio_kw:1052,  aio_cit:392},
+   new_kw:59,  up:37, down:34, lost:66,  ai_traffic:0, aio_kw:1052,  aio_cit:392,
+   prev_dr:11,  prev_traffic:3186,  prev_aio_kw:1031, prev_aio_cit:385},
   {d:'lavla.com.ua',       label:'Lavla',           own:false, dr:9,  kw:4682,  traffic:54,    value:23,   refdomains:51,   backlinks:78,     df:44,  top5:76,   top10:36,  top20:77,  top50:151,  pages:0,
-   new_kw:2,   up:0,  down:4,  lost:57,  ai_traffic:0, aio_kw:50,    aio_cit:0},
+   new_kw:2,   up:0,  down:4,  lost:57,  ai_traffic:0, aio_kw:50,    aio_cit:0,
+   prev_dr:9,   prev_traffic:126,   prev_aio_kw:55,   prev_aio_cit:0},
   {d:'meettychocolate.com',label:'Meetty',          own:false, dr:9,  kw:77,    traffic:434,   value:2,    refdomains:48,   backlinks:113,    df:42,  top5:7,    top10:12,  top20:12,  top50:32,   pages:0,
-   new_kw:5,   up:0,  down:2,  lost:1,   ai_traffic:0, aio_kw:25,    aio_cit:7},
+   new_kw:5,   up:0,  down:2,  lost:1,   ai_traffic:0, aio_kw:25,    aio_cit:7,
+   prev_dr:10,  prev_traffic:434,   prev_aio_kw:22,   prev_aio_cit:5},
   {d:'gifty.in.ua',        label:'Gifty',           own:false, dr:37, kw:130869,traffic:48271, value:685,  refdomains:504,  backlinks:25255,  df:91,  top5:3730, top10:2197,top20:3632,top50:8569,  pages:0,
-   new_kw:818, up:515,down:489,lost:712, ai_traffic:0, aio_kw:13845, aio_cit:4057},
+   new_kw:818, up:515,down:489,lost:712, ai_traffic:0, aio_kw:13845, aio_cit:4057,
+   prev_dr:34,  prev_traffic:49324, prev_aio_kw:13439,prev_aio_cit:3891},
   {d:'uamade.ua',          label:'UAmade',          own:false, dr:29, kw:259185,traffic:56050, value:965,  refdomains:775,  backlinks:4131,   df:60,  top5:6443, top10:4709,top20:8663,top50:19122, pages:0,
-   new_kw:1345,up:925,down:650,lost:1541,ai_traffic:0, aio_kw:21608, aio_cit:4159},
+   new_kw:1345,up:925,down:650,lost:1541,ai_traffic:0, aio_kw:21608, aio_cit:4159,
+   prev_dr:29,  prev_traffic:60560, prev_aio_kw:21108,prev_aio_cit:4029},
   {d:'orner.com.ua',       label:'Orner',           own:false, dr:42, kw:163768,traffic:158586,value:1707, refdomains:1123, backlinks:34084,  df:37,  top5:18495,top10:6783,top20:12400,top50:21771,pages:0,
-   new_kw:1515,up:1378,down:1874,lost:2451,ai_traffic:0, aio_kw:46087, aio_cit:18512},
+   new_kw:1515,up:1378,down:1874,lost:2451,ai_traffic:0, aio_kw:46087, aio_cit:18512,
+   prev_dr:42,  prev_traffic:154924,prev_aio_kw:45601,prev_aio_cit:18332},
 ];
 
 /* ── TOP PAGES DATA ── */
@@ -761,6 +793,45 @@ document.getElementById('pgOwn').onclick=()=>{
       <span class="val num" style="${d.own?'color:var(--gold)':''}">${F(d.refdomains)}</span>
     </div>`).join('');
 })();
+
+// MoM Table
+(function(){
+  function fmt(n){return n>=1000?(n/1000).toFixed(1)+'K':n}
+  function delta(curr,prev){
+    const d=curr-prev;
+    const pct=prev===0?0:(d/prev*100);
+    const cls=d>0?'dpos':d<0?'dneg':'dflat';
+    const sign=d>0?'+':'';
+    const pSign=pct>0?'+':'';
+    return `<td class="${cls}">${sign}${fmt(d)}</td><td class="${cls}">${pSign}${pct.toFixed(1)}%</td>`;
+  }
+  function drDelta(curr,prev){
+    const d=curr-prev;
+    const cls=d>0?'dpos':d<0?'dneg':'dflat';
+    const sign=d>0?'+':'';
+    return `<td class="${cls}">${sign}${d}</td>`;
+  }
+  const tbody=document.getElementById('mom-tbody');
+  if(!tbody)return;
+  let rows='';
+  domains.forEach(dom=>{
+    const own=dom.own?'own':'';
+    const star=dom.own?' ★':'';
+    const pt=dom.prev_traffic||0, ct=dom.traffic||0;
+    const pa=dom.prev_aio_kw||0, ca=dom.aio_kw||0;
+    const pc=dom.prev_aio_cit||0, cc=dom.aio_cit||0;
+    const pd=dom.prev_dr||0, cd=dom.dr||0;
+    rows+=`<tr class="${own}">
+      <td><b>${dom.label}${star}</b></td>
+      <td>${fmt(pt)}</td><td>${fmt(ct)}</td>${delta(ct,pt)}
+      <td>${fmt(pa)}</td><td>${fmt(ca)}</td><td class="${ca-pa>0?'dpos':ca-pa<0?'dneg':'dflat'}">${ca-pa>0?'+':''}${ca-pa}</td>
+      <td>${fmt(pc)}</td><td>${fmt(cc)}</td><td class="${cc-pc>0?'dpos':cc-pc<0?'dneg':'dflat'}">${cc-pc>0?'+':''}${cc-pc}</td>
+      <td>${pd}</td><td>${cd}</td>${drDelta(cd,pd)}
+    </tr>`;
+  });
+  tbody.innerHTML=rows;
+})();
+
 </script>
 </body>
 </html>

@@ -635,7 +635,7 @@ footer b{color:var(--mut)}
 
 <div style="margin-top:14px;padding:14px 18px;background:#f3e5f5;border:1px solid #7b1fa222;border-radius:10px;border-left:4px solid #7b1fa2">
   <div style="font-size:11px;font-weight:700;color:#7b1fa2;text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px">🏆 Підсумок місяця — зростання за ключовими метриками</div>
-  <div style="font-size:13px;color:var(--txt);line-height:1.75">Липень 2026 зафіксував <b>зростання органічних показів на 13.6% MoM</b> — найкращий результат за поточний рік. Топ-5 позицій у SE Ranking збільшились на +21%, CTR year-over-year майже подвоївся. Ploom.ua послідовно покращує позиції відносно конкурентів: <b>DR виріс до 33</b>, лінкбілдинг посилює авторитет домену. Системна робота в напрямках технічної SEO, контенту і лінкбілдингу дає стабільний накопичуваний ефект.</div>
+  <div style="font-size:13px;color:var(--txt);line-height:1.75">Серпень 2026 зафіксував <b>зростання трафіку на +6% MoM</b> при збереженні топ-5 позицій. GSC кліки у серпні склали 4 396, покази 46 161. Ploom.ua продовжує зміцнювати авторитет: <b>DR виріс до 38</b> (+5 за місяць), лінкбілдинг (+12 аутрич-лінків) дає результат. Системна робота з технічної SEO, контенту (EVO стіки, Фірмові магазини) і AIO-оптимізації формує стабільне зростання.</div>
 </div>
 </section>
 
@@ -1454,8 +1454,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const pos    = rows.reduce((s,r)=>s+r[4],0)/rows.length;
     return {clicks, imps, ctr:parseFloat(ctr.toFixed(2)), pos:parseFloat(pos.toFixed(2))};
   }
-  const jun = mStats('2026-07');
-  const may = mStats('2026-06');
+  const aug2 = mStats('2026-08');
+  const jul2 = mStats('2026-07');
 
   // SE Ranking domain
   const d = domains.find(x=>x.own);
@@ -1484,10 +1484,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const rows = [
     // [група, назва, поточне, попереднє, period, lowerBetter, isCtr, isPct]
-    {group:'GSC · Липень vs Червень', name:'Кліки',    cur:jun?.clicks, prev:may?.clicks, lb:false},
-    {group:'',                          name:'Покази',   cur:jun?.imps,   prev:may?.imps,   lb:false},
-    {group:'',                          name:'CTR',      cur:jun?.ctr,    prev:may?.ctr,    lb:false, isCtr:true},
-    {group:'',                          name:'Позиція',  cur:jun?.pos,    prev:may?.pos,    lb:true,  isPos:true},
+    {group:'GSC · Серпень vs Липень', name:'Кліки',    cur:aug2?.clicks, prev:jul2?.clicks, lb:false},
+    {group:'',                          name:'Покази',   cur:aug2?.imps,   prev:jul2?.imps,   lb:false},
+    {group:'',                          name:'CTR',      cur:aug2?.ctr,    prev:jul2?.ctr,    lb:false, isCtr:true},
+    {group:'',                          name:'Позиція',  cur:aug2?.pos,    prev:jul2?.pos,    lb:true,  isPos:true},
     {group:'SE Ranking · Серпень vs Липень', name:'Трафік (UA)', cur:d.traffic, prev:d.prev_traffic, lb:false},
     {group:'',                          name:'Ключі (UA)',cur:d.kw,       prev:d.prev_kw,   lb:false},
     {group:'',                          name:'Топ 1–5',  cur:d.top5,     prev:d.prev_top5, lb:false},

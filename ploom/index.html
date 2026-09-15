@@ -998,7 +998,7 @@ renderTopPages(false);
     if(prevVal!=null && curNumVal!=null) {
       const diff = curNumVal - prevVal;
       const pctD = prevVal > 0 ? (diff/prevVal*100).toFixed(1) : 0;
-      const col = diff>0?'var(--pos)':diff<0?'var(--neg)':'var(--mut2)';
+      const col = fmt==='pos' ? (diff<0?'var(--pos)':diff>0?'var(--neg)':'var(--mut2)') : (diff>0?'var(--pos)':diff<0?'var(--neg)':'var(--mut2)');
       const sign = diff>0?'+':'';
       dHtml = `<div style="font-size:10px;color:var(--mut2);margin-top:5px;line-height:1.4">vs липень:&nbsp;<span style="font-weight:700;color:${col}">${sign}${F(diff)} <span style="font-weight:400">(${sign}${pctD}%)</span></span></div>`;
     }
@@ -1077,7 +1077,6 @@ renderTopPages(false);
       <div class="v num">${aug?.clicks.toLocaleString('uk-UA')||'—'}</div>
       <div class="x">серп: ${aug?.clicks.toLocaleString()||'—'} · лип: ${jul?.clicks.toLocaleString()||'—'}</div>
       ${delta(aug?.clicks,jul?.clicks,'num','MoM vs липень')}
-      ${delta(aug?.clicks,yoy.clicks,'num','YoY vs серп\'25')}
     </div>
     <div class="kpi">
       <div class="l">ПОКАЗИ · СЕРПЕНЬ 2026</div>
@@ -1116,11 +1115,9 @@ renderTopPages(false);
   <div style="margin-top:14px;padding:14px 18px;background:#e8f5e9;border:1px solid #2e7d3222;border-radius:10px;border-left:4px solid #2e7d32">
     <div style="font-size:11px;font-weight:700;color:#2e7d32;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">✅ Висновок · Серпень 2026</div>
     <div style="font-size:13px;color:var(--txt);line-height:1.8">
-      GSC серпень: кліки <b style="color:${clicksCol}">${clicksSign}${Math.round(momClicksDiff).toLocaleString('uk-UA')} (${clicksSign}${momClicksPct}%)</b> vs липень,
-      покази <b style="color:${impsCol}">${impsSign}${Math.round(momImpsDiff).toLocaleString('uk-UA')} (${impsSign}${momImpsPct}%)</b> vs липень.
-      Середня позиція: <b>${aug?.pos?.toFixed(1)||'—'}</b> (зміна <b style="color:${posCol}">${momPosDiff}</b> vs липень).
-      DR виріс до <b>38 (+5)</b> — авторитет домену зростає завдяки 12 аутрич-лінкам.
-      Опубліковано нові тексти (EVO стіки, Фірмові магазини), впроваджено canonical, мікророзмітку і FAQ.
+      Рік до року (серп'25 → серп'26): трафік виріс на <b style="color:var(--pos)">+453 кліки</b>, позиція покращилась з <b>25 → 7</b>, CTR зріс з <b>4.9% → 9.5%</b> — сайт піднявся з 3-ї сторінки на першу і залучає значно якіснішу аудиторію.
+      MoM (серп vs лип): кліки <b style="color:${clicksCol}">${clicksSign}${Math.round(momClicksDiff).toLocaleString('uk-UA')} (${clicksSign}${momClicksPct}%)</b>, покази <b style="color:${impsCol}">${impsSign}${Math.round(momImpsDiff).toLocaleString('uk-UA')} (${impsSign}${momImpsPct}%)</b>.
+      DR виріс до <b>38 (+5)</b> — авторитет домену зростає завдяки 12 аутрич-лінкам. Опубліковано нові тексти (EVO стіки, Фірмові магазини), впроваджено canonical, мікророзмітку і FAQ.
     </div>
   </div>`;
   document.getElementById('gsc-kpis').insertAdjacentHTML('afterend', conclusion);

@@ -709,7 +709,7 @@ document.getElementById('mvgrid').innerHTML=domains.map(d=>{
   };
   const momBlock = (dKW!==null||dTR!==null||dTop5!==null) ? `
     <div style="background:var(--bg2);border-radius:8px;padding:7px 10px;margin-bottom:10px;border:1px solid var(--line)">
-      <div style="font-size:10px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">vs червень</div>
+      <div style="font-size:10px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">vs липень</div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px">
         <div style="font-size:10px;color:var(--mut2)">Ключі<br>${dlt(dKW,d.prev_kw)}</div>
         <div style="font-size:10px;color:var(--mut2)">Трафік<br>${dlt(dTR,d.prev_traffic)}</div>
@@ -1000,7 +1000,7 @@ renderTopPages(false);
       const pctD = prevVal > 0 ? (diff/prevVal*100).toFixed(1) : 0;
       const col = diff>0?'var(--pos)':diff<0?'var(--neg)':'var(--mut2)';
       const sign = diff>0?'+':'';
-      dHtml = `<div style="font-size:10px;color:var(--mut2);margin-top:5px;line-height:1.4">vs червень:&nbsp;<span style="font-weight:700;color:${col}">${sign}${F(diff)} <span style="font-weight:400">(${sign}${pctD}%)</span></span></div>`;
+      dHtml = `<div style="font-size:10px;color:var(--mut2);margin-top:5px;line-height:1.4">vs липень:&nbsp;<span style="font-weight:700;color:${col}">${sign}${F(diff)} <span style="font-weight:400">(${sign}${pctD}%)</span></span></div>`;
     }
     return `<div class="kpi${isBlue?' blue':''}">
       <div class="l">${label}</div>
@@ -1031,8 +1031,8 @@ renderTopPages(false);
     const pos    = rows.reduce((s,r)=>s+r[4],0)/rows.length;
     return {clicks, imps, ctr:parseFloat(ctr.toFixed(2)), pos:parseFloat(pos.toFixed(2)), n:rows.length};
   }
+  const aug = mStats('2026-08');
   const jul = mStats('2026-07');
-  const jun = mStats('2026-06');
   // YoY — July 2025 (GSC export)
   const yoy = {clicks:null, ctr:null, pos:null}; // Aug 2025 GSC not available
 
@@ -1056,53 +1056,53 @@ renderTopPages(false);
   const avgPos=(gscRaw.reduce((s,r)=>s+r[4],0)/gscRaw.length).toFixed(1);
 
   // MoM helpers
-  const momC = jul && jun ? jul.clicks - jun.clicks : 0;
-  const momCpct = jun ? (momC/jun.clicks*100).toFixed(1) : 0;
-  const momI = jul && jun ? jul.imps - jun.imps : 0;
-  const momIpct = jun ? (momI/jun.imps*100).toFixed(1) : 0;
-  const momCtr = jul && jun ? (jul.ctr - jun.ctr).toFixed(1) : 0;
-  const momPos = jul && jun ? (jul.pos - jun.pos).toFixed(1) : 0;
+  const momC = aug && jul ? aug.clicks - jul.clicks : 0;
+  const momCpct = jul ? (momC/jul.clicks*100).toFixed(1) : 0;
+  const momI = aug && jul ? aug.imps - jul.imps : 0;
+  const momIpct = jul ? (momI/jul.imps*100).toFixed(1) : 0;
+  const momCtr = aug && jul ? (aug.ctr - jul.ctr).toFixed(1) : 0;
+  const momPos = aug && jul ? (aug.pos - jul.pos).toFixed(1) : 0;
   // YoY helpers
-  const yoyC = jul ? jul.clicks - yoy.clicks : 0;
+  const yoyC = aug ? aug.clicks - yoy.clicks : 0;
   const yoyFmt = n => (n>=0?'+':'')+Math.round(n).toLocaleString('uk-UA');
-  const yoyPct = jul ? ((yoyC/yoy.clicks)*100).toFixed(1) : 0;
-  const yoyCtr = jul ? (jul.ctr - yoy.ctr).toFixed(1) : 0;
-  const yoyPos = jul ? (jul.pos - yoy.pos).toFixed(1) : 0;
+  const yoyPct = aug ? ((yoyC/yoy.clicks)*100).toFixed(1) : 0;
+  const yoyCtr = aug ? (aug.ctr - yoy.ctr).toFixed(1) : 0;
+  const yoyPos = aug ? (aug.pos - yoy.pos).toFixed(1) : 0;
   const col = v => parseFloat(v)>0?'var(--pos)':parseFloat(v)<0?'var(--neg)':'var(--mut2)';
   const sign = v => parseFloat(v)>0?'+':'';
 
   document.getElementById('gsc-kpis').innerHTML = `
     <div class="kpi blue">
       <div class="l">КЛІКИ · СЕРПЕНЬ 2026</div>
-      <div class="v num">${jul?.clicks.toLocaleString('uk-UA')||'—'}</div>
-      <div class="x">серп: ${jul?.clicks.toLocaleString()||'—'} · лип: ${jun?.clicks.toLocaleString()||'—'}</div>
-      ${delta(jul?.clicks,jun?.clicks,'num','MoM vs липень')}
-      ${delta(jul?.clicks,yoy.clicks,'num','YoY vs лип\'25')}
+      <div class="v num">${aug?.clicks.toLocaleString('uk-UA')||'—'}</div>
+      <div class="x">серп: ${aug?.clicks.toLocaleString()||'—'} · лип: ${jul?.clicks.toLocaleString()||'—'}</div>
+      ${delta(aug?.clicks,jul?.clicks,'num','MoM vs липень')}
+      ${delta(aug?.clicks,yoy.clicks,'num','YoY vs лип\'25')}
     </div>
     <div class="kpi">
       <div class="l">ПОКАЗИ · СЕРПЕНЬ 2026</div>
-      <div class="v num">${jul?.imps.toLocaleString('uk-UA')||'—'}</div>
-      <div class="x">серп: ${jul?.imps.toLocaleString()||'—'} · лип: ${jun?.imps.toLocaleString()||'—'}</div>
-      ${delta(jul?.imps,jun?.imps,'num','MoM vs липень')}
+      <div class="v num">${aug?.imps.toLocaleString('uk-UA')||'—'}</div>
+      <div class="x">серп: ${aug?.imps.toLocaleString()||'—'} · лип: ${jul?.imps.toLocaleString()||'—'}</div>
+      ${delta(aug?.imps,jul?.imps,'num','MoM vs липень')}
     </div>
     <div class="kpi">
       <div class="l">СЕРЕДНІЙ CTR · СЕРПЕНЬ</div>
-      <div class="v num">${jul?.ctr.toFixed(1)||'—'}%</div>
-      <div class="x">лип: ${jul?.ctr.toFixed(1)||'—'}% · черв: ${jun?.ctr.toFixed(1)||'—'}%</div>
-      ${delta(jul?.ctr,jun?.ctr,'pct','MoM vs липень')}
-      ${delta(jul?.ctr,yoy.ctr,'pct','YoY vs лип\'25')}
+      <div class="v num">${aug?.ctr.toFixed(1)||'—'}%</div>
+      <div class="x">серп: ${aug?.ctr.toFixed(1)||'—'}% · лип: ${jul?.ctr.toFixed(1)||'—'}%</div>
+      ${delta(aug?.ctr,jul?.ctr,'pct','MoM vs липень')}
+      ${delta(aug?.ctr,yoy.ctr,'pct','YoY vs лип\'25')}
     </div>
     <div class="kpi">
       <div class="l">СЕРЕДНЯ ПОЗИЦІЯ · СЕРПЕНЬ</div>
-      <div class="v num">${jul?.pos.toFixed(1)||'—'}</div>
-      <div class="x">лип: ${jul?.pos.toFixed(1)||'—'} · черв: ${jun?.pos.toFixed(1)||'—'} · лип'25: ${yoy.pos}</div>
-      ${delta(jul?.pos,jun?.pos,'pos','MoM vs липень')}
-      ${delta(jul?.pos,yoy.pos,'pos','YoY vs лип\'25')}
+      <div class="v num">${aug?.pos.toFixed(1)||'—'}</div>
+      <div class="x">серп: ${aug?.pos.toFixed(1)||'—'} · лип: ${jul?.pos.toFixed(1)||'—'} · лип'25: ${yoy.pos}</div>
+      ${delta(aug?.pos,jul?.pos,'pos','MoM vs липень')}
+      ${delta(aug?.pos,yoy.pos,'pos','YoY vs лип\'25')}
     </div>`;
 
   // ── Висновок ──
-  const momI2 = jul && jun ? jul.imps - jun.imps : 0;
-  const momIpct2 = jun ? (momI2/jun.imps*100).toFixed(1) : 0;
+  const momI2 = aug && jul ? aug.imps - jul.imps : 0;
+  const momIpct2 = jul ? (momI2/jul.imps*100).toFixed(1) : 0;
   const yoyClicksPct2 = yoyPct;
   const conclusion = `
   <div style="margin-top:14px;padding:14px 18px;background:#e8f5e9;border:1px solid #2e7d3222;border-radius:10px;border-left:4px solid #2e7d32">
@@ -1110,8 +1110,8 @@ renderTopPages(false);
     <div style="font-size:13px;color:var(--txt);line-height:1.8">
       Органічне охоплення у липні продовжує зміцнюватись: <b>покази зросли на +${Math.round(momI2).toLocaleString('uk-UA')} (+${momIpct2}%)</b> відносно червня — сайт показується більшій аудиторії.
       У порівнянні з липнем 2025 кліки виросли на <b>+${yoyFmt(yoyC)} (+${yoyPct}%)</b>,
-      CTR майже подвоївся: <b>${yoy.ctr}% → ${jul?.ctr.toFixed(1)}%</b>,
-      а середня позиція покращилась із <b>${yoy.pos} → ${jul?.pos.toFixed(1)}</b> — сайт піднявся з другої-третьої сторінки на першу.
+      CTR майже подвоївся: <b>${yoy.ctr}% → ${aug?.ctr.toFixed(1)}%</b>,
+      а середня позиція покращилась із <b>${yoy.pos} → ${aug?.pos.toFixed(1)}</b> — сайт піднявся з другої-третьої сторінки на першу.
       Це результат системної SEO-роботи: технічної оптимізації, контенту та лінкбілдингу.
     </div>
   </div>`;

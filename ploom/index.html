@@ -1101,18 +1101,25 @@ renderTopPages(false);
     </div>`;
 
   // ── Висновок ──
-  const momI2 = aug && jul ? aug.imps - jul.imps : 0;
-  const momIpct2 = jul ? (momI2/jul.imps*100).toFixed(1) : 0;
-  const yoyClicksPct2 = yoyPct;
+  const momClicksDiff = aug && jul ? aug.clicks - jul.clicks : 0;
+  const momClicksPct = jul && jul.clicks > 0 ? (momClicksDiff/jul.clicks*100).toFixed(1) : '—';
+  const momImpsDiff = aug && jul ? aug.imps - jul.imps : 0;
+  const momImpsPct = jul && jul.imps > 0 ? (momImpsDiff/jul.imps*100).toFixed(1) : '—';
+  const momPosDiff = aug && jul ? (aug.pos - jul.pos).toFixed(1) : '—';
+  const clicksSign = momClicksDiff >= 0 ? '+' : '';
+  const impsSign = momImpsDiff >= 0 ? '+' : '';
+  const clicksCol = momClicksDiff >= 0 ? 'var(--pos)' : 'var(--neg)';
+  const impsCol = momImpsDiff >= 0 ? 'var(--pos)' : 'var(--neg)';
+  const posCol = parseFloat(momPosDiff) <= 0 ? 'var(--pos)' : 'var(--neg)';
   const conclusion = `
   <div style="margin-top:14px;padding:14px 18px;background:#e8f5e9;border:1px solid #2e7d3222;border-radius:10px;border-left:4px solid #2e7d32">
-    <div style="font-size:11px;font-weight:700;color:#2e7d32;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">✅ Висновок · Органічна видимість зростає</div>
+    <div style="font-size:11px;font-weight:700;color:#2e7d32;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">✅ Висновок · Серпень 2026</div>
     <div style="font-size:13px;color:var(--txt);line-height:1.8">
-      Органічне охоплення у липні продовжує зміцнюватись: <b>покази зросли на +${Math.round(momI2).toLocaleString('uk-UA')} (+${momIpct2}%)</b> відносно червня — сайт показується більшій аудиторії.
-      У порівнянні з липнем 2025 кліки виросли на <b>+${yoyFmt(yoyC)} (+${yoyPct}%)</b>,
-      CTR майже подвоївся: <b>${yoy.ctr}% → ${aug?.ctr.toFixed(1)}%</b>,
-      а середня позиція покращилась із <b>${yoy.pos} → ${aug?.pos.toFixed(1)}</b> — сайт піднявся з другої-третьої сторінки на першу.
-      Це результат системної SEO-роботи: технічної оптимізації, контенту та лінкбілдингу.
+      GSC серпень: кліки <b style="color:${clicksCol}">${clicksSign}${Math.round(momClicksDiff).toLocaleString('uk-UA')} (${clicksSign}${momClicksPct}%)</b> vs липень,
+      покази <b style="color:${impsCol}">${impsSign}${Math.round(momImpsDiff).toLocaleString('uk-UA')} (${impsSign}${momImpsPct}%)</b> vs липень.
+      Середня позиція: <b>${aug?.pos?.toFixed(1)||'—'}</b> (зміна <b style="color:${posCol}">${momPosDiff}</b> vs липень).
+      DR виріс до <b>38 (+5)</b> — авторитет домену зростає завдяки 12 аутрич-лінкам.
+      Опубліковано нові тексти (EVO стіки, Фірмові магазини), впроваджено canonical, мікророзмітку і FAQ.
     </div>
   </div>`;
   document.getElementById('gsc-kpis').insertAdjacentHTML('afterend', conclusion);

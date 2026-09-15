@@ -270,7 +270,7 @@ footer b{color:var(--mut)}
     const H = 220;
     const PAD = {l:46, r:52, t:16, b:28};
 
-    const chartRaw   = gscRaw.filter(r=>r[0]>='2026-06-14');
+    const chartRaw   = gscRaw.slice(-92);
     const clicksVals = chartRaw.map(r=>r[1]);
     const impVals    = chartRaw.map(r=>r[2]);
     const cMax = Math.max(...clicksVals);

@@ -270,8 +270,9 @@ footer b{color:var(--mut)}
     const H = 220;
     const PAD = {l:46, r:52, t:16, b:28};
 
-    const clicksVals = gscRaw.map(r=>r[1]);
-    const impVals    = gscRaw.map(r=>r[2]);
+    const chartRaw   = gscRaw.filter(r=>r[0]>='2026-06-14');
+    const clicksVals = chartRaw.map(r=>r[1]);
+    const impVals    = chartRaw.map(r=>r[2]);
     const cMax = Math.max(...clicksVals);
     const iMax = Math.max(...impVals);
     // nice round max
@@ -329,7 +330,7 @@ footer b{color:var(--mut)}
       xTicks.forEach(ti=>{
         if(ti >= gscRaw.length) return;
         const x = getX(ti, gw);
-        const d = gscRaw[ti][0].slice(5).replace('-','.');
+        const d = chartRaw[ti][0].slice(5).replace('-','.');
         ctx.fillText(d, x, H - 6);
       });
 
@@ -363,7 +364,7 @@ footer b{color:var(--mut)}
       const gw = W - PAD.l - PAD.r;
       const frac = (mx - PAD.l) / gw;
       const i = Math.max(0, Math.min(gscRaw.length-1, Math.round(frac*(gscRaw.length-1))));
-      const r = gscRaw[i];
+      const r = chartRaw[i];
       const x = getX(i, gw);
 
       // crosshair

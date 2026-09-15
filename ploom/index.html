@@ -1117,7 +1117,7 @@ renderTopPages(false);
   <div style="margin-top:14px;padding:14px 18px;background:#e8f5e9;border:1px solid #2e7d3222;border-radius:10px;border-left:4px solid #2e7d32">
     <div style="font-size:11px;font-weight:700;color:#2e7d32;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">✅ Висновок · Серпень 2026</div>
     <div style="font-size:13px;color:var(--txt);line-height:1.8">
-      Рік до року (серп'25 → серп'26): трафік виріс на <b style="color:var(--pos)">+453 кліки</b>, позиція покращилась з <b>25 → 7</b>, CTR зріс з <b>4.9% → 9.5%</b> — сайт піднявся з 3-ї сторінки на першу і залучає значно якіснішу аудиторію.
+      Рік до року (серп'25 → серп'26): кліки <b style="color:${parseFloat(yoyC)>=0?'var(--pos)':'var(--neg)'}">${parseFloat(yoyC)>=0?'+':''}${Math.round(yoyC).toLocaleString('uk-UA')} (${parseFloat(yoyC)>=0?'+':''}${yoyPct}%)</b>, позиція покращилась з <b>25 → 7</b>, CTR зріс з <b>4.9% → 9.5%</b> — сайт піднявся з 3-ї сторінки на першу і залучає значно якіснішу аудиторію.
       MoM (серп vs лип): кліки <b style="color:${clicksCol}">${clicksSign}${Math.round(momClicksDiff).toLocaleString('uk-UA')} (${clicksSign}${momClicksPct}%)</b>, покази <b style="color:${impsCol}">${impsSign}${Math.round(momImpsDiff).toLocaleString('uk-UA')} (${impsSign}${momImpsPct}%)</b>.
       DR виріс до <b>38 (+5)</b> — авторитет домену зростає завдяки 12 аутрич-лінкам. Опубліковано нові тексти (EVO стіки, Фірмові магазини), впроваджено canonical, мікророзмітку і FAQ.
     </div>

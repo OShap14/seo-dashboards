@@ -1041,7 +1041,7 @@ renderTopPages(false);
     if(prev==null) return '';
     const diff = cur - prev;
     const pct  = prev>0?(diff/prev*100).toFixed(1):0;
-    const col  = diff>0?'var(--pos)':diff<0?'var(--neg)':'var(--mut2)';
+    const col  = fmt==='pos' ? (diff<0?'var(--pos)':diff>0?'var(--neg)':'var(--mut2)') : (diff>0?'var(--pos)':diff<0?'var(--neg)':'var(--mut2)');
     const sign = diff>0?'+':'';
     const valStr = fmt==='pct' ? `${sign}${Math.abs(diff).toFixed(1)}pp` :
                    fmt==='pos' ? `${sign}${diff.toFixed(1)}` :

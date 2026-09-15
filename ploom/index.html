@@ -280,7 +280,7 @@ footer b{color:var(--mut)}
     const cTop = niceMax(cMax);
     const iTop = niceMax(iMax);
 
-    function getX(i, gw){ return PAD.l + gw * (i/(gscRaw.length-1)); }
+    function getX(i, gw){ return PAD.l + gw * (i/(chartRaw.length-1)); }
     function getYc(v, gh){ return PAD.t + gh * (1 - v/cTop); }
     function getYi(v, gh){ return PAD.t + gh * (1 - v/iTop); }
 
@@ -328,7 +328,7 @@ footer b{color:var(--mut)}
       ctx.fillStyle = '#5f6368';
       ctx.textAlign = 'center';
       xTicks.forEach(ti=>{
-        if(ti >= gscRaw.length) return;
+        if(ti >= chartRaw.length) return;
         const x = getX(ti, gw);
         const d = chartRaw[ti][0].slice(5).replace('-','.');
         ctx.fillText(d, x, H - 6);
@@ -336,7 +336,7 @@ footer b{color:var(--mut)}
 
       // Impressions line (purple, behind)
       ctx.beginPath();
-      gscRaw.forEach((r,i)=>{
+      chartRaw.forEach((r,i)=>{
         const x = getX(i,gw), y = getYi(r[2],gh);
         i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
       });
@@ -347,7 +347,7 @@ footer b{color:var(--mut)}
 
       // Clicks line (blue, in front)
       ctx.beginPath();
-      gscRaw.forEach((r,i)=>{
+      chartRaw.forEach((r,i)=>{
         const x = getX(i,gw), y = getYc(r[1],gh);
         i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
       });
@@ -363,7 +363,7 @@ footer b{color:var(--mut)}
       const W = canvas.parentElement.offsetWidth;
       const gw = W - PAD.l - PAD.r;
       const frac = (mx - PAD.l) / gw;
-      const i = Math.max(0, Math.min(gscRaw.length-1, Math.round(frac*(gscRaw.length-1))));
+      const i = Math.max(0, Math.min(chartRaw.length-1, Math.round(frac*(chartRaw.length-1))));
       const r = chartRaw[i];
       const x = getX(i, gw);
 

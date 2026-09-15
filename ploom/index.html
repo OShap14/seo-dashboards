@@ -999,7 +999,7 @@ renderTopPages(false);
     if(prevVal!=null && curNumVal!=null) {
       const diff = curNumVal - prevVal;
       const pctD = prevVal > 0 ? (diff/prevVal*100).toFixed(1) : 0;
-      const col = fmt==='pos' ? (diff<0?'var(--pos)':diff>0?'var(--neg)':'var(--mut2)') : (diff>0?'var(--pos)':diff<0?'var(--neg)':'var(--mut2)');
+      const col = diff>0?'var(--pos)':diff<0?'var(--neg)':'var(--mut2)';
       const sign = diff>0?'+':'';
       dHtml = `<div style="font-size:10px;color:var(--mut2);margin-top:5px;line-height:1.4">vs липень:&nbsp;<span style="font-weight:700;color:${col}">${sign}${F(diff)} <span style="font-weight:400">(${sign}${pctD}%)</span></span></div>`;
     }

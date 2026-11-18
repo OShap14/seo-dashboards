@@ -652,9 +652,9 @@ const sF=n=>n>0?'+'+F(n):F(n);
 const pct=n=>n==null?'—':n.toFixed(1)+'%';
 
 const domains=[
-  {d:'ploom.ua',    label:'Ploom',  own:true,  dr:49, kw:397,    traffic:848,    value:0,    refdomains:236,  backlinks:551,   df:83, top5:364,  top10:139, top20:224,  top50:774,  pages:0,
+  {d:'ploom.ua',    label:'Ploom',  own:true,  dr:49, kw:397,    traffic:1179,   value:0,    refdomains:236,  backlinks:551,   df:83, top5:364,  top10:139, top20:224,  top50:774,  pages:0,
    new_kw:4,   up:1,    down:5,   lost:8,    ai_traffic:17,  aio_kw:209, aio_cit:95,  ai_pos:5.64,
-   prev_dr:49, prev_kw:406, prev_traffic:1142, prev_top5:353, prev_top10:126, prev_top20:211, prev_top50:736},
+   prev_dr:49, prev_kw:406, prev_traffic:792, prev_top5:353, prev_top10:126, prev_top20:211, prev_top50:736},
   {d:'iqos.com.ua', label:'IQOS',   own:false, dr:35, kw:221163, traffic:166101, value:1548, refdomains:1000, backlinks:5500,  df:43, top5:4383, top10:2165,top20:3080, top50:11046,pages:0,
    new_kw:171, up:142,  down:140, lost:201,  ai_traffic:400, aio_kw:6638,aio_cit:3486,ai_pos:4.20,
    prev_dr:35, prev_kw:221405, prev_traffic:102483, prev_top5:4382, prev_top10:2212, prev_top20:3067, prev_top50:11089},
@@ -994,15 +994,17 @@ renderTopPages(false);
 // ═══════════════ SE RANKING KPI CARDS (JS-driven from domains[0]) ════════════
 (function(){
   const d = domains.find(x=>x.own);
-  const mkKpi = (label, valStr, sub, prevVal, curNumVal, isBlue) => {
-    let dHtml = '';
-    if(prevVal!=null && curNumVal!=null) {
-      const diff = curNumVal - prevVal;
-      const pctD = prevVal > 0 ? (diff/prevVal*100).toFixed(1) : 0;
+  const mkKpi = (label, valStr, sub, prevVal, curNumVal, isBlue, yoyPrev) => {
+    const line = (lbl, prev) => {
+      const diff = curNumVal - prev;
+      const pctD = prev > 0 ? (diff/prev*100).toFixed(1) : 0;
       const col = diff>0?'var(--pos)':diff<0?'var(--neg)':'var(--mut2)';
       const sign = diff>0?'+':'';
-      dHtml = `<div style="font-size:10px;color:var(--mut2);margin-top:5px;line-height:1.4">vs вересень:&nbsp;<span style="font-weight:700;color:${col}">${sign}${F(diff)} <span style="font-weight:400">(${sign}${pctD}%)</span></span></div>`;
-    }
+      return `<div style="font-size:10px;color:var(--mut2);margin-top:5px;line-height:1.4">${lbl}:&nbsp;<span style="font-weight:700;color:${col}">${sign}${F(diff)} <span style="font-weight:400">(${sign}${pctD}%)</span></span></div>`;
+    };
+    let dHtml = '';
+    if(prevVal!=null && curNumVal!=null) dHtml += line('vs вересень', prevVal);
+    if(yoyPrev!=null && curNumVal!=null) dHtml += line("vs жов'25", yoyPrev);
     return `<div class="kpi${isBlue?' blue':''}">
       <div class="l">${label}</div>
       <div class="v num">${valStr}</div>
@@ -1013,7 +1015,7 @@ renderTopPages(false);
   const t5pct = d.kw>0?(d.top5/d.kw*100).toFixed(1):'0';
   document.getElementById('se-kpis').innerHTML = [
     mkKpi('DR · Ahrefs',       String(d.dr),              'Авторитет домену',    d.prev_dr||null,      d.dr,       true),
-    mkKpi('Трафік / міс',      F(d.traffic),              'Органіка · UA',       d.prev_traffic||null, d.traffic),
+    mkKpi('Трафік / міс',      F(d.traffic),              'Органіка · UA',       d.prev_traffic||null, d.traffic, false, 1633),
     mkKpi('Ключі (UA)',        F(d.kw),                   'В індексі Google',    d.prev_kw||null,      d.kw),
     mkKpi('Топ 1–5',           F(d.top5),                 `${t5pct}% від KW`,    d.prev_top5||null,    d.top5),
     mkKpi('Вартість трафіку',  '$'+F(d.value||0),         '/ місяць · UA'),

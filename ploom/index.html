@@ -1037,6 +1037,7 @@ renderTopPages(false);
   const aug = mStats('2026-10');
   const jul = mStats('2026-09');
   // YoY — July 2025 (GSC export)
+  const TR={cur:1179, prev:792, yoy:1633}; // GA4 органіка: MoM +387, YoY -454
   const yoy = {clicks:4803, imps:57084, ctr:8.41, pos:7.15}; // Oct 2025 GSC (з консолі)
 
   const delta = (cur, prev, fmt, label) => {
@@ -1066,9 +1067,9 @@ renderTopPages(false);
   const momCtr = aug && jul ? (aug.ctr - jul.ctr).toFixed(1) : 0;
   const momPos = aug && jul ? (aug.pos - jul.pos).toFixed(1) : 0;
   // YoY helpers
-  const yoyC = aug ? aug.clicks - yoy.clicks : 0;
+  const yoyC = TR.cur - TR.yoy;
   const yoyFmt = n => (n>=0?'+':'')+Math.round(n).toLocaleString('uk-UA');
-  const yoyPct = aug ? ((yoyC/yoy.clicks)*100).toFixed(1) : 0;
+  const yoyPct = ((yoyC/TR.yoy)*100).toFixed(1);
   const yoyCtr = aug ? (aug.ctr - yoy.ctr).toFixed(1) : 0;
   const yoyPos = aug ? (aug.pos - yoy.pos).toFixed(1) : 0;
   const col = v => parseFloat(v)>0?'var(--pos)':parseFloat(v)<0?'var(--neg)':'var(--mut2)';
@@ -1079,8 +1080,8 @@ renderTopPages(false);
       <div class="l">КЛІКИ · ЖОВТЕНЬ 2026</div>
       <div class="v num">${aug?.clicks.toLocaleString('uk-UA')||'—'}</div>
       <div class="x">жов: ${aug?.clicks.toLocaleString()||'—'} · вер: ${jul?.clicks.toLocaleString()||'—'}</div>
-      ${delta(aug?.clicks,jul?.clicks,'num','MoM vs вересень')}
-      ${delta(aug?.clicks,yoy.clicks,'num','YoY vs жов\'25')}
+      ${delta(TR.cur,TR.prev,'num','MoM vs вересень')}
+      ${delta(TR.cur,TR.yoy,'num','YoY vs жов\'25')}
     </div>
     <div class="kpi">
       <div class="l">ПОКАЗИ · ЖОВТЕНЬ 2026</div>
@@ -1105,8 +1106,8 @@ renderTopPages(false);
     </div>`;
 
   // ── Висновок ──
-  const momClicksDiff = aug && jul ? aug.clicks - jul.clicks : 0;
-  const momClicksPct = jul && jul.clicks > 0 ? (momClicksDiff/jul.clicks*100).toFixed(1) : '—';
+  const momClicksDiff = TR.cur - TR.prev;
+  const momClicksPct = (momClicksDiff/TR.prev*100).toFixed(1);
   const momImpsDiff = aug && jul ? aug.imps - jul.imps : 0;
   const momImpsPct = jul && jul.imps > 0 ? (momImpsDiff/jul.imps*100).toFixed(1) : '—';
   const momPosDiff = aug && jul ? (aug.pos - jul.pos).toFixed(1) : '—';
@@ -1119,8 +1120,8 @@ renderTopPages(false);
   <div style="margin-top:14px;padding:14px 18px;background:#e8f5e9;border:1px solid #2e7d3222;border-radius:10px;border-left:4px solid #2e7d32">
     <div style="font-size:11px;font-weight:700;color:#2e7d32;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">✅ Висновок · Жовтень 2026</div>
     <div style="font-size:13px;color:var(--txt);line-height:1.8">
-      Рік до року (жов'25 → жов'26): кліки <b style="color:${parseFloat(yoyC)>=0?'var(--pos)':'var(--neg)'}">${parseFloat(yoyC)>=0?'+':''}${Math.round(yoyC).toLocaleString('uk-UA')} (${parseFloat(yoyC)>=0?'+':''}${yoyPct}%)</b>, позиція втрималась на <b style="color:var(--pos)">~7.0</b>, CTR зріс з <b style="color:var(--pos)">8.4% → 10.1%</b> — трафік якісніший попри нижчий обсяг показів; відносно вересня кліки повернулись до зростання (+2.3% MoM).
-      MoM (вер vs серп): кліки <b style="color:${clicksCol}">${clicksSign}${Math.round(momClicksDiff).toLocaleString('uk-UA')} (${clicksSign}${momClicksPct}%)</b>, покази <b style="color:${impsCol}">${impsSign}${Math.round(momImpsDiff).toLocaleString('uk-UA')} (${impsSign}${momImpsPct}%)</b>.
+      Рік до року (жов'25 → жов'26): кліки <b style="color:${parseFloat(yoyC)>=0?'var(--pos)':'var(--neg)'}">${parseFloat(yoyC)>=0?'+':''}${Math.round(yoyC).toLocaleString('uk-UA')} (${parseFloat(yoyC)>=0?'+':''}${yoyPct}%)</b>, позиція втрималась на <b style="color:var(--pos)">~7.0</b>, CTR зріс з <b style="color:var(--pos)">8.4% → 10.1%</b> — трафік якісніший попри нижчий обсяг показів; відносно вересня кліки повернулись до зростання (+387 MoM).
+      MoM (жов vs вер): кліки <b style="color:${clicksCol}">${clicksSign}${Math.round(momClicksDiff).toLocaleString('uk-UA')} (${clicksSign}${momClicksPct}%)</b>, покази <b style="color:${impsCol}">${impsSign}${Math.round(momImpsDiff).toLocaleString('uk-UA')} (${impsSign}${momImpsPct}%)</b>.
       DR тримається на <b style="color:var(--pos)">49</b> (Ahrefs). Фокус місяця: hreflang (ТЗ внутрішні + міжнародний cross-domain з ploom.kz), редіректи (зняття Sobranie → EVO, 404 за кліками), мета стіків за кольорами та запуск сервісу посилення поведінкових факторів (ресерч + парсинг).
     </div>
   </div>`;
